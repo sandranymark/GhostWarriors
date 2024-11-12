@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@middy/core": "^5.5.1",
     "axios": "^1.7.7",
+    "joi": "^17.13.3",
     "serverless": "^4.4.7",
     "uuid": "^11.0.3"
   }
