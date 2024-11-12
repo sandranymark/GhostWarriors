@@ -1,18 +1,30 @@
-import db from "../../services/db.js";
+import db from "../../services/services.js";
 
-export const handler = async (event) => {
+export async function handler(event) {
   try {
-    // Gör en scan, dvs tar hem HELA tabellen bonzaiRooms. INTE optimalt på en stor databas.
-    const { Items } = await db.scan({
-      TableName: "productsTable",
-    });
-    // OM du får träff returneras alla beställningar. Annars fel.
-    if (Items.length > 0) {
-      return 200, Items;
+    const { Items } = await db.scan({ TableName: "productsTable" });
+    console.log("Items:", Items);
+    if (Items && Items.length > 0) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(Items),
+      };
     } else {
-      throw new Error(404, "Rooms not found! Do a POST /rooms to create them.");
+      return {
+        statusCode: 404,
+        body: JSON.stringify({
+          message: "Products not found! Do a POST /products to create them.",
+        }),
+      };
     }
   } catch (error) {
-    throw new Error(404, error.message);
+    console.error("Scan error:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: "An error occurred while scanning the products table.",
+        errorDetails: error.message,
+      }),
+    };
   }
-};
+}
