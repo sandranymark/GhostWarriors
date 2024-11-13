@@ -1,8 +1,8 @@
 # Daily Scrum
 
-**Datum:** 2024-11-11  
+**Datum:** 2024-11-13
 **Team:** Ghost Warriors  
-**Närvarande:** Sandra, Adrèn & Anton
+**Närvarande:** Sandra, Adréan & Anton
 
 ---
 
