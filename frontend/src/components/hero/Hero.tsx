@@ -1,9 +1,10 @@
 import "./Hero.css";
 import breakfastBg from "../../assets/breakfastBg.svg";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <figure className="hero-section">
+    <figure className="hero__section">
       <img
         className="hero__background-image"
         src={breakfastBg}
@@ -13,8 +14,10 @@ function Hero() {
         <h1 className="hero__heading">
           The <span className="hero__heading--white">best</span> damn breakfast in town!
         </h1>
-        <h2 className="hero_slogan">Fresh, fast and ready to go!</h2>
-        <button className="hero-button">Order now</button>
+        <p className="hero_slogan">Fresh, fast and ready to go!</p>
+        <Link to={"/menu"} className="hero-link">
+          Order now
+        </Link>
       </figcaption>
     </figure>
   );

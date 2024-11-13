@@ -11,8 +11,10 @@ function Header() {
         <img src={DforBreakfast} alt="D For Breakfast logo" />
       </Link>
       <Nav />
-      <button className="header__btn">Login</button>
-      <img className="header__cart" src={cart} alt="cart-logo" />
+      <div className="header__cart-btn--wrapper">
+        <button className="header__btn">Login</button>
+        <img className="header__cart" src={cart} alt="cart-logo" />
+      </div>
     </header>
   );
 }

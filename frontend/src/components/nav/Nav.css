@@ -1,6 +1,6 @@
 .nav {
   display: flex;
-  width: 500px;
+  width: 350px;
 }
 
 .nav__ul {
@@ -17,5 +17,11 @@
   text-decoration: none;
   color: var(--white);
   font-family: var(--p);
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
+
+.nav__link:hover {
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Författare: Adréan */
