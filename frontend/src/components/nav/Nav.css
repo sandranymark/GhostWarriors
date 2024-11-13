@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  width: 350px;
+}
+
+.nav__ul {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav__li {
+  list-style-type: none;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: var(--white);
+  font-family: var(--p);
+  font-size: 1.5rem;
+}
+
+.nav__link:hover {
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Författare: Adréan */

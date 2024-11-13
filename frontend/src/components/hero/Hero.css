@@ -1,0 +1,63 @@
+.hero__section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero__background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 250px;
+  right: 200px;
+  width: 470px;
+  height: 400px;
+}
+
+.hero__heading {
+  color: var(--orange);
+  font-family: var(--h1);
+  font-size: var(--h1size);
+}
+
+.hero__heading--white {
+  color: var(--white);
+  font-family: var(--h1);
+  font-size: var(--h1size);
+}
+
+.hero_slogan {
+  font-size: 2rem;
+  color: var(--white);
+  font-family: var(--h1);
+}
+
+.hero-link {
+  width: 50%;
+  display: flex;
+  font-size: 2rem;
+  cursor: pointer;
+  border-radius: 10px;
+  color: var(--white);
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  justify-content: center;
+  background-color: transparent;
+  font-family: Afacad, sans-serif;
+  border: 1px solid var(--orange);
+}
+
+.hero-link:hover {
+  background-color: var(--orange);
+  color: var(--dark);
+}
+
+/* Författare: Adréan */

@@ -1,0 +1,9 @@
+.homepage-section {
+  background-color: var(--dark);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Författare: Adréan */
