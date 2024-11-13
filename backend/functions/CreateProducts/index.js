@@ -5,9 +5,29 @@ import db from "../../services/services.js";
 export async function handler(event) {
 
   try {
-    const { id, productsType, amount, price } = JSON.parse(event.body);
+      const { 
+        quantity,
+        id,
+        price,
+        category,
+        productsType,
+        createdAt,
+        descriptiont,
+        ingredients,
+        inStock,
+        preparationTime,
+        productName } = JSON.parse(event.body);
 
-    console.log("Parsed body:", { id, productsType, amount, price });
+    console.log("Parsed body:", { quantity,
+        category,
+        productsType,
+        createdAt,
+        descriptiont,
+        ingredients,
+        id,
+        inStock,
+        preparationTime,
+        productName });
 
     // Vilka parametrar som skickas in får vi definera upp bättre längre fram. 
     // Det som vi skickar in nu är bara för att se så att det fungerar.
@@ -15,10 +35,17 @@ export async function handler(event) {
     const params = {
       TableName: "productsTable",
       Item: {
-        id,
-        productsType: productsType,
-        price,
-        amount,
+            id,
+            price,
+            quantity,
+            category,
+            productsType,
+            createdAt,
+            descriptiont,
+            ingredients,
+            inStock,
+            preparationTime,
+            productName
       },
     };
 
