@@ -1,0 +1,56 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: ${self:custom.secrets.org}
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: dforbreakfast
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: dforbreakfast
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  deploymentMethod: direct
+  iam:
+    role: ${self:custom.secrets.role}
+  httpApi:
+    cors: true
+
+custom:
+  secrets: ${file(./personal.yml)}
+
+functions:
+  CreateProducts:
+    handler: functions/CreateProducts/index.handler
+    events:
+      - httpApi:
+          path: /createproducts
+          method: post
+  GetAllProducts:
+    handler: functions/GetAllProducts/index.handler
+    events:
+      - httpApi:
+          path: /products
+          method: get
+  DeleteProducts:
+    handler: functions/DeleteProducts/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: delete
+resources:
+  Resources:
+    productsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: productsTable # Namnet på din tabell
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: productsType
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id # Partition key
+            KeyType: HASH # Detta är din PK (Partition Key)
+          - AttributeName: productsType # Partition key
+            KeyType: RANGE # Detta är din PK (Partition Key)
+        BillingMode: PAY_PER_REQUEST # Betalning per användning
