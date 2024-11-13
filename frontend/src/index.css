@@ -8,11 +8,18 @@
   box-sizing: border-box;
 }
 
+body {
+  /* background-color: var(--dark); */
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 :root {
   --dark: rgb(33, 35, 39);
   --orange: rgb(246, 143, 5);
   --white: rgb(255, 255, 255);
-  --h1: "Font Spline Sans";
+  --h1: "Spline Sans", sans-serif;
+  --p: "Afacad", sans-serif;
   --h1size: 54px;
 }
 

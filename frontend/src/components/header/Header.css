@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.header__btn {
+  padding: 4px 28px;
+  border: 1px solid var(--orange);
+  border-radius: 10px;
+  font-size: 2rem;
+  color: var(--white);
+  font-family: var(--p);
+  background-color: var(--dark);
+  cursor: pointer;
+}
+
+.header__cart {
+  cursor: pointer;
+}
