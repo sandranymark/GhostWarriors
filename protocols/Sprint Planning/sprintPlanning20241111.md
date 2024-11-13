@@ -3,14 +3,14 @@
 **Sprint:** Sprint 5  
 **Datum:** 2024-11-11  
 **Team:** Ghost Warriors  
-**Närvarande:** Sandra, Adrèan & Anton
+**Närvarande:** Sandra, Adréan & Anton
 **Produktägare:** Jesper
 
 ---
 
 ## Sprintmål
 
-- HÄR SKA VI SKRIVA MASSA BRA SAKER!
+- Göra klart figma prototypen måndag 11/11
 
 ---
 
