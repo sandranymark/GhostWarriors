@@ -9,8 +9,15 @@
 ## Dagens Agenda
 
 1. Vad gjorde vi igår?
+   Vi strukturerade upp projektet, mappstruktur, aws dummy data, fick ett get anrop att fungera.
+   Vi blev färdiga med design i figma, vi installerade npm paket, satt upp routing på frontend sidan.
+
 2. Vad ska vi göra idag?
+   Lägga till responses map som vi kommer ha våra responses.
+   Sätta upp allting som vi kommer behöva i vår root i css.
+
 3. Finns det några hinder?
+   Inte för tillfället
 
 ---
 
@@ -22,36 +29,36 @@
 ### Anton
 
 - **Vad gjorde jag igår?**
-  - tog en tupplur
+  - Vi satt tillsammans och gick igenom sprintplanning
 - **Vad ska jag göra idag?**
-  - äta middag
+  - Gå igenom planingboard för gemensamma beslut. Koda upp CreateProduct, GetAllProducts
 - **Hinder/blockeringar:**
-  - måste på toa
+  - Inte för tillfället
 
 ---
 
 ### Adrean
 
 - **Vad gjorde jag igår?**
-  - tog en tupplur
+  - Vi satt tillsammans och gick igenom sprintplanning
 - **Vad ska jag göra idag?**
-  - äta middag
+  - Gå igenom planingboard för gemensamma beslut. Root samt frontend för starsida HTML.
 - **Hinder/blockeringar:**
-  - måste på toa
+  - Inte för tillfället
 
 ---
 
 ### Sandra
 
 - **Vad gjorde jag igår?**
-  - tog en tupplur
+  - Vi satt tillsammans och gick igenom sprintplanning
 - **Vad ska jag göra idag?**
-  - äta middag
+  - Gå igenom planingboard för gemensamma beslut. Komponenter
 - **Hinder/blockeringar:**
-  - måste på toa
+  - Inte för tillfället
 
 ---
 
 ## Övriga Anteckningar
 
-- Vi planerar att göra en riktigt jäkla bra app.
+- Vi planerar att göra en riktigt jäkla bra hemsida.
