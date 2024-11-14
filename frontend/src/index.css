@@ -9,8 +9,6 @@
 }
 
 body {
-  /* max-width: 1440px; */
-  margin: 0 auto;
   background-color: rgb(33, 35, 39);
 }
 
@@ -20,7 +18,7 @@ body {
   --white: rgb(255, 255, 255);
   --h1: "Spline Sans", sans-serif;
   --p: "Afacad", sans-serif;
-  --h1size: 54px;
+  --h1size: 40px;
 }
 
 /* Författare: Adréan */
