@@ -43,6 +43,12 @@ functions:
       - httpApi:
           path: /products/{id}
           method: delete
+  UpdateProducts:
+    handler: functions/UpdateProducts/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: put
 resources:
   Resources:
     menuTable:
