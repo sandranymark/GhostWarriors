@@ -66,8 +66,25 @@
     display: none;
   }
 
-  .show-hamburger {
+  .hamburger-nav {
     display: block;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav__ul {
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: 1px solid var(--orange);
+  }
+
+  .nav__li {
+    margin: 1rem 0;
+  }
+
+  .nav__link {
+    font-size: 1.5rem;
   }
 }
 

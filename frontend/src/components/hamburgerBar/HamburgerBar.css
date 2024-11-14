@@ -1,0 +1,32 @@
+.hamburgerBar-section {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--dark);
+  animation: slideInFromRight 0.3s ease-in-out;
+}
+
+.hamburgerBar__close-btn {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 50%;
+  color: var(--white);
+  align-items: center;
+  font-family: var(--h1);
+  justify-content: center;
+  border: 2px solid var(--orange);
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
