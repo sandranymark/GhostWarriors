@@ -14,6 +14,7 @@ function Header() {
       <div className="header__cart-btn--wrapper">
         <button className="header__btn">Login</button>
         <img className="header__cart" src={cart} alt="cart-logo" />
+        <p className="header__cart-items">4</p>
       </div>
     </header>
   );
