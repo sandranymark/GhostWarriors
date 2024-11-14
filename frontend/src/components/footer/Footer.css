@@ -1,6 +1,9 @@
 .footer {
+  width: 100%;
   padding: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   background-color: var(--orange);
 }
@@ -37,6 +40,61 @@
   font-size: 30px;
   color: white;
   margin: 0 1rem;
+}
+/* , screen and (max-height: 900px) */
+@media screen and (max-width: 800px) {
+  .footer__mail-icon {
+    font-size: 25px;
+    margin: 0 0.5rem;
+  }
+
+  .footer__mail {
+    font-size: 20px;
+  }
+
+  .footer__address {
+    font-size: 20px;
+  }
+
+  .footer__facebook-icon {
+    font-size: 25px;
+  }
+
+  .footer__instagram-icon {
+    font-size: 25px;
+    margin: 0 0.5rem;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .footer__mail-icon {
+    font-size: 20px;
+    margin: 0 0.3rem;
+  }
+
+  .footer__mail {
+    font-size: 15px;
+  }
+
+  .footer__address {
+    font-size: 15px;
+  }
+
+  .footer__facebook-icon {
+    font-size: 20px;
+  }
+
+  .footer__instagram-icon {
+    font-size: 20px;
+    margin: 0 0.3rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .footer {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
 }
 
 /* Författare: Adréan */

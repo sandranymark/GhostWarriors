@@ -19,7 +19,7 @@
   top: 250px;
   right: 200px;
   width: 470px;
-  height: 400px;
+  height: 350px;
 }
 
 .hero__heading {
@@ -60,7 +60,7 @@
   color: var(--dark);
 }
 
-@media screen and (max-width: 850px) /*, screen and (max-height: 1000px) */ {
+@media screen and (max-width: 850px) {
   .hero__figcaption {
     position: absolute;
     top: 100px;
@@ -70,20 +70,24 @@
   }
 }
 
-@media screen and (max-width: 700px), screen and (max-height: 750px) {
+@media screen and (max-width: 700px), screen and (max-height: 900px) {
   .hero__figcaption {
-    position: absolute;
     top: 100px;
     right: 100px;
     width: 410px;
     height: 300px;
+    position: absolute;
   }
 }
 
-@media screen and (max-width: 550px), screen and (max-height: 750px) {
+@media screen and (max-width: 550px) {
   .hero__figcaption {
+    right: 0;
+    top: 100px;
+    width: 410px;
     padding: 1rem;
-    left: 0;
+    height: 300px;
+    position: absolute;
   }
   .hero__heading {
     font-size: 30px;
