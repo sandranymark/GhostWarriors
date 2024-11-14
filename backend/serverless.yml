@@ -35,7 +35,7 @@ functions:
     handler: functions/DeleteProducts/index.handler
     events:
       - httpApi:
-          path: /products/{id}
+          path: /products/{id}/{productsType}
           method: delete
 resources:
   Resources:
