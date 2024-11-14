@@ -5,50 +5,27 @@ import db from "../../services/services.js";
 export async function handler(event) {
 
   try {
-      const { 
-        quantity,
-        id,
-        price,
-        category,
-        productsType,
-        createdAt,
-        descriptiont,
-        ingredients,
-        inStock,
-        preparationTime,
-        productName } = JSON.parse(event.body);
+      const productData = { 
+        quantity : event.quantity,
+        imageURL : event.imageURL,
+        id : event.id,
+        productPrice : event.productPrice,
+        category : event.category,
+        createdAt : event.createdAt,
+        description : event.description,
+        ingredients : event.ingredients,
+        inStock : event.inStock,
+        preparationTime : event.preparationTime,
+        productName : event.productName } = JSON.parse(event.body);
 
-    console.log("Parsed body:", { quantity,
-        category,
-        productsType,
-        createdAt,
-        descriptiont,
-        ingredients,
-        id,
-        inStock,
-        preparationTime,
-        productName });
+    console.log("Parsed body:", productData );
 
     // Vilka parametrar som skickas in får vi definera upp bättre längre fram. 
     // Det som vi skickar in nu är bara för att se så att det fungerar.
 
     const params = {
-      TableName: "productsTable",
-      Item: {
-            createdAt,
-            id,
-            productName,
-            price,
-            quantity,
-            category,
-            productsType,
-            
-            descriptiont,
-            ingredients,
-            inStock,
-            preparationTime,
-            
-      },
+      TableName: "menuTable",
+      Item: productData ,
     };
 
     await db.put(params);
