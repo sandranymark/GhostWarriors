@@ -31,6 +31,12 @@ functions:
       - httpApi:
           path: /products
           method: get
+  GetProduct:
+    handler: functions/GetProduct/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: get
   DeleteProducts:
     handler: functions/DeleteProducts/index.handler
     events:
