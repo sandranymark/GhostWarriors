@@ -3,7 +3,7 @@ import db from "../../services/services.js";
 
 export async function handler(event) {
   try {
-    const { Items } = await db.scan({ TableName: "productsTable" });
+    const { Items } = await db.scan({ TableName: "menuTable" });
     console.log("Items:", Items);
     if (Items && Items.length > 0) {
       return sendResponse(200, Items)
@@ -18,3 +18,4 @@ export async function handler(event) {
 
 // Författare: Adréan
 // Modifierad: Anton
+//Modifierad: Sandra

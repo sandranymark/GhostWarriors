@@ -35,17 +35,19 @@ export async function handler(event) {
     const params = {
       TableName: "productsTable",
       Item: {
+            createdAt,
             id,
+            productName,
             price,
             quantity,
             category,
             productsType,
-            createdAt,
+            
             descriptiont,
             ingredients,
             inStock,
             preparationTime,
-            productName
+            
       },
     };
 
