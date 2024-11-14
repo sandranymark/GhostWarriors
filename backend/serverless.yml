@@ -23,7 +23,7 @@ functions:
     handler: functions/CreateProducts/index.handler
     events:
       - httpApi:
-          path: /createproducts
+          path: /products
           method: post
   GetAllProducts:
     handler: functions/GetAllProducts/index.handler
@@ -35,7 +35,7 @@ functions:
     handler: functions/DeleteProducts/index.handler
     events:
       - httpApi:
-          path: /products/{id}/{productsType}
+          path: /products/{id}
           method: delete
 resources:
   Resources:
