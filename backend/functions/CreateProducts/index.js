@@ -13,13 +13,15 @@ export async function handler(event) {
       imageURL,
       productPrice,
       category,
-      createdAt,
       description,
       ingredients,
       inStock,
       preparationTime,
       productName,
     } = JSON.parse(event.body);
+
+    const createdAt = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
+    //Tillagt av Sandra som ska vara  så jobbig hela tiden :D
 
     const productData = {
       quantity,
