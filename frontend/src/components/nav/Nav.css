@@ -70,13 +70,14 @@
     display: block;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .nav__ul {
     display: flex;
     flex-direction: column;
-
-    border-bottom: 1px solid var(--orange);
+    margin-top: 2rem;
+    /* border-bottom: 1px solid var(--orange); */
   }
 
   .nav__li {
