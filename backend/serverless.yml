@@ -23,7 +23,7 @@ functions:
     handler: functions/CreateProducts/index.handler
     events:
       - httpApi:
-          path: /createproducts
+          path: /products
           method: post
   GetAllProducts:
     handler: functions/GetAllProducts/index.handler
@@ -31,26 +31,34 @@ functions:
       - httpApi:
           path: /products
           method: get
+  GetProduct:
+    handler: functions/GetProduct/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: get
   DeleteProducts:
     handler: functions/DeleteProducts/index.handler
     events:
       - httpApi:
           path: /products/{id}
           method: delete
+  UpdateProducts:
+    handler: functions/UpdateProducts/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: put
 resources:
   Resources:
-    productsTable:
+    menuTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: productsTable # Namnet på din tabell
+        TableName: menuTable # Namnet på din tabell
         AttributeDefinitions:
           - AttributeName: id
-            AttributeType: S
-          - AttributeName: productsType
             AttributeType: S
         KeySchema:
           - AttributeName: id # Partition key
             KeyType: HASH # Detta är din PK (Partition Key)
-          - AttributeName: productsType # Partition key
-            KeyType: RANGE # Detta är din PK (Partition Key)
         BillingMode: PAY_PER_REQUEST # Betalning per användning
