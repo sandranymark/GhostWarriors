@@ -10,19 +10,20 @@ function Header() {
   const [isHamburgerVisible, setIsHamburgerVisible] = useState(false);
 
   useEffect(() => {
+    const navRef = document.querySelector(".nav") as HTMLElement;
     const hamburgerRef = document.querySelector(".hamburger") as HTMLElement;
     const headerLogoRef = document.querySelector(".header__logo") as HTMLImageElement;
     const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
-    const navRef = document.querySelector(".nav") as HTMLElement;
+
     if (!hamburgerRef) {
       return;
     } else {
       hamburgerRef.addEventListener("click", () => {
         setIsHamburgerVisible(true);
         navRef.classList.remove("hide");
+        hamburgerRef.classList.add("hide");
         headerLogoRef.classList.add("hide");
         headerLinkAroundLogoRef.classList.add("hide");
-        hamburgerRef.style.display = "none";
       });
     }
 
@@ -43,7 +44,7 @@ function Header() {
         <p className="header__cart-items"></p>
       </div>
 
-      <nav className="hamburger hide">
+      <nav className="hamburger">
         <hr className="hamburger-line" />
         <hr className="hamburger-line" />
         <hr className="hamburger-line" />
