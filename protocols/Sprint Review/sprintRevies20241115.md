@@ -44,7 +44,7 @@
 - Hamburgemenyn ska snyggas till
 - lite små justeringar på frontend (homepage)
 - validering med middy.
-- alla bilder har inte hunnits ladda upp på s3bucket
+- alla bilder har inte hunnits ladda upp på s3bucket.
 
 ---
 
