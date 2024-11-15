@@ -124,8 +124,9 @@
   }
 
   .hero-link {
-    width: 70%;
+    width: 60%;
     padding: 0.8rem 1rem;
+    font-size: 1.3rem;
   }
 }
 

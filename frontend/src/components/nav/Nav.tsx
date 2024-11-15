@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import "./Nav.css";
 
-function Nav() {
+interface NavProps {
+  className?: string;
+}
+
+function Nav({ className = "" }: NavProps) {
   return (
-    <nav className="nav">
+    <nav className={`nav ${className}`}>
       <ul className="nav__ul">
         <li className="nav__li">
           <Link className="nav__link" to={"/"}>
