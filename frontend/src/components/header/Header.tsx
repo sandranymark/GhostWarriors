@@ -19,10 +19,10 @@ function Header() {
     } else {
       hamburgerRef.addEventListener("click", () => {
         setIsHamburgerVisible(true);
-        hamburgerRef.classList.add("hide");
+        navRef.classList.remove("hide");
         headerLogoRef.classList.add("hide");
         headerLinkAroundLogoRef.classList.add("hide");
-        navRef.classList.remove("hide");
+        hamburgerRef.style.display = "none";
       });
     }
 

@@ -19,8 +19,8 @@ function HamburgerBar({ onClose }: HanburgerBarProps) {
     const handleClose = (): void => {
       headerLogoRef.classList.remove("hide");
       headerLinkAroundLogoRef.classList.remove("hide");
-      hamburgerRef.classList.remove("hide");
       navRef.classList.add("hide");
+      hamburgerRef.style.display = "flex";
       onClose();
     };
 
