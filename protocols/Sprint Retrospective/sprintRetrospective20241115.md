@@ -9,28 +9,27 @@
 
 ## 1. Vad gick bra?
 
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
+- Sammarbetet, beslut, kommunikation och flexibilitet.
+- Figma skissen gick snabbt och blev mycket bra.
 
 ---
 
 ## 2. Vad kan förbättras?
 
-- HÄR SKA VI SKRIVA MASSA BRA SAKER.
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
+- Tydlighet och struktur.
 
 ---
 
 ## 3. Åtgärder för nästa sprint
 
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
-- HÄR SKA VI SKRIVA MASSA BRA SAKER
+- Hamburgermenyn.
+- Responsivitet.
+- Önskemål från PO: Kunna lägga till och ta bort produkter från meny till cart.
+- Göra klart meny-databasen med data och bilder.
 
 ---
 
 ## 4. Övriga kommentarer
 
-- "HÄR SKA VI SKRIVA MASSA BRA SAKER"
+- Mycket bra sammarbete!
+- Bra tempo.
