@@ -13,7 +13,6 @@ export async function handler(event) {
       imageURL,
       productPrice,
       category,
-      // createdAt,
       description,
       ingredients,
       inStock,
