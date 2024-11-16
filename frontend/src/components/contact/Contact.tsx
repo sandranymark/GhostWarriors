@@ -1,10 +1,10 @@
 import "./Contact.css";
-import testBG from "../../assets/testBG.svg";
+import brunchBg from "../../assets/brunchBg.svg";
 
 function Contact() {
   return (
     <section className="contact-section">
-      <img className="contact-image" src={testBG} alt="breakfast image" />
+      <img className="contact-image" src={brunchBg} alt="breakfast image" />
       <article className="contact-article">
         <span className="contact-heading__wrapper">
           <h1 className="contact-heading">
@@ -31,3 +31,5 @@ function Contact() {
 }
 
 export default Contact;
+
+// Författare: Adréan

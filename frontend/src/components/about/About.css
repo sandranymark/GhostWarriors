@@ -60,8 +60,11 @@
 @media screen and (max-width: 800px) {
   .about__textbox {
     margin-top: -1rem;
+    margin-bottom: 7rem;
   }
   .about__textbox-text {
     padding: 0.5rem;
   }
 }
+
+/* Författare: Adréan */

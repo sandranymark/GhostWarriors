@@ -30,7 +30,9 @@
 
 .contact-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin-bottom: 5rem;
+  flex-wrap: wrap;
 }
 
 .contact-info-text {
@@ -42,6 +44,7 @@
 .contact-wrapper__box {
   display: flex;
   flex-direction: column;
+  margin: 0 2rem;
 }
 
 .contact-info-heading {
@@ -49,3 +52,16 @@
   color: var(--white);
   font-size: 28px;
 }
+
+@media screen and (max-width: 600px) {
+  .contact-wrapper {
+    justify-content: unset;
+    margin-bottom: 7rem;
+  }
+
+  .contact-wrapper__box {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Författare: Adréan */
