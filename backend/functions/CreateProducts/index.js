@@ -27,10 +27,8 @@ async function createProduct(event) {
 
     const productData = {
       imageURL,
-      id: productID,
       productPrice,
       category,
-      createdAt,
       description,
       ingredients,
       inStock,
@@ -44,6 +42,9 @@ async function createProduct(event) {
     {
       return sendError(400, validationResult.error.details.map((detail) => detail.message));
     }
+    // lägger till productID och CreatedAT i productData EFTER validering
+    productData.id = productID;
+    productData.createdAt = createdAt;
 
     const params = {
       TableName: "menuTable",
