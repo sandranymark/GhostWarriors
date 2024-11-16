@@ -1,10 +1,10 @@
 import "./About.css";
-import aboutpageBg from "../../assets/aboutpageBg.svg";
+import brunchBg from "../../assets/brunchBg.svg";
 
 function About() {
   return (
     <section className="about-section">
-      <img className="about__bg-image" src={aboutpageBg} alt="breakfast image" />
+      <img className="about__bg-image" src={brunchBg} alt="breakfast image" />
       <article className="about__textbox">
         <h1 className="about__textbox-heading">
           Vår Historia och Vår <span className="about__textbox-heading--orange">Passion</span> för
@@ -31,3 +31,5 @@ function About() {
 }
 
 export default About;
+
+// Författare: Adréan
