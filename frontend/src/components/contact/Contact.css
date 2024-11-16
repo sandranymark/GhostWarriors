@@ -1,0 +1,51 @@
+.contact-section {
+}
+
+.contact-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.contact-article {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-heading__wrapper {
+  text-align: center;
+  padding: 1rem;
+}
+
+.contact-heading {
+  font-family: var(--h1);
+  color: var(--white);
+  font-size: 36px;
+}
+
+.contact-heading--orange {
+  font-family: var(--h1);
+  color: var(--orange);
+  font-size: 36px;
+}
+
+.contact-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.contact-info-text {
+  font-family: var(--p);
+  color: var(--white);
+  font-size: 20px;
+}
+
+.contact-wrapper__box {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info-heading {
+  font-family: var(--p);
+  color: var(--white);
+  font-size: 28px;
+}
