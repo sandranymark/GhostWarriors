@@ -1,15 +1,18 @@
+import middy from '@middy/core';
+import jsonBodyParser from '@middy/http-json-body-parser';
+import httpErrorHandler from '@middy/http-error-handler';
 import { sendError, sendResponse } from "../../responses/responses.js";
 import db from "../../services/services.js";
 import { v4 as uuid } from "uuid";
+import { productSchema } from "../../validations/validations.js";
 
-export async function handler(event) {
-  // Generera unikt id
+async function createProduct(event) {
+  console.log("Incoming event body:", event.body);
+
   const productID = uuid().substring(0, 8);
 
   try {
-    // Parsa inkommande body
     const {
-      quantity,
       imageURL,
       productPrice,
       category,
@@ -18,13 +21,11 @@ export async function handler(event) {
       inStock,
       preparationTime,
       productName,
-    } = JSON.parse(event.body);
+    } = event.body;
 
     const createdAt = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
-    //Tillagt av Sandra som ska vara  så jobbig hela tiden :D
 
     const productData = {
-      quantity,
       imageURL,
       id: productID,
       productPrice,
@@ -37,10 +38,12 @@ export async function handler(event) {
       productName,
     };
 
-    console.log("Parsed body:", productData);
+    const validationResult = productSchema.validate(productData);
 
-    // Vilka parametrar som skickas in får vi definera upp bättre längre fram.
-    // Det som vi skickar in nu är bara för att se så att det fungerar.
+    if(validationResult.error)
+    {
+      return sendError(400, validationResult.error.details.map((detail) => detail.message));
+    }
 
     const params = {
       TableName: "menuTable",
@@ -48,12 +51,16 @@ export async function handler(event) {
     };
 
     await db.put(params);
-    console.log("Put successful");
+    console.log("Product successfully added to database.");
+
     return sendResponse(201, "Product added successfully.");
   } catch (error) {
-    console.error("Error:", error);
-    return sendError(500, error.message);
+    console.error("Error:", error.stack);
+    return sendError(500, `Failed to create product: ${error.message}`);
   }
 }
 
-// Författare: Anton
+
+export const handler = middy(createProduct)
+  .use(jsonBodyParser())
+  .use(httpErrorHandler());
