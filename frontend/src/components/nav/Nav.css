@@ -4,9 +4,9 @@
 }
 
 .nav__ul {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  width: 100%;
 }
 
 .nav__li {
@@ -14,10 +14,10 @@
 }
 
 .nav__link {
-  text-decoration: none;
+  font-size: 1.5rem;
   color: var(--white);
   font-family: var(--p);
-  font-size: 1.5rem;
+  text-decoration: none;
 }
 
 .nav__link:hover {
@@ -67,17 +67,16 @@
   }
 
   .hamburger-nav {
-    display: block;
-    display: flex;
-    flex-direction: column;
     width: 100%;
+    display: flex;
+    display: block;
+    flex-direction: column;
   }
 
   .nav__ul {
     display: flex;
-    flex-direction: column;
     margin-top: 2rem;
-    /* border-bottom: 1px solid var(--orange); */
+    flex-direction: column;
   }
 
   .nav__li {

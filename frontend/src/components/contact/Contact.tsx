@@ -3,7 +3,7 @@ import brunchBg from "../../assets/brunchBg.svg";
 
 function Contact() {
   return (
-    <section className="contact-section">
+    <section>
       <img className="contact-image" src={brunchBg} alt="breakfast image" />
       <article className="contact-article">
         <span className="contact-heading__wrapper">

@@ -1,0 +1,30 @@
+.menuItem-image {
+  width: 100%;
+}
+
+.menuItem-heading {
+  font-size: 30px;
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--orange);
+  font-family: var(--h1);
+}
+
+.menuItem-description {
+  padding: 0.5rem;
+  font-size: 20px;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+@media screen and (max-width: 400px) {
+  .menuItem-heading {
+    font-size: 25px;
+  }
+
+  .menuItem-description {
+    font-size: 18px;
+  }
+}
+
+/* Författare Adréan */

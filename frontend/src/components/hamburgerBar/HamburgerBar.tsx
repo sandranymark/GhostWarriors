@@ -44,3 +44,5 @@ function HamburgerBar({ onClose }: HanburgerBarProps) {
 }
 
 export default HamburgerBar;
+
+// Författare Adréan

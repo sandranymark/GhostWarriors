@@ -1,7 +1,7 @@
 import "./Footer.css";
-import { IoMailOutline } from "react-icons/io5";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import { IoMailOutline } from "react-icons/io5";
 
 function Footer() {
   return (
