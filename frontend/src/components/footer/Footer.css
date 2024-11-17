@@ -16,34 +16,34 @@
 }
 
 .footer__mail-icon {
-  font-size: 25px;
-  color: white;
   margin: 0 1rem;
+  color: white;
+  font-size: 25px;
 }
 
 .footer__mail {
+  font-size: 1.2rem;
   color: var(--white);
   font-family: var(--p);
-  font-size: 1.2rem;
 }
 
 .footer__address {
+  font-size: 1.2rem;
   color: var(--white);
   font-family: var(--p);
-  font-size: 1.2rem;
 }
 
 .footer__facebook-icon {
-  font-size: 25px;
   color: white;
+  font-size: 25px;
 }
 
 .footer__instagram-icon {
-  font-size: 25px;
   color: white;
   margin: 0 1rem;
+  font-size: 25px;
 }
-/* , screen and (max-height: 900px) */
+
 @media screen and (max-width: 800px) {
   .footer__mail-icon {
     font-size: 25px;
@@ -94,8 +94,8 @@
 
 @media screen and (max-width: 500px) {
   .footer {
-    flex-direction: column;
     gap: 0.3rem;
+    flex-direction: column;
   }
 }
 
