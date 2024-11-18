@@ -41,7 +41,7 @@
         "productName": "Chocolate Milkshake"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/espresso.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/espresso.avif",
         "category": "Beverage",
         "ingredients": {},
         "description": "Intense espresso with rich flavor and aroma.",
@@ -51,7 +51,7 @@
         "productName": "Espresso"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/kaffe-latte.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/Latte.avif",
         "category": "Beverage",
         "ingredients": {},
         "description": "Mild and creamy latte with steamed milk.",
@@ -61,7 +61,7 @@
         "productName": "Caffe Latte"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/juice.avif",
+         "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/Orange+juice.avif",
         "category": "Beverage",
         "ingredients": {},
         "description": "Freshly squeezed juice for an energizing start.",
@@ -81,7 +81,7 @@
         "productName": "Smoothie"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/mjolk.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/milk.avif",
         "category": "Beverage",
         "ingredients": {},
         "description": "Cold and fresh milk, perfect for breakfast.",
@@ -101,7 +101,7 @@
         "productName": "Mimosa"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/champagne.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/champagne.avif",
         "category": "Beverage",
         "ingredients": {},
         "description": "Chilled and bubbly champagne for special moments.",
@@ -111,7 +111,7 @@
         "productName": "Champagne"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/pannkakor.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/pancake.avif",
         "category": "Dish",
         "ingredients": {},
         "description": "Classic pancakes with jam and whipped cream.",
@@ -141,7 +141,7 @@
         "productName": "Egg Sandwich"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/english-breakfast.avif",
+        "imageURL": "hhttps://dforbreakfastimg.s3.eu-north-1.amazonaws.com/english+breakfast.avif",
         "category": "Dish",
         "ingredients": {},
         "description": "English breakfast with eggs, beans, and bacon.",
@@ -191,7 +191,7 @@
         "productName": "Bagels"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/luxury-breakfast.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/lux.avif",
         "category": "Dish",
         "ingredients": {},
         "description": "Luxury breakfast with croissant, eggs, fruit, champagne, coffee, jucie, fruits, and more.",
@@ -201,7 +201,7 @@
         "productName": "Luxury Breakfast"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/donuts.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/donuts.avif",
         "category": "SwedishFika",
         "ingredients": {},
         "description": "Sweet donuts with frosting in various flavors.",
@@ -221,7 +221,7 @@
         "productName": "Churros"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/blueberry-muffins.avif",
+       "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/blueberrymuppin.avif",
         "category": "SwedishFika",
         "ingredients": {},
         "description": "Blueberry muffins with a moist filling.",
@@ -241,7 +241,7 @@
         "productName": "Chocolate Cake"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/cookie.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/coockies.avif",
         "category": "SwedishFika",
         "ingredients": {},
         "description": "Classic cookie with chocolate chunks.",
@@ -251,12 +251,12 @@
         "productName": "Cookie"
       },
       {
-        // "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/dicks.avif",
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/dicks.avif",
         "category": "SwedishFika",
         "ingredients": {},
-        "description": "Sweet and crispy small cookies.",
+        "description": "Sweet, crispy and full of joi .",
         "inStock": true,
-        "productPrice": 10,
+        "productPrice": 500,
         "preparationTime": "0 minutes",
         "productName": "Dicks"
       }
