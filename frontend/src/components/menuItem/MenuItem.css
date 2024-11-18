@@ -1,3 +1,9 @@
+article {
+  background-color: #80808021;
+  display: flex;
+  flex-direction: column;
+}
+
 .menuItem-image {
   width: 100%;
 }
@@ -8,6 +14,13 @@
   text-align: center;
   color: var(--orange);
   font-family: var(--h1);
+}
+
+.menuItem-price {
+  padding: .5rem;
+  color: var(--white);
+  font-size: 24px;
+  font-family: var(--p);
 }
 
 .menuItem-description {
