@@ -13,13 +13,15 @@
   height: 2.5rem;
   padding: 0.5rem;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1rem;
   border-radius: 50%;
   color: var(--white);
   align-items: center;
   font-family: var(--h1);
   justify-content: center;
   border: 2px solid var(--orange);
+  margin-top: 1rem;
+  margin-right: .5rem;
 }
 
 @keyframes slideInFromRight {
