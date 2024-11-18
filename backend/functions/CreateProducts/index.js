@@ -65,3 +65,6 @@ async function createProduct(event) {
 export const handler = middy(createProduct)
   .use(jsonBodyParser())
   .use(httpErrorHandler());
+
+  // Författare: Anton
+  // Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi.

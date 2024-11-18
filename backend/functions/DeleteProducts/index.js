@@ -1,21 +1,33 @@
 import { sendError, sendResponse } from "../../responses/responses.js";
 import db from "../../services/services.js";
+import middy from "@middy/core";
+import httpErrorHandler from "@middy/http-error-handler";
+import { deleteProductSchema } from "../../validations/validations.js";
 
-export async function handler(event) {
+async function deleteProduct(event) {
   try {
     // Förvänta oss att id skickas med som en query parameter
-    const { id } = event.pathParameters;
+    const { id } = event.pathParameters || {};
+    console.log("Path parameters:", event.pathParameters);
 
     if (!id) {
-      return sendError(400, "Id is required to delete a product.");
+      return sendError(400, "Missing id in path parameters.");
+    }
+
+    const validationResult = deleteProductSchema.validate({ id });
+    if (validationResult.error) {
+      return sendError(400, validationResult.error.details[0].message); // Returnera första felet
     }
 
     const params = {
       TableName: "menuTable",
       Key: {
         id: id, // Partition key
+  
       },
     };
+    
+  
 
     // Anropar delete-metoden
     await db.delete(params);
@@ -27,4 +39,8 @@ export async function handler(event) {
   }
 }
 
+export const handler = middy(deleteProduct)
+  .use(httpErrorHandler());
+
 // Författare: Anton
+ // Edit by Sandra - lagt till  middy, httpErrorHandler och lagt in validering med joi.
