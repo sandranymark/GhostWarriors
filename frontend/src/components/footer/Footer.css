@@ -96,6 +96,7 @@
   .footer {
     gap: 0.3rem;
     flex-direction: column;
+    position: unset;
   }
 }
 
