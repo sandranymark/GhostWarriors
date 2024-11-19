@@ -14,6 +14,7 @@ function Header() {
     const hamburgerRef = document.querySelector(".hamburger") as HTMLElement;
     const headerLogoRef = document.querySelector(".header__logo") as HTMLImageElement;
     const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
+    const cartBtnWrapperRef = document.querySelector(".header__cart-btn--wrapper") as HTMLElement;
 
     if (!hamburgerRef) {
       return;
@@ -24,6 +25,7 @@ function Header() {
         hamburgerRef.classList.add("hide");
         headerLogoRef.classList.add("hide");
         headerLinkAroundLogoRef.classList.add("hide");
+        cartBtnWrapperRef.classList.add("hide");
       });
     }
 
@@ -40,8 +42,10 @@ function Header() {
       <Nav />
       <div className="header__cart-btn--wrapper">
         <button className="header__btn">Login</button>
-        <img className="header__cart" src={cart} alt="cart-logo" />
-        <p className="header__cart-items"></p>
+        <div className="header__cart--wrapper">
+          <img className="header__cart" src={cart} alt="cart-logo" />
+          <p className="header__cart-items">1</p>
+        </div>
       </div>
 
       <nav className="hamburger">

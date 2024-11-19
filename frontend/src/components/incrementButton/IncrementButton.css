@@ -18,6 +18,7 @@
   min-width: 3rem;
   color: var(--orange);
   font-size: 30px;
+  cursor: pointer;
 }
 
 .display-value {
