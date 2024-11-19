@@ -5,9 +5,16 @@ import cart from "../../assets/cart.svg";
 import { useEffect, useState } from "react";
 import HamburgerBar from "../hamburgerBar/HamburgerBar";
 import DforBreakfast from "../../assets/DforBreakfast.svg";
+import Cart from "../cart/Cart";
 
 function Header() {
-  const [isHamburgerVisible, setIsHamburgerVisible] = useState(false);
+  const [isHamburgerVisible, setIsHamburgerVisible] = useState<boolean>(false);
+  const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
+
+  const toggleCartVisibility = () => {
+    setIsCartVisible(!isCartVisible)
+    console.log(isCartVisible);
+  }
 
   useEffect(() => {
     const navRef = document.querySelector(".nav") as HTMLElement;
@@ -42,7 +49,7 @@ function Header() {
       <Nav />
       <div className="header__cart-btn--wrapper">
         <button className="header__btn">Login</button>
-        <div className="header__cart--wrapper">
+        <div className="header__cart--wrapper" onClick={toggleCartVisibility}>
           <img className="header__cart" src={cart} alt="cart-logo" />
           <p className="header__cart-items">1</p>
         </div>
@@ -55,6 +62,7 @@ function Header() {
       </nav>
 
       {isHamburgerVisible && <HamburgerBar onClose={() => setIsHamburgerVisible(false)} />}
+        <Cart isVisible={isCartVisible} onClose={() => setIsCartVisible(false)} />
     </header>
   );
 }
