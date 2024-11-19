@@ -1,29 +1,29 @@
 .login-wrapper {
-  width: 700px;
-  height: 500px;
-  background-color: var(--dark);
   top: 50%;
   left: 50%;
-  position: fixed;
-  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 500px;
   display: flex;
+  position: fixed;
   border-radius: 10px;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  background-color: var(--dark);
+  transform: translate(-50%, -50%);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .login-avatar {
-  color: var(--white);
-  height: 10rem;
   width: 10rem;
+  height: 10rem;
+  color: var(--white);
   margin-bottom: 2rem;
 }
 
 .login-form {
-  display: flex;
   width: 400px;
+  display: flex;
   flex-direction: column;
 }
 
@@ -41,6 +41,7 @@
 .login__button-wrapper {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .login-btn {
@@ -48,9 +49,9 @@
   font-size: 18px;
   cursor: pointer;
   border-radius: 5px;
+  color: var(--white);
   padding: 0.5rem 1rem;
   font-family: var(--p);
-  color: var(--white);
   background-color: transparent;
   border: 1px solid var(--orange);
 }
@@ -62,10 +63,9 @@
 
 .register-btn {
   width: 100%;
-  cursor: pointer;
   font-size: 18px;
+  cursor: pointer;
   border-radius: 5px;
-  margin-left: 0.5rem;
   padding: 0.5rem 1rem;
   font-family: var(--p);
   border: 1px solid var(--orange);
@@ -111,8 +111,8 @@
   }
 
   .login-avatar {
-    height: 8rem;
     width: 8rem;
+    height: 8rem;
     margin-bottom: 1.5rem;
   }
 
@@ -130,44 +130,22 @@
     gap: 0.5rem;
   }
 
-  .register-btn {
-    margin: 0;
-  }
-
   .login-btn,
   .register-btn {
     width: 100%;
     font-size: 16px;
   }
-
-  .login__close-btn {
-    top: 10px;
-    right: 10px;
-    width: 2rem;
-    height: 2rem;
-    font-size: 0.9rem;
-  }
 }
 
 .animate {
-  animation: animatezoom 0.6s;
-  -webkit-animation: animatezoom 0.6s;
-}
-
-@-webkit-keyframes animatezoom {
-  from {
-    -webkit-transform: scale(0);
-  }
-  to {
-    -webkit-transform: scale(1);
-  }
+  animation: animatezoom 0.6s ease-out;
 }
 
 @keyframes animatezoom {
   from {
-    transform: scale(0);
+    transform: translate(-50%, -50%) scale(0);
   }
   to {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
