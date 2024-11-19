@@ -32,6 +32,22 @@ function Header() {
     };
   }, []);
 
+  function handleLogin(): void {
+    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
+    const loginFormRef = document.querySelector(".login-form") as HTMLFormElement;
+    if (!loginSectionRef) {
+      return;
+    } else {
+      loginSectionRef.style.display = "flex";
+      loginSectionRef.classList.remove("hide");
+    }
+    if (!loginFormRef) {
+      return;
+    } else {
+      loginFormRef.classList.add("animate");
+    }
+  }
+
   return (
     <header className="header">
       <Link className="header__link" to={"/"}>
@@ -39,9 +55,11 @@ function Header() {
       </Link>
       <Nav />
       <div className="header__cart-btn--wrapper">
-        <button className="header__btn">Login</button>
+        <button className="header__btn" onClick={handleLogin}>
+          Login
+        </button>
         <img className="header__cart" src={cart} alt="cart-logo" />
-        <p className="header__cart-items"></p>
+        <p className="header__cart-items">2</p>
       </div>
 
       <nav className="hamburger">
