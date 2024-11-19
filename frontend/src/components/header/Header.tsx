@@ -34,14 +34,14 @@ function Header() {
 
   function handleLogin(): void {
     const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const bodyRef = document.querySelector("body") as HTMLElement;
+    const firstSectionRef = document.querySelector(".app > section:first-child") as HTMLElement;
     if (!loginSectionRef) {
       return;
     } else {
       loginSectionRef.style.display = "flex";
       loginSectionRef.classList.remove("hide");
       loginSectionRef.classList.add("animate");
-      bodyRef.style.backgroundColor = "rgb(33 35 39 / 30%)";
+      firstSectionRef.style.filter = "blur(10px)";
     }
   }
 

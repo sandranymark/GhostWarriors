@@ -5,10 +5,12 @@ function Login() {
   function handleRegister(): void {}
   function handleClose() {
     const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
+    const firstSectionRef = document.querySelector(".app > section:first-child") as HTMLElement;
     if (!loginSectionRef) {
       return;
     } else {
       loginSectionRef.style.display = "none";
+      firstSectionRef.style.filter = "none";
     }
   }
 
