@@ -1,6 +1,6 @@
-/* .cart {
+.cart {
   position: fixed;
-  z-index: 999;
+  z-index: 2;
   top: 0;
   right: -100%;
   width: 350px;
@@ -37,44 +37,4 @@
   background-color: var(--dark);
   margin-top: 1rem;
   margin-right: 0.5rem;
-} */
-
-.cart {
-    position: fixed;
-    top: 0;
-    right: -100%; /* Starta utanför skärmen */
-    width: 350px;
-    height: 100%;
-    background-color: var(--dark); /* Bakgrundsfärg på varukorgen */
-    color: var(--white);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3); /* Skugga */
-    transition: transform 0.3s ease-in-out; /* Glidande animation */
-    transform: translateX(0); /* Starta på den här positionen (utanför) */
-    opacity: 1; /* Full synlighet */
-  }
-  
-  .cart--visible {
-    transform: translateX(-100%); /* Flytta den till rätt position när den blir synlig */
-    opacity: 1; /* Gör den fullt synlig */
-  }
-  
-  .cart__close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5rem;
-    background: none;
-    border: none;
-    color: var(--white);
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .cart h2 {
-    padding: 2rem;
-  }
-  
-  .cart p {
-    padding: 1rem;
-  }
-  
+}
