@@ -28,6 +28,10 @@
   display: none;
 }
 
+.hide {
+  display: none;
+}
+
 @keyframes slideInFromRight {
   from {
     opacity: 0;

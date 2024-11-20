@@ -32,6 +32,7 @@ function Header() {
         headerLogoRef.classList.add("hide");
         cartBtnWrapperRef.classList.add("hide");
         headerLinkAroundLogoRef.classList.add("hide");
+        cartBtnWrapperRef.classList.add("hide");
       });
     }
 
