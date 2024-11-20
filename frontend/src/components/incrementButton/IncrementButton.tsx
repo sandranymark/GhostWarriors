@@ -27,4 +27,6 @@ function IncrementButton() {
   )
 }
 
-export default IncrementButton
+export default IncrementButton;
+
+// Författare: Anton
