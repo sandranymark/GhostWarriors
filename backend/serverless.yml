@@ -19,6 +19,7 @@ custom:
   secrets: ${file(./personal.yml)}
 
 functions:
+  # Products Functions
   CreateProducts:
     handler: functions/products/CreateProducts/index.handler
     events:
@@ -49,6 +50,39 @@ functions:
       - httpApi:
           path: /products/{id}
           method: put
+
+  # Orders Functions
+  CreateOrders:
+    handler: functions/orders/CreateOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders
+          method: post
+  GetAllOrders:
+    handler: functions/orders/GetAllOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders
+          method: get
+  GetOrder:
+    handler: functions/orders/GetOrder/index.handler
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: get
+  DeleteOrders:
+    handler: functions/orders/DeleteOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: delete
+  UpdateOrders:
+    handler: functions/orders/UpdateOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: put
+#products Table
 resources:
   Resources:
     menuTable:
@@ -62,3 +96,16 @@ resources:
           - AttributeName: id # Partition key
             KeyType: HASH # Detta är din PK (Partition Key)
         BillingMode: PAY_PER_REQUEST # Betalning per användning
+
+    # Orders Table
+    ordersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ordersTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
