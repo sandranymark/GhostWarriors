@@ -25,7 +25,11 @@ function Login() {
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button onClick={handleRegister} type="submit" className="register-btn">
+            <button
+              onClick={() => handleRegister(".login-wrapper", ".register-wrapper")}
+              type="submit"
+              className="register-btn"
+            >
               Create an account
             </button>
           </span>

@@ -3,7 +3,7 @@ import { handleClose } from "../../Utils/handleClose/HandleClose";
 
 function Register() {
   return (
-    <section className="register-wrapper">
+    <section className="register-wrapper hide">
       <form className="register-form">
         <input
           className="register-inputField"
@@ -23,7 +23,9 @@ function Register() {
           aria-label="Confirm password"
           placeholder="Confirm password"
         />
-        <button type="submit">Register</button>
+        <button className="register-btn" type="submit">
+          Register
+        </button>
       </form>
       <p
         className="login__close-btn"
