@@ -1,21 +1,30 @@
 import "./Cart.css";
 
 interface CartProps {
-    isVisible: boolean; 
-    onClose: () => void; 
-  }
-  
+  isVisible: boolean;
+  onClose: () => void;
+}
 
-function Cart({ isVisible, onClose } : CartProps) {
+function Cart({ isVisible, onClose }: CartProps) {
   return (
-    <div className={`cart ${isVisible ? "cart--visible" : ""}`}>
-      <button className="cart__close-btn" onClick={onClose}>
-        X
-      </button>
-      <h2>Your Cart</h2>
-      <p>Items will appear here.</p>
-    </div>
+    <section className={`cart ${isVisible ? "cart--visible" : ""}`}>
+      <div className="cart__top">
+        <button className="cart__close-btn" onClick={onClose}>
+          X
+        </button>
+        <h2>Cart</h2>
+      </div>
+      <section className="cart__section">
+        <p>Items will appear here.</p>
+      </section>
+      <section className="cart__btn--section">
+        <button className="cart__clear cart__btn">Clear</button>
+        <button className="cart__order cart__btn">Order</button>
+      </section>
+    </section>
   );
 }
 
 export default Cart;
+
+// Författare: Anton

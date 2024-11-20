@@ -12,6 +12,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
 
   const toggleCartVisibility = () => {
+    console.log('Cart toggled');
     setIsCartVisible((prev) => !prev);
   };
 

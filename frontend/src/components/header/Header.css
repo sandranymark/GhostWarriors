@@ -38,6 +38,7 @@
   position: relative; 
   display: inline-block;
   gap: .5rem; 
+  cursor: pointer;
 }
 
 .header__cart {
