@@ -1,5 +1,10 @@
 import "./Register.css";
 // import { handleClose } from "../../Utils/handleClose/handleClose";
+import { FaUserPlus } from "react-icons/fa";
+
+
+
+
 
 function Register() {
   function handleClose(): void {
@@ -36,8 +41,9 @@ function Register() {
 
   return (
     <section className="register-wrapper hide">
+      <div className="register-icon"><FaUserPlus /></div>
       <span className="register__back-to-login" onClick={backToLogin}>
-        Back to login
+       Back to login
       </span>
       <form className="register-form">
         <input
