@@ -34,22 +34,23 @@
 ### Anton
 
 - ## **Vad gjorde jag igår?**
-- En knapp till korten i menyn så man kan lägga till och ta bort produkter, figmaskiss till carten.
+  - En knapp till korten i menyn så man kan lägga till och ta bort produkter, figmaskiss till carten.
+  - Påbörjade Cart.tsx igår
 - **Vad ska jag göra idag?**
-  - Göra klart carten.
+  - Göra klart Cart.tsx.
+  - Om det finns tid över så ska jag försöka skissa upp personal sidan i Figma.
 - **Hinder/blockeringar:**
-  - Inte för tillfället
+  - Sjuk
 
 ---
 
 ### Adrean
 
 - **Vad gjorde jag igår?**
-  - Backend, rendera ut produkterna på menupage.
-  - En typmap, interface för products.
-  - Skapat upp en productservice, där vi med hjälp av axios gör våra anrop.
+  - Frontend, login komponenten.
 - **Vad ska jag göra idag?**
-  - Fortsätta med Login och Register komponenterna.
+  - Fortsätta med Login och Register komponenterna så att det fungerar.
+  - Justera menuItems komponenten så det ser bättre ut än det gör nu.
 - **Hinder/blockeringar:**
   - Inte för tillfället
 
@@ -58,8 +59,11 @@
 ### Sandra
 
 - ## **Vad gjorde jag igår?**
+  - Backend, rendera ut produkterna på menupage.
+  - En typmap, interface för products.
+  - Skapat upp en productservice, där vi med hjälp av axios gör våra anrop.
 - **Vad ska jag göra idag?**
-  - Justera menuItems komponenten så det ser bättre ut än det gör nu.
+  - Ändra sökvägarna i backend och mappstrukturen.
 - **Hinder/blockeringar:**
   - Barn med studiedag
 
@@ -67,5 +71,4 @@
 
 ## Övriga Anteckningar
 
-- Jespers föreläsning kl 13.
 - Påbörja figmaskiss för personalsidan så vi har något att arbeta med nästa vecka.
