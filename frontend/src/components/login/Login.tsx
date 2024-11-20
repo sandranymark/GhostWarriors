@@ -1,19 +1,9 @@
 import "./Login.css";
 import { RxAvatar } from "react-icons/rx";
+import { handleClose } from "../../Utils/handleClose/HandleClose";
+import { handleRegister } from "../../Utils/handleRegister/handleRegister";
 
 function Login() {
-  function handleRegister(): void {}
-  function handleClose() {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const firstSectionRef = document.querySelector(".app > section:first-child") as HTMLElement;
-    if (!loginSectionRef) {
-      return;
-    } else {
-      loginSectionRef.style.display = "none";
-      firstSectionRef.style.filter = "none";
-    }
-  }
-
   return (
     <section className="login-wrapper hide">
       <RxAvatar className="login-avatar" />
@@ -41,7 +31,10 @@ function Login() {
           </span>
         </div>
       </form>
-      <p className="login__close-btn" onClick={handleClose}>
+      <p
+        className="login__close-btn"
+        onClick={() => handleClose(".login-wrapper", ".app > section:first-child")}
+      >
         X
       </p>
     </section>
@@ -49,3 +42,5 @@ function Login() {
 }
 
 export default Login;
+
+// Författare Adréan

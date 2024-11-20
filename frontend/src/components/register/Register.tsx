@@ -1,14 +1,40 @@
 import "./Register.css";
+import { handleClose } from "../../Utils/handleClose/HandleClose";
 
 function Register() {
   return (
-    <form className="form-register">
-      <input className="inputField" type="text" aria-label="Username" />
-      <input className="inputField" type="text" aria-label="Password" />
-      <input className="inputField" type="text" aria-label="Confirm password" />
-      <button type="submit">Register</button>
-    </form>
+    <section className="register-wrapper">
+      <form className="register-form">
+        <input
+          className="register-inputField"
+          type="text"
+          aria-label="Username"
+          placeholder="Username"
+        />
+        <input
+          className="register-inputField"
+          type="text"
+          aria-label="Password"
+          placeholder="Password"
+        />
+        <input
+          className="register-inputField"
+          type="text"
+          aria-label="Confirm password"
+          placeholder="Confirm password"
+        />
+        <button type="submit">Register</button>
+      </form>
+      <p
+        className="login__close-btn"
+        onClick={() => handleClose(".register-wrapper", ".app > section:first-child")}
+      >
+        X
+      </p>
+    </section>
   );
 }
 
 export default Register;
+
+// Författare Adréan
