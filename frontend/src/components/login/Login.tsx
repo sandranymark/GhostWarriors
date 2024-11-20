@@ -1,6 +1,6 @@
 import "./Login.css";
 import { RxAvatar } from "react-icons/rx";
-import { handleClose } from "../../Utils/handleClose/HandleClose";
+import { handleClose } from "../../Utils/handleClose/handleClose";
 import { handleRegister } from "../../Utils/handleRegister/handleRegister";
 
 function Login() {

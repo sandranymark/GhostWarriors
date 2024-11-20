@@ -1,5 +1,5 @@
 import "./Register.css";
-import { handleClose } from "../../Utils/handleClose/HandleClose";
+import { handleClose } from "../../Utils/handleClose/handleClose";
 
 function Register() {
   return (
