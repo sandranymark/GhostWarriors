@@ -2,15 +2,32 @@ import "./Login.css";
 import { RxAvatar } from "react-icons/rx";
 
 function Login() {
-  function handleRegister(): void {}
-  function handleClose() {
+  function handleRegister(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const firstSectionRef = document.querySelector(".app > section:first-child") as HTMLElement;
-    if (!loginSectionRef) {
-      return;
-    } else {
+    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
+    if (loginSectionRef) {
+      loginSectionRef.classList.add("hide");
+      registerSectionRef.classList.remove("hide");
+    }
+  }
+
+  function handleClose(): void {
+    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
+    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
+    const secondSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
+    if (secondSectionRef) {
+      secondSectionRef.style.filter = "none";
+    }
+
+    if (loginSectionRef) {
+      loginSectionRef.classList.add("hide");
       loginSectionRef.style.display = "none";
-      firstSectionRef.style.filter = "none";
+      loginSectionRef.classList.remove("animate");
+    }
+
+    if (registerSectionRef) {
+      registerSectionRef.classList.add("hide");
     }
   }
 
@@ -35,7 +52,7 @@ function Login() {
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button onClick={handleRegister} type="submit" className="register-btn">
+            <button onClick={(e) => handleRegister(e)} type="submit" className="register-btn">
               Create an account
             </button>
           </span>
@@ -49,3 +66,5 @@ function Login() {
 }
 
 export default Login;
+
+// Författare Adréan

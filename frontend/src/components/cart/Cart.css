@@ -22,7 +22,6 @@
   opacity: 1; /* Gör den synlig */
 }
 
-
 .cart__top {
   display: flex;
   justify-content: space-between;
@@ -73,6 +72,8 @@
 }
 
 .cart__clear {
+  background-color: #923b2e;
+  border: #923b2e;
   background-color: #923B2E;
   border: #923B2E;
 }
@@ -80,3 +81,4 @@
 .cart__order {
   background-color: var(--orange);
 }
+
