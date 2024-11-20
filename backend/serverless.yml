@@ -20,31 +20,31 @@ custom:
 
 functions:
   CreateProducts:
-    handler: functions/CreateProducts/index.handler
+    handler: functions/products/CreateProducts/index.handler
     events:
       - httpApi:
           path: /products
           method: post
   GetAllProducts:
-    handler: functions/GetAllProducts/index.handler
+    handler: functions/products/GetAllProducts/index.handler
     events:
       - httpApi:
           path: /products
           method: get
   GetProduct:
-    handler: functions/GetProduct/index.handler
+    handler: functions/products/GetProduct/index.handler
     events:
       - httpApi:
           path: /products/{id}
           method: get
   DeleteProducts:
-    handler: functions/DeleteProducts/index.handler
+    handler: functions/products/DeleteProducts/index.handler
     events:
       - httpApi:
           path: /products/{id}
           method: delete
   UpdateProducts:
-    handler: functions/UpdateProducts/index.handler
+    handler: functions/products/UpdateProducts/index.handler
     events:
       - httpApi:
           path: /products/{id}

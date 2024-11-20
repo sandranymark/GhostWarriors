@@ -1,10 +1,10 @@
 import middy from '@middy/core';
 import jsonBodyParser from '@middy/http-json-body-parser';
 import httpErrorHandler from '@middy/http-error-handler';
-import { sendError, sendResponse } from "../../responses/responses.js";
-import db from "../../services/services.js";
+import { sendError, sendResponse } from "../../../responses/responses.js";
+import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
-import { productSchema } from "../../validations/validations.js";
+import { productSchema } from "../../../models/productSchema.js";
 
 async function createProduct(event) {
   console.log("Incoming event body:", event.body);
@@ -38,8 +38,7 @@ async function createProduct(event) {
 
     const validationResult = productSchema.validate(productData);
 
-    if(validationResult.error)
-    {
+    if (validationResult.error) {
       return sendError(400, validationResult.error.details.map((detail) => detail.message));
     }
     // lägger till productID och CreatedAT i productData EFTER validering
@@ -66,5 +65,5 @@ export const handler = middy(createProduct)
   .use(jsonBodyParser())
   .use(httpErrorHandler());
 
-  // Författare: Anton
-  // Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi.
+// Författare: Anton
+// Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi.

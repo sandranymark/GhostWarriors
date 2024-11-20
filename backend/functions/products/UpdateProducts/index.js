@@ -1,13 +1,13 @@
-import { sendError, sendResponse } from "../../responses/responses.js";
-import db from "../../services/services.js";
+import { sendError, sendResponse } from "../../../responses/responses.js";
+import db from "../../../services/services.js";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
-import {updateProductSchema} from "../../validations/validations.js";
+import { updateProductSchema } from "../../../models/productSchema.js";
 
 
 
- async function updatedProduct(event) {
+async function updatedProduct(event) {
   try {
     // Hämta `id` från URL-parameter och de uppdaterade fälten från body
     const { id } = event.pathParameters;

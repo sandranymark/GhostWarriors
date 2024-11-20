@@ -1,8 +1,8 @@
-import { sendError, sendResponse } from "../../responses/responses.js";
-import db from "../../services/services.js";
+import { sendError, sendResponse } from "../../../responses/responses.js";
+import db from "../../../services/services.js";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
-import { deleteProductSchema } from "../../validations/validations.js";
+import { deleteProductSchema } from "../../../models/productSchema.js";
 
 async function deleteProduct(event) {
   try {
@@ -23,11 +23,11 @@ async function deleteProduct(event) {
       TableName: "menuTable",
       Key: {
         id: id, // Partition key
-  
+
       },
     };
-    
-  
+
+
 
     // Anropar delete-metoden
     await db.delete(params);
@@ -43,4 +43,4 @@ export const handler = middy(deleteProduct)
   .use(httpErrorHandler());
 
 // Författare: Anton
- // Edit by Sandra - lagt till  middy, httpErrorHandler och lagt in validering med joi.
+// Edit by Sandra - lagt till  middy, httpErrorHandler och lagt in validering med joi.

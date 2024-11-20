@@ -1,5 +1,5 @@
-import { sendError, sendResponse } from "../../responses/responses.js";
-import db from "../../services/services.js";
+import { sendError, sendResponse } from "../../../responses/responses.js";
+import db from "../../../services/services.js";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 
@@ -20,7 +20,7 @@ async function GetAllProducts(event) {
 }
 
 export const handler = middy(GetAllProducts)
-.use(httpErrorHandler());
+  .use(httpErrorHandler());
 
 // Författare: Adréan
 // Modifierad: Anton
