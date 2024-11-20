@@ -1,9 +1,36 @@
 import "./Login.css";
 import { RxAvatar } from "react-icons/rx";
-import { handleClose } from "../../Utils/handleClose/handleClose";
-import { handleRegister } from "../../Utils/handleRegister/handleRegister";
 
 function Login() {
+  function handleRegister(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
+    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
+    if (loginSectionRef) {
+      loginSectionRef.classList.add("hide");
+      registerSectionRef.classList.remove("hide");
+    }
+  }
+
+  function handleClose(): void {
+    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
+    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
+    const secondSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
+    if (secondSectionRef) {
+      secondSectionRef.style.filter = "none";
+    }
+
+    if (loginSectionRef) {
+      loginSectionRef.classList.add("hide");
+      loginSectionRef.style.display = "none";
+      loginSectionRef.classList.remove("animate");
+    }
+
+    if (registerSectionRef) {
+      registerSectionRef.classList.add("hide");
+    }
+  }
+
   return (
     <section className="login-wrapper hide">
       <RxAvatar className="login-avatar" />
@@ -25,20 +52,13 @@ function Login() {
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button
-              onClick={() => handleRegister(".login-wrapper", ".register-wrapper")}
-              type="submit"
-              className="register-btn"
-            >
+            <button onClick={(e) => handleRegister(e)} type="submit" className="register-btn">
               Create an account
             </button>
           </span>
         </div>
       </form>
-      <p
-        className="login__close-btn"
-        onClick={() => handleClose(".login-wrapper", ".app > section:first-child")}
-      >
+      <p className="login__close-btn" onClick={handleClose}>
         X
       </p>
     </section>

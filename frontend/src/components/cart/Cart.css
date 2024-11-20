@@ -8,7 +8,7 @@
   background-color: var(--dark);
   color: var(--white);
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.6s ease-in-out;
   transform: translateX(100%); /* Default: utanför skärmen */
   opacity: 0; /* Osynlig initialt */
   padding: 1rem;
@@ -21,7 +21,6 @@
   transform: translateX(0); /* Flytta in på skärmen */
   opacity: 1; /* Gör den synlig */
 }
-
 
 .cart__top {
   display: flex;
@@ -73,8 +72,8 @@
 }
 
 .cart__clear {
-  background-color: #923B2E;
-  border: #923B2E;
+  background-color: #923b2e;
+  border: #923b2e;
 }
 
 .cart__order {

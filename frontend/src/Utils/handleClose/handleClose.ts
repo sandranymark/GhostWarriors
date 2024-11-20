@@ -1,20 +1,25 @@
-export function handleClose(targetSelector: string, resetSelector?: string): void {
-  const targetElement = document.querySelector(targetSelector) as HTMLElement;
-  const resetElement = resetSelector && (document.querySelector(resetSelector) as HTMLElement);
+// export function handleClose(
+//   targetSelector: string,
+//   SecondTarget?: string,
+//   resetSelector?: string
+// ): void {
+//   const targetElement = document.querySelector(targetSelector) as HTMLElement;
+//   const secondElement = SecondTarget ? (document.querySelector(SecondTarget) as HTMLElement) : null;
+//   const resetElement = resetSelector && (document.querySelector(resetSelector) as HTMLElement);
 
-  if (!targetElement) {
-    return;
-  } else {
-    targetElement.classList.add("hide");
-    targetElement.style.display = "none";
-    targetElement.classList.remove("animate");
-  }
+//   if (targetElement) {
+//     targetElement.classList.add("hide");
+//     // targetElement.style.display = "none";
+//     targetElement.classList.remove("animate");
+//   }
 
-  if (!resetElement) {
-    return;
-  } else {
-    resetElement.style.filter = "none";
-  }
-}
+//   if (secondElement) {
+//     // secondElement.style.display = "none";
+//   }
+
+//   if (resetElement) {
+//     resetElement.style.filter = "none";
+//   }
+// }
 
 // Författare Adréan

@@ -13,6 +13,23 @@
   transform: translate(-50%, -50%);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
+/* .register-avatar {
+  width: 10rem;
+  height: 10rem;
+  color: var(--white);
+  margin-bottom: 2rem;
+} */
+
+.register__back-to-login {
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  color: var(--white);
+  margin: 1.5rem 1rem;
+  font-family: var(--h1);
+}
 
 .register-form {
   width: 400px;
@@ -43,3 +60,34 @@
   color: var(--dark);
   background-color: var(--orange);
 }
+
+@media (max-width: 768px) {
+  .register-wrapper {
+    width: 90%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 475px) {
+  .register-wrapper {
+    width: 95%;
+    border-radius: 5px;
+    box-shadow: none;
+  }
+
+  .register-form {
+    width: 100%;
+  }
+
+  .register-inputField {
+    padding: 0.5rem;
+    font-size: 14px;
+  }
+
+  .register-btn {
+    font-size: 16px;
+    padding: 0.4rem;
+  }
+}
+
+/* Författare Adréan */

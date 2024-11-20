@@ -24,16 +24,14 @@ function Header() {
     const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
     const cartBtnWrapperRef = document.querySelector(".header__cart-btn--wrapper") as HTMLElement;
 
-    if (!hamburgerRef) {
-      return;
-    } else {
+    if (hamburgerRef) {
       hamburgerRef.addEventListener("click", () => {
         setIsHamburgerVisible(true);
         navRef.classList.remove("hide");
         hamburgerRef.classList.add("hide");
         headerLogoRef.classList.add("hide");
-        headerLinkAroundLogoRef.classList.add("hide");
         cartBtnWrapperRef.classList.add("hide");
+        headerLinkAroundLogoRef.classList.add("hide");
       });
     }
 
@@ -44,10 +42,8 @@ function Header() {
 
   function handleLogin(): void {
     const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const firstSectionRef = document.querySelector(".app > section:first-child") as HTMLElement;
-    if (!loginSectionRef) {
-      return;
-    } else {
+    const firstSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
+    if (loginSectionRef) {
       loginSectionRef.style.display = "flex";
       loginSectionRef.classList.remove("hide");
       loginSectionRef.classList.add("animate");
@@ -78,7 +74,7 @@ function Header() {
       </nav>
 
       {isHamburgerVisible && <HamburgerBar onClose={() => setIsHamburgerVisible(false)} />}
-        {/* <Cart isVisible={isCartVisible} onClose={() => setIsCartVisible(false)} /> */}
+      {/* <Cart isVisible={isCartVisible} onClose={() => setIsCartVisible(false)} /> */}
     </header>
   );
 }
