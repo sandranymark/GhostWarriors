@@ -7,6 +7,7 @@ interface MenuItemProps {
   heading: string;
   price: number;
   description: string;
+  quantity?: number;
 }
 
 function MenuItem({ id, image, heading, price, description }: MenuItemProps) {
