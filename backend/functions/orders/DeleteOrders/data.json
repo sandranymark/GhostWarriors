@@ -1,0 +1,10 @@
+{
+    "pathParameters": {
+      "id": "a26dd67b"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "httpMethod": "DELETE"
+  }
+  
