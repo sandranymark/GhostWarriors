@@ -2,15 +2,7 @@ import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
-import { validateId } from "../../../utils/validateId.js";
-
-
-//Förklaring till grapparna: 
-// Om det inte finns något objekt med det angivna id:t så returneras ett felmeddelande.
-// om id inte är en sträng, kastar funktionen ett fel. (typeof id !== 'string')
-// trim () kontrollerar om id är en tom sträng eller bara innehåller mellanslag.
-// Om id inte är en sträng eller om den inte är exakt 8 tecken lång returneras ett felmeddelande.
-//
+import { validateId } from "../../../utils/validation.js";
 
 
 
