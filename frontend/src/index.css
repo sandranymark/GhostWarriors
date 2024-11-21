@@ -38,4 +38,7 @@ body {
   background: var(--orange);
 }
 
+.no-scroll {
+  overflow: hidden;
+}
 /* Författare: Adréan */

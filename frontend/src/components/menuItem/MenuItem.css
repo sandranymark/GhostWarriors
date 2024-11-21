@@ -1,14 +1,21 @@
-article {
-  background-color: #80808021;
+.menuItem__article {
   display: flex;
   flex-direction: column;
+  background-color: #80808021;
 }
 
-.menuItem-image {
+.menuItem__figure {
   width: 100%;
+  height: 400px;
 }
 
-.menuItem-heading {
+.menuItem__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menuItem__heading {
   font-size: 30px;
   padding: 0.5rem;
   text-align: center;
@@ -16,14 +23,14 @@ article {
   font-family: var(--h1);
 }
 
-.menuItem-price {
-  padding: .5rem;
-  color: var(--white);
+.menuItem__price {
+  padding: 0.5rem;
   font-size: 24px;
+  color: var(--white);
   font-family: var(--p);
 }
 
-.menuItem-description {
+.menuItem__description {
   padding: 0.5rem;
   font-size: 20px;
   color: var(--white);
@@ -31,11 +38,11 @@ article {
 }
 
 @media screen and (max-width: 400px) {
-  .menuItem-heading {
+  .menuItem__heading {
     font-size: 25px;
   }
 
-  .menuItem-description {
+  .menuItem__description {
     font-size: 18px;
   }
 }

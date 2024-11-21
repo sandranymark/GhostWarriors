@@ -19,6 +19,7 @@ function Header() {
 
   useEffect(() => {
     const navRef = document.querySelector(".nav") as HTMLElement;
+    const bodyRef = document.querySelector("body") as HTMLBodyElement;
     const hamburgerRef = document.querySelector(".hamburger") as HTMLElement;
     const headerLogoRef = document.querySelector(".header__logo") as HTMLImageElement;
     const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
@@ -28,11 +29,11 @@ function Header() {
       hamburgerRef.addEventListener("click", () => {
         setIsHamburgerVisible(true);
         navRef.classList.remove("hide");
+        bodyRef.classList.add("no-scroll");
         hamburgerRef.classList.add("hide");
         headerLogoRef.classList.add("hide");
         cartBtnWrapperRef.classList.add("hide");
         headerLinkAroundLogoRef.classList.add("hide");
-        cartBtnWrapperRef.classList.add("hide");
       });
     }
 

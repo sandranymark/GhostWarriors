@@ -9,14 +9,15 @@ interface MenuItemProps {
 }
 
 function MenuItem({ image, heading, price, description }: MenuItemProps) {
-
   return (
-    <article>
-      <img className="menuItem-image" src={image} alt="avocado toast" />
-      <h2 className="menuItem-heading">{heading}</h2>
-      <p className="menuItem-price">{price} SEK</p>
-      <p className="menuItem-description">{description}</p>
-      < IncrementButton />
+    <article className="menuItem__article">
+      <figure className="menuItem__figure">
+        <img className="menuItem__image" src={image} alt="avocado toast" />
+      </figure>
+      <h2 className="menuItem__heading">{heading}</h2>
+      <p className="menuItem__price">{price} SEK</p>
+      <p className="menuItem__description">{description}</p>
+      <IncrementButton />
     </article>
   );
 }

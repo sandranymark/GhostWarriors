@@ -5,6 +5,7 @@
 
 .contact-article {
   display: flex;
+  margin-top: 3rem;
   flex-direction: column;
 }
 
@@ -28,6 +29,7 @@
 .contact-wrapper {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 2rem;
   margin-bottom: 5rem;
   justify-content: center;
 }

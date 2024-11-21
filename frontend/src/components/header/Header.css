@@ -35,23 +35,23 @@
 }
 
 .header__cart--wrapper {
-  position: relative; 
+  position: relative;
   display: inline-block;
-  gap: .5rem; 
+  gap: 0.5rem;
   cursor: pointer;
 }
 
 .header__cart {
-  width: 35px; 
-  height: 35px; 
+  width: 35px;
+  height: 35px;
 }
 
 .header__cart-items {
-  position: absolute; 
-  top: 55%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  font-size: 16px; 
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
   font-weight: bold;
   color: var(--white);
   font-family: var(--p);
@@ -125,9 +125,9 @@
 
 @media screen and (max-width: 580px) {
   .header__cart-btn--wrapper {
-    margin-right: .5rem;
-    margin-left: .5rem;
-    gap: .5rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    gap: 0.5rem;
   }
 
   .hamburger-line {
