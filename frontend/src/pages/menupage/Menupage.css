@@ -8,6 +8,7 @@
 
 @media screen and (max-width: 500px) {
   .menu {
+    padding: 0.5rem;
     margin-bottom: 1rem;
   }
 }

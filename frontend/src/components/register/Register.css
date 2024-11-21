@@ -14,30 +14,17 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* .register-avatar {
-  width: 10rem;
-  height: 10rem;
-  color: var(--white);
-  margin-bottom: 2rem;
-} */
-
-.register-icon {
-  font-size: 50px;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-}
-
 .register__back-to-login {
   top: 0;
   left: 0;
+  width: 60px;
   cursor: pointer;
   font-size: 15px;
-  width: 60px;
   position: absolute;
   color: var(--white);
   margin: 1.5rem 1rem;
-  font-family: var(--h1);
   color: var(--orange);
+  font-family: var(--h1);
 }
 
 .register__back-to-login:hover {
