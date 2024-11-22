@@ -57,6 +57,11 @@
   /* padding-right: 1rem; */
 }
 
+.cart__empty-text {
+  font-size: 16px;
+  font-family: var(--h1);
+}
+
 .cart__btn--section {
   display: flex;
   justify-content: space-evenly;
@@ -74,11 +79,24 @@
 .cart__clear {
   background-color: #923b2e;
   border: #923b2e;
-  background-color: #923B2E;
-  border: #923B2E;
+  background-color: #923b2e;
+  border: #923b2e;
 }
 
 .cart__order {
   background-color: var(--orange);
 }
 
+.cart__total {
+  font-family: var(--h1);
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.cart__total--span {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 24px;
+}

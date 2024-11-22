@@ -1,15 +1,19 @@
 import "./Header.css";
 import Nav from "../nav/Nav";
 import { Link } from "react-router-dom";
-import cart from "../../assets/cart.svg";
+import cartImage from "../../assets/cart.svg";
 import { useEffect, useState } from "react";
 import HamburgerBar from "../hamburgerBar/HamburgerBar";
 import DforBreakfast from "../../assets/DforBreakfast.svg";
 import { useCart } from "../../context/CartContext";
+import useCartStore from "./../../stores/cartStore";
 
 function Header() {
   const [isHamburgerVisible, setIsHamburgerVisible] = useState<boolean>(false);
   const { toggleCartVisibility } = useCart();
+  const cart = useCartStore((state) => state.cart);
+  const quantity = cart.reduce((total, item) => total + item.quantity, 0); // Summerar total kvantitet
+
   // const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
 
   // const toggleCartVisibility = () => {
@@ -25,16 +29,18 @@ function Header() {
     const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
     const cartBtnWrapperRef = document.querySelector(".header__cart-btn--wrapper") as HTMLElement;
 
+    const handleHamburgerClick = () => {
+      setIsHamburgerVisible(true);
+      navRef?.classList.remove("hide");
+      bodyRef?.classList.add("no-scroll");
+      hamburgerRef?.classList.add("hide");
+      headerLogoRef?.classList.add("hide");
+      cartBtnWrapperRef?.classList.add("hide");
+      headerLinkAroundLogoRef?.classList.add("hide");
+    };
+
     if (hamburgerRef) {
-      hamburgerRef.addEventListener("click", () => {
-        setIsHamburgerVisible(true);
-        navRef.classList.remove("hide");
-        bodyRef.classList.add("no-scroll");
-        hamburgerRef.classList.add("hide");
-        headerLogoRef.classList.add("hide");
-        cartBtnWrapperRef.classList.add("hide");
-        headerLinkAroundLogoRef.classList.add("hide");
-      });
+      hamburgerRef.addEventListener("click", handleHamburgerClick);
     }
 
     return () => {
@@ -64,8 +70,8 @@ function Header() {
           Login
         </button>
         <div className="header__cart--wrapper" onClick={toggleCartVisibility}>
-          <img className="header__cart" src={cart} alt="cart-logo" />
-          <p className="header__cart-items">21</p>
+          <img className="header__cart" src={cartImage} alt="cart-logo" />
+          <p className="header__cart-items">{quantity}</p>
         </div>
       </div>
 
