@@ -9,26 +9,24 @@ interface IncrementButtonProps {
 }
 
 function IncrementButton({ id, heading, price, image }: IncrementButtonProps) {
-  const addToCart = useCartStore((state) => state.addToCart);
-  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+  const updateCart = useCartStore((state) => state.updateCart);
 
   // Hämta det aktuella värdet från cartStore
-  const quantity = useCartStore(
+  const quantity: number = useCartStore(
     (state) => state.cart.find((item) => item.id === id)?.quantity || 0
   );
 
-  const increaseValue = () => {
-    if (!id || !heading || !price || !image) {
-      return;
-    }
-    addToCart({ id, heading, price, image });
-  };
+  function increaseValue(): void {
+    if (!id || !heading || !price || !image) return;
+    // Skicka id tillsammans med övriga nödvändiga data
+    updateCart(id, "increase", { id, heading, price, image });
+  }
 
-  const decreaseValue = () => {
+  function decreaseValue(): void {
     if (quantity > 0) {
-      decreaseQuantity(id);
+      updateCart(id, "decrease");
     }
-  };
+  }
 
   return (
     <div className="increment-section">
@@ -36,7 +34,7 @@ function IncrementButton({ id, heading, price, image }: IncrementButtonProps) {
         <button className="decrease cart-btn" onClick={decreaseValue} disabled={quantity <= 0}>
           -
         </button>
-        <div className="display-value">{quantity}</div> {/* Visa global quantity */}
+        <div className="display-value">{quantity}</div>
         <button className="increase cart-btn" onClick={increaseValue}>
           +
         </button>

@@ -1,58 +1,47 @@
 import { create } from "zustand";
-
-interface CartItem {
-  id: string;
-  image: string;
-  heading: string;
-  price: number;
-  quantity: number;
-}
-
-interface CartState {
-  cart: CartItem[];
-  addToCart: (item: Omit<CartItem, "quantity">) => void;
-  decreaseQuantity: (id: string) => void;
-  clearCart: () => void;
-}
+import { CartItem, CartState } from "../types/cartType";
 
 const useCartStore = create<CartState>((set) => ({
   cart: [],
-  addToCart: (item) =>
-    set((state) => {
-      if (!item.id) {
-        console.error("addToCart received invalid item:", item);
-        return state; // Returnera oförändrat om data är felaktig
-      }
-      const existingItem = state.cart.find((cartItem) => cartItem.id === item.id);
-      if (existingItem) {
-        // Uppdatera kvantiteten för den befintliga produkten
-        return {
-          cart: state.cart.map((cartItem) =>
-            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-          ),
-        };
-      }
-      // Lägg till produkten som en ny post
-      return { cart: [...state.cart, { ...item, quantity: 1 }] };
-    }),
-  decreaseQuantity: (id) =>
+  updateCart: (id, action, itemData) =>
     set((state) => {
       if (!id) {
-        console.error("decreaseQuantity called with undefined id");
+        console.error("updateCart called with undefined id");
         return state;
       }
       const existingItem = state.cart.find((cartItem) => cartItem.id === id);
-      if (existingItem && existingItem.quantity > 1) {
-        return {
-          cart: state.cart.map((cartItem) =>
-            cartItem.id === id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
-          ),
-        };
-      } else if (existingItem) {
-        return {
-          cart: state.cart.filter((cartItem) => cartItem.id !== id),
-        };
+
+      if (existingItem) {
+        if (action === "increase") {
+          // Öka kvantiteten
+          return {
+            cart: state.cart.map((cartItem) =>
+              cartItem.id === id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+            ),
+          };
+        } else if (action === "decrease") {
+          // Minska kvantiteten eller ta bort
+          if (existingItem.quantity > 1) {
+            return {
+              cart: state.cart.map((cartItem) =>
+                cartItem.id === id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+              ),
+            };
+          } else {
+            return {
+              cart: state.cart.filter((cartItem) => cartItem.id !== id),
+            };
+          }
+        }
       }
+
+      // Om det inte finns, lägg till som ny (bara för increase)
+      if (action === "increase" && itemData) {
+        const newItem: CartItem = { ...itemData, id, quantity: 1 };
+        return { cart: [...state.cart, newItem] };
+      }
+
+      console.error("Missing itemData for adding a new item to the cart");
       return state;
     }),
   clearCart: () => set({ cart: [] }),

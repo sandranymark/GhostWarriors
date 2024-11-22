@@ -10,16 +10,15 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ id, image, heading, price, quantity }) => {
-  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
-  const addToCart = useCartStore((state) => state.addToCart);
+  const updateCart = useCartStore((state) => state.updateCart);
 
-  const handleDecrease = () => {
-    decreaseQuantity(id);
-  };
+  function handleDecrease(): void {
+    updateCart(id, "decrease");
+  }
 
-  const handleIncrease = () => {
-    addToCart({ id, heading, price, image });
-  };
+  function handleIncrease(): void {
+    updateCart(id, "increase");
+  }
 
   return (
     <div className="cart-item">

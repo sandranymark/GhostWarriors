@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { Order, NewOrder } from '../../types/OrderType';
+import axios from "axios";
+import { Order, NewOrder } from "../../types/OrderType";
 
 interface OrderResponse {
   success: boolean;
   data: Order[];
 }
 
-const API_URL = 'https://i0hwwn0u7f.execute-api.eu-north-1.amazonaws.com/orders';
+const API_URL = "https://i0hwwn0u7f.execute-api.eu-north-1.amazonaws.com/orders";
 
 // GET: Hämta alla order
 export const getAllOrders = async (): Promise<OrderResponse> => {
@@ -23,7 +23,7 @@ export const getOrderById = async (id: string): Promise<Order> => {
 // POST: Skapa en ny order
 export const createOrder = async (order: NewOrder): Promise<Order> => {
   const response = await axios.post<Order>(API_URL, order, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: { "Content-Type": "application/json" },
   });
   return response.data;
 };
@@ -31,7 +31,7 @@ export const createOrder = async (order: NewOrder): Promise<Order> => {
 // PUT: Uppdatera en order
 export const updateOrder = async (id: string, updatedOrder: Partial<Order>): Promise<Order> => {
   const response = await axios.put<Order>(`${API_URL}/${id}`, updatedOrder, {
-    headers: { 'Content-Type': 'application/json' },
+    headers: { "Content-Type": "application/json" },
   });
   return response.data;
 };
