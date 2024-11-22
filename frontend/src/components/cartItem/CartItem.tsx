@@ -1,6 +1,5 @@
-
-import './CartItem.css';
-import useCartStore from '../../stores/cartStore';
+import "./CartItem.css";
+import useCartStore from "../../stores/cartStore";
 
 interface CartItemProps {
   id: string;
@@ -29,9 +28,13 @@ const CartItem: React.FC<CartItemProps> = ({ id, image, heading, price, quantity
         <h3>{heading}</h3>
         <p>{price} SEK</p>
         <div className="cart-item__quantity">
-          <button onClick={handleDecrease} className="cart-btn">-</button>
+          <button onClick={handleDecrease} className="cart-btn">
+            -
+          </button>
           <span>{quantity}</span>
-          <button onClick={handleIncrease} className="cart-btn">+</button>
+          <button onClick={handleIncrease} className="cart-btn">
+            +
+          </button>
         </div>
         {/* <p>Total: {price * quantity} SEK</p> */}
       </div>
@@ -40,3 +43,5 @@ const CartItem: React.FC<CartItemProps> = ({ id, image, heading, price, quantity
 };
 
 export default CartItem;
+
+// Författare Anton

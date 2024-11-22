@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface CartContextProps {
   isCartVisible: boolean;
@@ -12,8 +12,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
 
   const toggleCartVisibility = () => {
-    console.log('Cart toggled');
+    const bodyRef = document.querySelector("body") as HTMLBodyElement;
+    bodyRef.classList.add("no-scroll");
     setIsCartVisible((prev) => !prev);
+    if (isCartVisible === true) {
+      bodyRef.classList.remove("no-scroll");
+    }
   };
 
   // Returnerar en Prover komponent som delar värden vidare till barn komponenter
