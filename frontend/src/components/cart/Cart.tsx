@@ -1,6 +1,6 @@
-import useCartStore from "../../stores/cartStore";
 import "./Cart.css";
 import CartItem from "../cartItem/CartItem";
+import useCartStore from "../../stores/cartStore";
 import { createOrder } from "../../services/orders/orderService";
 
 interface CartProps {
@@ -11,11 +11,11 @@ interface CartProps {
 function Cart({ isVisible, onClose }: CartProps) {
   const { cart, clearCart } = useCartStore();
 
-  const calculateTotalPrice = () => {
+  const calculateTotalPrice: () => number = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const totalPrice = calculateTotalPrice(); // totalpris för varukorgen
+  const totalPrice: number = calculateTotalPrice(); // totalpris för varukorgen
 
   const handleOrder = async () => {
     if (cart.length === 0) {
@@ -64,7 +64,7 @@ function Cart({ isVisible, onClose }: CartProps) {
         <button className="cart__close-btn" onClick={onClose}>
           X
         </button>
-        <h2>Cart</h2>
+        <h2 className="cart__heading">Cart</h2>
       </div>
       <section className="cart__section">
         {cart.length === 0 ? (
@@ -99,4 +99,4 @@ function Cart({ isVisible, onClose }: CartProps) {
 
 export default Cart;
 
-// Författare: Anton
+// Författare: Anton & Sandra

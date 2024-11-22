@@ -3,8 +3,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
   font-family: var(--p);
+  background-color: #80808021;
+  margin-bottom: 1rem;
 }
 
 .cart-item__image {
@@ -22,3 +23,5 @@
   display: flex;
   align-items: center;
 }
+
+/* Författare Anton */

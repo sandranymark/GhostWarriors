@@ -11,15 +11,16 @@ function HamburgerBar({ onClose }: HanburgerBarProps) {
     const hamburgerBarCloseBtnRef = document.querySelector(
       ".hamburgerBar__close-btn"
     ) as HTMLParagraphElement;
-    const navRef = document.querySelector(".nav") as HTMLElement;
+    // const navRef = document.querySelector(".nav") as HTMLElement;
+    const bodyRef = document.querySelector("body") as HTMLBodyElement;
     const hamburgerRef = document.querySelector(".hamburger") as HTMLElement;
     const headerLogoRef = document.querySelector(".header__logo") as HTMLImageElement;
     const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
     const cartBtnWrapperRef = document.querySelector(".header__cart-btn--wrapper") as HTMLElement;
 
-
     const handleClose = (): void => {
       // navRef.classList.add("hide");
+      bodyRef.classList.remove("no-scroll");
       hamburgerRef.classList.remove("hide");
       headerLogoRef.classList.remove("hide");
       headerLinkAroundLogoRef.classList.remove("hide");
