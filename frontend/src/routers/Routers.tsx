@@ -5,6 +5,7 @@ import Menupage from "../pages/menupage/Menupage";
 import Aboutpage from "../pages/aboutpage/Aboutpage";
 import Contactpage from "../pages/contactpage/Contactpage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import StaffPage from "../pages/staffpage/StaffPage";
 
 function Routers() {
   const { isCartVisible, toggleCartVisibility } = useCart();
@@ -18,6 +19,7 @@ function Routers() {
         {/* <Route path="/cart" element={ <Cartpage /> } /> */}
         <Route path="/about" element={<Aboutpage />} />
         <Route path="/contact" element={<Contactpage />} />
+        <Route path="/staff" element={<StaffPage />} />
       </Routes>
     </BrowserRouter>
   );

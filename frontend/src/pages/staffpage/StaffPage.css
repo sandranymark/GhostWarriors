@@ -1,0 +1,46 @@
+.Staff-page {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--dark);
+    font-family: var(--p);
+    color: white;
+}
+
+.orders-section,
+.preparation-section,
+.done-section {
+    background: #333;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.order-card {
+    background: var(--dark);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.order-card p {
+    margin: 5px 0;
+}
+
+.order-card ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+.status-buttons {
+    margin-top: 10px;
+}
+
+.status-buttons label {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.staff__order-status {
+    color: var(--orange);
+}
