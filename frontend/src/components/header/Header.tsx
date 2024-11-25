@@ -66,7 +66,7 @@ function Header() {
       </Link>
       <Nav />
       <div className="header__cart-btn--wrapper">
-        <button className="header__btn" onClick={handleLogin}>
+        <button className="header__login-btn" onClick={handleLogin}>
           Login
         </button>
         <div className="header__cart--wrapper" onClick={toggleCartVisibility}>
