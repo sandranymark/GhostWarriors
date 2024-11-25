@@ -67,6 +67,10 @@
     padding: 0.5rem;
     margin-bottom: 1rem;
   }
+  .menupage__filter {
+    flex-direction: column;
+    height: fit-content;
+  }
 }
 
 /* Författare Adréan */
