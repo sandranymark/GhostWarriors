@@ -46,6 +46,7 @@ async function createOrder(event) {
 
     // Lägger till ID,createdAT och updatedAT efter validering
     orderData.id = uuid().substring(0, 8);
+    orderData.orderID = orderData.id;
     orderData.createdAt = createdAt;
     orderData.updatedAt = updatedAt;
 
@@ -57,7 +58,7 @@ async function createOrder(event) {
     await db.put(params);
     console.log("Order successfully added to database.");
 
-    return sendResponse(201, { message: "Order added successfully.", orderID: orderData.id });
+    return sendResponse(201, { message: "Order added successfully.", orderID: orderData.orderID });
   } catch (error) {
     console.error("Error:", error.stack);
     return sendError(500, `Failed to create order: ${error.message}`);
