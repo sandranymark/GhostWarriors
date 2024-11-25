@@ -79,6 +79,10 @@
   justify-content: space-evenly;
 }
 
+.cart__btn:disabled {
+  pointer-events: none;
+}
+
 .cart__btn {
   font-size: 18px;
   cursor: pointer;

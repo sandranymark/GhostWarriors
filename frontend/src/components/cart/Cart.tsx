@@ -19,8 +19,14 @@ function Cart({ isVisible, onClose }: CartProps) {
 
   const handleOrder = async () => {
     if (cart.length === 0) {
-      alert("Cart is empty");
       return;
+    }
+
+    const cartRef = document.querySelector(".cart");
+    const paymentSctionRef = document.querySelector(".payment__wrapper");
+    if (cartRef && paymentSctionRef) {
+      cartRef.classList.remove("cart--visible");
+      paymentSctionRef.classList.remove("hide");
     }
 
     const orderItems = cart.map((item) => ({
@@ -49,7 +55,7 @@ function Cart({ isVisible, onClose }: CartProps) {
     try {
       const response = await createOrder(newOrder);
       console.log("Order created:", response);
-      alert("Order successfully created!");
+      // alert("Order successfully created!");
       clearCart(); // Töm varukorgen efter lyckad order
       onClose(); // Stäng varukorgen
     } catch (error) {
@@ -86,10 +92,14 @@ function Cart({ isVisible, onClose }: CartProps) {
         Total: <span className="cart__total--span">{totalPrice} :-</span>
       </p>
       <section className="cart__btn--section">
-        <button className="cart__clear cart__btn" onClick={clearCart}>
+        <button className="cart__clear cart__btn" onClick={clearCart} disabled={cart.length === 0}>
           Clear
         </button>
-        <button className="cart__order cart__btn" onClick={handleOrder}>
+        <button
+          className="cart__order cart__btn"
+          onClick={handleOrder}
+          disabled={cart.length === 0}
+        >
           Order
         </button>
       </section>
