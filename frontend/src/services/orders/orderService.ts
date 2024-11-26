@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Order, NewOrder } from "../../types/OrderType";
+import { Order, NewOrder } from "../../types/orderType";
 
 interface OrderResponse {
   success: boolean;
