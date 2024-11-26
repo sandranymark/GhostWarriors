@@ -70,7 +70,7 @@ const StaffPage: React.FC = () => {
             <strong>Customer:</strong> {order.customerName}
           </p>
           <p>
-            <strong>Price:</strong> {order.totalPrice} kr
+            <strong>Price:</strong> {order.totalPrice} sek
           </p>
           <p>
             <strong>Items:</strong>
@@ -82,7 +82,7 @@ const StaffPage: React.FC = () => {
                   <strong>Product:</strong> {item.productName}
                 </p>
                 <p>
-                  <strong>Price:</strong> ${item.productPrice}
+                  <strong>Price:</strong> {item.productPrice} sek
                 </p>
                 <p>
                   <strong>Quantity:</strong> {item.productQuantity}
@@ -118,12 +118,18 @@ const StaffPage: React.FC = () => {
       ));
   };
 
+  const pendingOrdersCount = orders.filter(order => order.orderStatus === "pending").length;
+  const preparingOrdersCount = orders.filter(order => order.orderStatus === "Preparing").length;
+  const doneOrdersCount = orders.filter(order => order.orderStatus === "Done").length;
+
+
   return (
     <>
       <Header />
       <section className="staff-page">
         <section className="orders-section">
           <h2>Orders</h2>
+          <p>Total orders: {pendingOrdersCount}</p>
           <div className="orders__section--orders">
             {renderOrders("pending")}
           </div>
@@ -131,12 +137,14 @@ const StaffPage: React.FC = () => {
         <div className="preparation-section">
           <section className="orders__section--preparing">
           <h2>Under preparation</h2>
+          <p>Total orders: {preparingOrdersCount}</p>
           {renderOrders("Preparing")}
           </section>
         </div>
         <div className="done-section">
           <section className="orders__section--done">
           <h2>Done</h2>
+          <p>Total orders: {doneOrdersCount}</p>
           {renderOrders("Done")}
           </section>
         </div>
