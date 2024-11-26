@@ -1,11 +1,13 @@
-.Staff-page {
+.staff-page {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
     background-color: var(--dark);
     font-family: var(--p);
-    color: white;
+    color: var(--white);
+    height: 80vh;
+    margin-bottom: 3rem;
 }
 
 .orders-section,
@@ -14,6 +16,14 @@
     background: #333;
     padding: 15px;
     border-radius: 8px;
+    overflow: auto;
+    min-height: 80vh;
+}
+
+.orders__section--orders,
+.orders__section--preparing,
+.orders__section--done {
+    overflow-y: auto;
 }
 
 .order-card {
@@ -34,6 +44,9 @@
 
 .status-buttons {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
 }
 
 .status-buttons label {
@@ -43,4 +56,32 @@
 
 .staff__order-status {
     color: var(--orange);
+}
+
+.radio-btn {
+    appearance: none;
+    background-color: white;
+    height: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.radio-btn:checked {
+    background-color: var(--orange);
+}
+
+@media screen and (max-width: 700px) {
+    .staff-page {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .staff-page {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    Footer {
+        position: unset;
+    }
 }
