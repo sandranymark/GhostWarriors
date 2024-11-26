@@ -8,7 +8,6 @@ export interface Order {
   customerName: string;
   customerContacts: {
     email: string;
-    phone: string;
   };
   createdAt: string;
   updatedAt: string;
@@ -23,7 +22,6 @@ export interface NewOrder {
   customerName: string;
   customerContacts: {
     email: string;
-    phone: string;
   };
 }
 

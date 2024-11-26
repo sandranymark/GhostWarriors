@@ -3,11 +3,14 @@ import { MdOutlineDownloadDone } from "react-icons/md";
 
 function PaymentConfirmed() {
   function handleClose(): void {
-    const paymentConfirmedRef = document.querySelector(".paymentConfirmed__wrapper") as HTMLElement;
-    if (paymentConfirmedRef) {
-      paymentConfirmedRef.classList.add("hide");
+    const paymentConfirmedSectionRef = document.querySelector(
+      ".paymentConfirmed__wrapper"
+    ) as HTMLElement;
+    if (paymentConfirmedSectionRef) {
+      paymentConfirmedSectionRef.classList.add("hide");
     }
   }
+
   return (
     <section className="paymentConfirmed__wrapper hide">
       <MdOutlineDownloadDone className="paymentConfirmed__icon" />

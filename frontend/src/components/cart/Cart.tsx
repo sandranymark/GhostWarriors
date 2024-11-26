@@ -1,7 +1,6 @@
 import "./Cart.css";
 import CartItem from "../cartItem/CartItem";
 import useCartStore from "../../stores/cartStore";
-import { createOrder } from "../../services/orders/orderService";
 
 interface CartProps {
   isVisible: boolean;
@@ -17,51 +16,19 @@ function Cart({ isVisible, onClose }: CartProps) {
 
   const totalPrice: number = calculateTotalPrice(); // totalpris för varukorgen
 
-  const handleOrder = async () => {
-    if (cart.length === 0) {
-      return;
-    }
-
+  const handleOrder = (): void => {
     const cartRef = document.querySelector(".cart");
     const paymentSctionRef = document.querySelector(".payment__wrapper");
-    if (cartRef && paymentSctionRef) {
+
+    if (cartRef) {
       cartRef.classList.remove("cart--visible");
+    }
+
+    if (paymentSctionRef) {
       paymentSctionRef.classList.remove("hide");
     }
 
-    const orderItems = cart.map((item) => ({
-      productID: item.id,
-      productName: item.heading,
-      productPrice: item.price,
-      productTotalPrice: item.price * item.quantity,
-      productQuantity: item.quantity,
-    }));
-
-    const totalPrice = orderItems.reduce((total, item) => total + item.productTotalPrice, 0);
-
-    const newOrder = {
-      orderStatus: "pending",
-      orderItems,
-      totalPrice,
-      customerID: "cust12334",
-      paymentStatus: "pending",
-      customerName: "Sandra Suger",
-      customerContacts: {
-        email: "john@example.com",
-        phone: "1234567890",
-      },
-    };
-
-    try {
-      const response = await createOrder(newOrder);
-      console.log("Order created:", response);
-      // alert("Order successfully created!");
-      clearCart(); // Töm varukorgen efter lyckad order
-      onClose(); // Stäng varukorgen
-    } catch (error) {
-      console.error("Failed to create order:", error);
-      alert("Failed to create order. Please try again.");
-    }
+    onClose();
   };
 
   return (

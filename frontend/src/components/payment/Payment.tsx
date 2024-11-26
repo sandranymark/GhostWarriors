@@ -1,10 +1,29 @@
 import "./Payment.css";
 import { useState } from "react";
+import { FormData } from "../../types/formData";
+import useCartStore from "../../stores/cartStore";
 import { paymentSchema } from "../../models/paymentSchema";
-import PaymentConfirmed from "../paymentConfirmed/PaymentConfirmed";
+import { createOrder } from "../../services/orders/OrderService";
 
 function Payment() {
-  const [formData, setFormData] = useState({
+  function resetForm() {
+    const paymentSectionRef = document.querySelector(".payment__wrapper");
+    if (paymentSectionRef) {
+      paymentSectionRef.classList.add("hide"); // Dölj betalningsvyn
+    }
+    setPaymentConfirmed(false);
+    setFormData({
+      name: "",
+      email: "",
+      cardNumber: "",
+      cvv: "",
+      mm: "",
+      yy: "",
+    });
+  }
+
+  const { cart, clearCart } = useCartStore();
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     cardNumber: "",
@@ -12,12 +31,16 @@ function Payment() {
     mm: "",
     yy: "",
   });
+
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [orderCreated, setOrderCreated] = useState<boolean>(false);
   const [paymentConfirmed, setPaymentConfirmed] = useState<boolean>(false);
 
   const handleClose = (): void => {
     const paymentSctionRef = document.querySelector(".payment__wrapper");
-    paymentSctionRef?.classList.add("hide");
+    if (paymentSctionRef) {
+      paymentSctionRef.classList.add("hide");
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,19 +48,9 @@ function Payment() {
     setFormData({ ...formData, [name]: value }); // Dynamisk uppdatering av rätt fält
   };
 
-  const handlePayment = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setErrorMsg(""); // Rensa tidigare felmeddelanden
-
-    const paymentConfirmedRef = document.querySelector(".paymentConfirmed__wrapper");
-    const paymentWrapperRef = document.querySelector(".payment__wrapper");
-    if (paymentConfirmedRef && paymentWrapperRef) {
-      paymentWrapperRef.classList.add("hide");
-      paymentConfirmedRef.classList.remove("hide");
-    }
-
-    console.log("Form data before validation:", formData);
-
     // Validera data med Joi
     const { error } = paymentSchema.validate(formData, { abortEarly: false });
 
@@ -47,13 +60,61 @@ function Payment() {
       setErrorMsg(errorMessage);
       return;
     }
+    // Om validering är godkänd, fortsätt med att visa PaymentConfirmed
 
+    const paymentWrapperRef = document.querySelector(".payment__wrapper");
+    const paymentConfirmedRef = document.querySelector(".paymentConfirmed__wrapper");
+
+    if (paymentConfirmedRef) {
+      paymentConfirmedRef.classList.remove("hide");
+    }
+    if (paymentWrapperRef) {
+      paymentWrapperRef.classList.add("hide");
+    }
+    try {
+      // Skapa order endast om cart inte är tom och ingen order redan har skapats
+      if (cart.length > 0) {
+        const orderItems = cart.map((item) => ({
+          productID: item.id,
+          productName: item.heading,
+          productPrice: item.price,
+          productTotalPrice: item.price * item.quantity,
+          productQuantity: item.quantity,
+        }));
+
+        const totalPrice = orderItems.reduce((total, item) => total + item.productTotalPrice, 0);
+
+        const newOrder = {
+          orderStatus: "pending",
+          orderItems,
+          totalPrice,
+          customerID: "cust12334",
+          paymentStatus: "pending",
+          customerName: formData.name,
+          customerContacts: {
+            email: formData.email,
+          },
+        };
+
+        const response = await createOrder(newOrder);
+        console.log("Order created:", response);
+
+        setOrderCreated(true); // Markera att ordern har skapats
+        clearCart(); // Töm varukorgen
+
+        if (orderCreated) {
+          console.log("Order redan skapad, inget mer görs.");
+          return;
+        }
+      }
+    } catch (error) {
+      console.error("Failed to create order:", error);
+    }
+
+    clearCart();
+    resetForm();
     setPaymentConfirmed(true);
   };
-
-  if (paymentConfirmed) {
-    return <PaymentConfirmed />;
-  }
 
   return (
     <section className="payment__wrapper hide">
