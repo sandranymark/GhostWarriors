@@ -8,7 +8,7 @@ import { Order } from "../../types/orderType";
 const StaffPage: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   // Hämta alla ordrar med getAllOrders()
   useEffect(() => {
@@ -19,44 +19,47 @@ const StaffPage: React.FC = () => {
           setOrders(response.data);
           console.log(response.data);
         } else {
-          setError("Failed to fetch orders.");
+          setErrorMsg("Failed to fetch orders.");
         }
       } catch (error) {
-        setError("An error occurred while fetching orders.");
+        setErrorMsg("An error occurred while fetching orders.");
       } finally {
-        setLoading(false);
+        setLoading(false); // Stoppar laddingsindikatorn
       }
     };
 
     fetchOrders();
   }, []);
 
-  if (loading) return <p>Loading orders...</p>;
-  if (error) return <p>Error: {error}</p>;
+  // Visar en text för användaren om ordrarna laddas eller om något gick fel
+  if (loading) return <p>Loading orders...</p>; // Om vi väntar på data
+  if (errorMsg) return <p>Error: {errorMsg}</p>; // Om det uppstår ett fel
 
+  
   const handleChangeStatus = async (id: string, newStatus: string) => {
+    const previousOrders = [...orders]; // Sparar nuvarande order om vi behöver återställa
+    
+    // En lokal uppdatering för att göra statusändring synlig direkt för användaren.
+    // Detta sker INNAN servern svarar
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === id ? { ...order, orderStatus: newStatus } : order
+      )
+    );
+
     try {
-      // Anropa updateOrder api för att uppdatera orderStatus
-      const updatedOrder: Order = await updateOrder(id, {
-        orderStatus: newStatus,
-      });
-      // Uppdatera order efter ändring
-      setOrders((prevOrders) =>
-        prevOrders.map((order) =>
-          order.id === id
-            ? { ...order, orderStatus: updatedOrder.orderStatus }
-            : order
-        )
-      );
+      await updateOrder(id, { orderStatus: newStatus }); // Skicka uppdatering till servern med updateOrder
+      // console.log(`Order with ${id} new orderStatus`, newStatus);
     } catch (error) {
-      console.log("Failed to update order status", error);
-      setError("Could not update order status");
+      // console.error("Failed to update order status:", error);
+      setOrders(previousOrders); // Om fel, återställ order
+      setErrorMsg("Could not update order status: " + error);
     }
   };
 
   const renderOrders = (status: string) => {
     return orders
-      .filter((order) => order.orderStatus === status)
+      .filter((order) => order.orderStatus === status) // Filtrera ordrar baserat på status
       .map((order) => (
         <div key={order.id} className="order-card">
           <p>
@@ -90,7 +93,7 @@ const StaffPage: React.FC = () => {
               </li>
             ))}
           </ul>
-          {status !== "Done" && (
+          {status !== "Done" && ( // Om status INTE är Done så visas knapparna.
             <div className="status-buttons">
               <label>
                 <input
@@ -135,16 +138,16 @@ const StaffPage: React.FC = () => {
           </div>
         </section>
         <div className="preparation-section">
-          <section className="orders__section--preparing">
           <h2>Under preparation</h2>
           <p>Total orders: {preparingOrdersCount}</p>
+          <section className="orders__section--preparing">
           {renderOrders("Preparing")}
           </section>
         </div>
         <div className="done-section">
-          <section className="orders__section--done">
           <h2>Done</h2>
           <p>Total orders: {doneOrdersCount}</p>
+          <section className="orders__section--done">
           {renderOrders("Done")}
           </section>
         </div>
