@@ -5,6 +5,7 @@ import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
 // import { orderSchema } from "../../../models/orderSchema.js";
+// import { checkRole } from "../../../middleware/checkRole.js";
 
 async function createOrder(event) {
   console.log("Incoming event body:", event.body);
@@ -67,6 +68,7 @@ async function createOrder(event) {
 
 export const handler = middy(createOrder)
   .use(jsonBodyParser())
-  .use(httpErrorHandler());
+  .use(httpErrorHandler())
+  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
 
   // Författare: SANDRA
