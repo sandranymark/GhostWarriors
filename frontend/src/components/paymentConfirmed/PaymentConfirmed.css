@@ -59,6 +59,19 @@
   font-family: var(--p);
 }
 
+.paymentConfirmed__order {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__order-id {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
 .paymentConfirmed__button {
   font-size: 18px;
   cursor: pointer;
@@ -90,6 +103,4 @@
   border: 2px solid var(--orange);
 }
 
-.hide {
-  display: none;
-}
+/* Författare Adréan */

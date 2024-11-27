@@ -1,14 +1,11 @@
 import "./Cart.css";
 import CartItem from "../cartItem/CartItem";
 import useCartStore from "../../stores/cartStore";
+import { useCart } from "../../context/CartContext";
 
-interface CartProps {
-  isVisible: boolean;
-  onClose: () => void;
-}
-
-function Cart({ isVisible, onClose }: CartProps) {
+function Cart() {
   const { cart, clearCart } = useCartStore();
+  const { isCartVisible, toggleCartVisibility, showPayment } = useCart();
 
   const calculateTotalPrice: () => number = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -16,25 +13,10 @@ function Cart({ isVisible, onClose }: CartProps) {
 
   const totalPrice: number = calculateTotalPrice(); // totalpris för varukorgen
 
-  const handleOrder = (): void => {
-    const cartRef = document.querySelector(".cart");
-    const paymentSctionRef = document.querySelector(".payment__wrapper");
-
-    if (cartRef) {
-      cartRef.classList.remove("cart--visible");
-    }
-
-    if (paymentSctionRef) {
-      paymentSctionRef.classList.remove("hide");
-    }
-
-    onClose();
-  };
-
   return (
-    <section className={`cart ${isVisible ? "cart--visible" : ""}`}>
+    <section className={`cart ${isCartVisible ? "cart--visible" : ""}`}>
       <div className="cart__top">
-        <button className="cart__close-btn" onClick={onClose}>
+        <button className="cart__close-btn" onClick={toggleCartVisibility}>
           X
         </button>
         <h2 className="cart__heading">Cart</h2>
@@ -64,7 +46,7 @@ function Cart({ isVisible, onClose }: CartProps) {
         </button>
         <button
           className="cart__order cart__btn"
-          onClick={handleOrder}
+          onClick={showPayment}
           disabled={cart.length === 0}
         >
           Order
