@@ -1,28 +1,13 @@
 import "./Payment.css";
 import { useState } from "react";
 import { FormData } from "../../types/formData";
+import { CartItem } from "../../types/cartType";
 import useCartStore from "../../stores/cartStore";
-import { paymentSchema } from "../../models/paymentSchema";
-import { createOrder } from "../../services/orders/OrderService";
+import { handlePayment } from "./../../services/payment/paymentService";
 
 function Payment() {
-  function resetForm() {
-    const paymentSectionRef = document.querySelector(".payment__wrapper");
-    if (paymentSectionRef) {
-      paymentSectionRef.classList.add("hide"); // Dölj betalningsvyn
-    }
-    setPaymentConfirmed(false);
-    setFormData({
-      name: "",
-      email: "",
-      cardNumber: "",
-      cvv: "",
-      mm: "",
-      yy: "",
-    });
-  }
+  const { cart, clearCart } = useCartStore(); // Hämta data från hooken här
 
-  const { cart, clearCart } = useCartStore();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -33,87 +18,32 @@ function Payment() {
   });
 
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [orderCreated, setOrderCreated] = useState<boolean>(false);
-  const [paymentConfirmed, setPaymentConfirmed] = useState<boolean>(false);
 
-  const handleClose = (): void => {
-    const paymentSctionRef = document.querySelector(".payment__wrapper");
-    if (paymentSctionRef) {
-      paymentSctionRef.classList.add("hide");
+  const resetForm = () => {
+    const paymentSectionRef = document.querySelector(".payment__wrapper");
+    if (paymentSectionRef) {
+      paymentSectionRef.classList.add("hide");
     }
+    setFormData({
+      name: "",
+      email: "",
+      cardNumber: "",
+      cvv: "",
+      mm: "",
+      yy: "",
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value }); // Dynamisk uppdatering av rätt fält
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setErrorMsg(""); // Rensa tidigare felmeddelanden
-    // Validera data med Joi
-    const { error } = paymentSchema.validate(formData, { abortEarly: false });
-
-    if (error) {
-      // Hantera valideringsfel
-      const errorMessage = error.details[0].message;
-      setErrorMsg(errorMessage);
-      return;
+  const handleClose = (): void => {
+    const paymentSectionRef = document.querySelector(".payment__wrapper");
+    if (paymentSectionRef) {
+      paymentSectionRef.classList.add("hide");
     }
-    // Om validering är godkänd, fortsätt med att visa PaymentConfirmed
-
-    const paymentWrapperRef = document.querySelector(".payment__wrapper");
-    const paymentConfirmedRef = document.querySelector(".paymentConfirmed__wrapper");
-
-    if (paymentConfirmedRef) {
-      paymentConfirmedRef.classList.remove("hide");
-    }
-    if (paymentWrapperRef) {
-      paymentWrapperRef.classList.add("hide");
-    }
-    try {
-      // Skapa order endast om cart inte är tom och ingen order redan har skapats
-      if (cart.length > 0) {
-        const orderItems = cart.map((item) => ({
-          productID: item.id,
-          productName: item.heading,
-          productPrice: item.price,
-          productTotalPrice: item.price * item.quantity,
-          productQuantity: item.quantity,
-        }));
-
-        const totalPrice = orderItems.reduce((total, item) => total + item.productTotalPrice, 0);
-
-        const newOrder = {
-          orderStatus: "pending",
-          orderItems,
-          totalPrice,
-          customerID: "cust12334",
-          paymentStatus: "pending",
-          customerName: formData.name,
-          customerContacts: {
-            email: formData.email,
-          },
-        };
-
-        const response = await createOrder(newOrder);
-        console.log("Order created:", response);
-
-        setOrderCreated(true); // Markera att ordern har skapats
-        clearCart(); // Töm varukorgen
-
-        if (orderCreated) {
-          console.log("Order redan skapad, inget mer görs.");
-          return;
-        }
-      }
-    } catch (error) {
-      console.error("Failed to create order:", error);
-    }
-
-    clearCart();
-    resetForm();
-    setPaymentConfirmed(true);
   };
 
   return (
@@ -171,7 +101,19 @@ function Payment() {
               value={formData.yy}
               onChange={handleInputChange}
             />
-            <button className="payment__btn" onClick={(e) => handlePayment(e)}>
+            <button
+              className="payment__btn"
+              onClick={(e) => {
+                e.preventDefault();
+                handlePayment(
+                  formData,
+                  cart,
+                  clearCart, // Funktion för att rensa varukorgen
+                  resetForm,
+                  setErrorMsg
+                );
+              }}
+            >
               Pay now!
             </button>
           </div>
