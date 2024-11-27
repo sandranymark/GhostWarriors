@@ -4,6 +4,7 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import { getAllOrders, updateOrder } from "../../services/orders/orderService";
 import { Order } from "../../types/orderType";
+import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
 
 const StaffPage: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -51,74 +52,10 @@ const StaffPage: React.FC = () => {
       await updateOrder(id, { orderStatus: newStatus }); // Skicka uppdatering till servern med updateOrder
       // console.log(`Order with ${id} new orderStatus`, newStatus);
     } catch (error) {
-      // console.error("Failed to update order status:", error);
+      console.error("Failed to update order status:", error);
       setOrders(previousOrders); // Om fel, återställ order
       setErrorMsg("Could not update order status: " + error);
     }
-  };
-
-  const renderOrders = (status: string) => {
-    return orders
-      .filter((order) => order.orderStatus === status) // Filtrera ordrar baserat på status
-      .map((order) => (
-        <div key={order.id} className="order-card">
-          <p>
-            <strong>Status:</strong>
-            <span className="staff__order-status"> {order.orderStatus}</span>
-          </p>
-          <p>
-            <strong>OrderNr:</strong> {order.id}
-          </p>
-          <p>
-            <strong>Customer:</strong> {order.customerName}
-          </p>
-          <p>
-            <strong>Price:</strong> {order.totalPrice} sek
-          </p>
-          <p>
-            <strong>Items:</strong>
-          </p>
-          <ul>
-            {order.orderItems.map((item, index) => (
-              <li key={index}>
-                <p>
-                  <strong>Product:</strong> {item.productName}
-                </p>
-                <p>
-                  <strong>Price:</strong> {item.productPrice} sek
-                </p>
-                <p>
-                  <strong>Quantity:</strong> {item.productQuantity}
-                </p>
-              </li>
-            ))}
-          </ul>
-          {status !== "Done" && ( // Om status INTE är Done så visas knapparna.
-            <div className="status-buttons">
-              <label>
-                <input
-                  className="radio-btn"
-                  type="radio"
-                  name={`status-${order.id}`}
-                  checked={order.orderStatus === "Preparing"}
-                  onChange={() => handleChangeStatus(order.id, "Preparing")}
-                />
-                Preparing
-              </label>
-              <label>
-                <input
-                  className="radio-btn"
-                  type="radio"
-                  name={`status-${order.id}`}
-                  checked={order.orderStatus === "Done"}
-                  onChange={() => handleChangeStatus(order.id, "Done")}
-                />
-                Done
-              </label>
-            </div>
-          )}
-        </div>
-      ));
   };
 
   const pendingOrdersCount = orders.filter(order => order.orderStatus === "pending").length;
@@ -129,26 +66,26 @@ const StaffPage: React.FC = () => {
   return (
     <>
       <Header />
-      <section className="staff-page">
-        <section className="orders-section">
+      <section className="staff__page">
+        <section className="orders__section">
           <h2>Orders</h2>
           <p>Total orders: {pendingOrdersCount}</p>
-          <div className="orders__section--orders">
-            {renderOrders("pending")}
-          </div>
+          <section className="orders__section--orders">
+          <StaffOrderList orders={orders} orderStatus="pending" onChangeStatus={handleChangeStatus} />
+          </section>
         </section>
-        <div className="preparation-section">
+        <div className="preparation__section">
           <h2>Under preparation</h2>
           <p>Total orders: {preparingOrdersCount}</p>
           <section className="orders__section--preparing">
-          {renderOrders("Preparing")}
+            <StaffOrderList orders={orders} orderStatus="Preparing" onChangeStatus={handleChangeStatus} />
           </section>
         </div>
-        <div className="done-section">
+        <div className="done__section">
           <h2>Done</h2>
           <p>Total orders: {doneOrdersCount}</p>
           <section className="orders__section--done">
-          {renderOrders("Done")}
+            <StaffOrderList orders={orders} orderStatus="Done" onChangeStatus={handleChangeStatus} />
           </section>
         </div>
       </section>

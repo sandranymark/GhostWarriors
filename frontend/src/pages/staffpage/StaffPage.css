@@ -1,4 +1,4 @@
-.staff-page {
+.staff__page {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -10,14 +10,17 @@
     margin-bottom: 4rem;
 }
 
-.orders-section,
-.preparation-section,
-.done-section {
+.orders__section,
+.preparation__section,
+.done__section {
     background: #333;
     padding: 15px;
     border-radius: 8px;
-    overflow: auto;
     min-height: 80vh;
+}
+
+p {
+    margin-bottom: 15px;
 }
 
 .orders__section--orders,
@@ -27,62 +30,21 @@
     height: 80vh;
 }
 
-.order-card {
-    background: var(--dark);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-}
-
-.order-card p {
-    margin: 5px 0;
-}
-
-.order-card ul {
-    margin: 5px 0;
-    padding-left: 20px;
-}
-
-.status-buttons {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: .3rem;
-}
-
-.status-buttons label {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.staff__order-status {
-    color: var(--orange);
-}
-
-.radio-btn {
-    appearance: none;
-    background-color: white;
-    height: 15px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.radio-btn:checked {
-    background-color: var(--orange);
-}
-
 @media screen and (max-width: 900px) {
-    .staff-page {
+    .staff__page {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (max-width: 580px) {
-    .staff-page {
+    .staff__page {
         grid-template-columns: repeat(1, 1fr);
     }
     Footer {
         position: unset;
     }
 }
+
+/* Författare: Sandra 
+    Modifierare: Anton
+*/
