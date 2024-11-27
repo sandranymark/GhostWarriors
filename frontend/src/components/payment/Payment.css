@@ -103,4 +103,57 @@
   border: 2px solid var(--orange);
 }
 
+@media (max-width: 768px) {
+  .payment__wrapper {
+    width: 90%;
+    height: 400px;
+    padding: 1rem;
+  }
+
+  .payment__heading {
+    font-size: 1.3rem;
+  }
+
+  .payment__inputField {
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .payment__btn {
+    font-size: 14px;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment__wrapper {
+    width: 95%;
+    padding: 0.8rem;
+  }
+
+  .payment__form {
+    width: 100%;
+  }
+
+  .payment__heading {
+    font-size: 1.2rem;
+  }
+
+  .payment__inputField {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .payment__btn {
+    font-size: 13px;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .payment__close-btn {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+  }
+}
+
 /* Författare Adréan */

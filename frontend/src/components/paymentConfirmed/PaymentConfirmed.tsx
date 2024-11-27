@@ -20,10 +20,10 @@ function PaymentConfirmed() {
         <span className="paymentConfirmed__email"> {order.customerContacts.email}</span>
       </p>
       <p className="paymentConfirmed__price-text">
-        Total price: <span className="paymentConfirmed__price">{order.totalPrice}:-</span>
+        Total price: <span className="paymentConfirmed__price"> {order.totalPrice}:-</span>
       </p>
       <p className="paymentConfirmed__order">
-        Order id: <span className="paymentConfirmed__order-id">{order.id}</span>
+        Order id: <span className="paymentConfirmed__order-id"> {order.id}</span>
       </p>
       <p className="paymentConfirmed__button" onClick={closePaymentConfirmed}>
         Got It!

@@ -103,4 +103,82 @@
   border: 2px solid var(--orange);
 }
 
+@media (max-width: 768px) {
+  .paymentConfirmed__heading {
+    font-size: 1.3rem;
+  }
+
+  .paymentConfirmed__icon {
+    font-size: 3.5rem;
+  }
+
+  .paymentConfirmed__sent-to-kitchen {
+    font-size: 1.1rem;
+  }
+
+  .paymentConfirmed__price-text,
+  .paymentConfirmed__order {
+    font-size: 1rem;
+  }
+
+  .paymentConfirmed__price,
+  .paymentConfirmed__order-id {
+    font-size: 1rem;
+  }
+
+  .paymentConfirmed__button {
+    font-size: 14px;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .paymentConfirmed__wrapper {
+    width: 95%;
+    padding: 0.8rem;
+    border: 1px solid var(--orange);
+  }
+
+  .paymentConfirmed__heading {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__icon {
+    font-size: 3rem;
+  }
+
+  .paymentConfirmed__sent-to-kitchen {
+    font-size: 1rem;
+  }
+
+  .paymentConfirmed__text {
+    font-size: 0.9rem;
+  }
+
+  .paymentConfirmed__email {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__price-text,
+  .paymentConfirmed__order {
+    font-size: 0.9rem;
+  }
+
+  .paymentConfirmed__price,
+  .paymentConfirmed__order-id {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__button {
+    font-size: 14px;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .paymentConfirmed__close-btn {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.8rem;
+  }
+}
+
 /* Författare Adréan */
