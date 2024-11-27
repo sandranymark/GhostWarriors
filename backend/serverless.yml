@@ -14,6 +14,8 @@ provider:
     role: ${self:custom.secrets.role}
   httpApi:
     cors: true
+  environment:
+    JWT_SECRET: ${env:JWT_SECRET}
 
 custom:
   secrets: ${file(./personal.yml)}
@@ -82,6 +84,44 @@ functions:
       - httpApi:
           path: /orders/{id}
           method: put
+
+  # Users Functions
+  RegisterUser:
+    handler: functions/users/RegisterUser/index.handler
+    events:
+      - httpApi:
+          path: /users/register
+          method: post
+
+  LoginUser:
+    handler: functions/users/LoginUser/index.handler
+    events:
+      - httpApi:
+          path: /users/login
+          method: post
+
+  GetUser:
+    handler: functions/users/GetUser/index.handler
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
+
+  UpdateUser:
+    handler: functions/users/UpdateUser/index.handler
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: put
+
+  ProtectedEndpoint:
+    handler: functions/protected/protectedEndpoint.handler
+    events:
+      - http:
+          path: protected
+          method: get
+          cors: true
+
 #products Table
 resources:
   Resources:
@@ -109,3 +149,41 @@ resources:
           - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+
+    # User Table
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: usersTable
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: username
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: role
+            AttributeType: S # Lägg till role-attributet
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH # Partition key
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: username-index
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: email-index
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: role-index # Lägg till ett globalt sekundärt index för role
+            KeySchema:
+              - AttributeName: role
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL

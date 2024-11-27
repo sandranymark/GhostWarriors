@@ -1,0 +1,8 @@
+{
+    "body": "{\"username\": \"testuser\", \"password\": \"Test@1234\"}",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer <JWT_TOKEN>"
+    },
+    "httpMethod": "POST"
+}

@@ -5,6 +5,7 @@ import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
 // import { orderSchema } from "../../../models/orderSchema.js";
+// import { checkRole } from "../../../middleware/checkRole.js";
 
 async function createOrder(event) {
   console.log("Incoming event body:", event.body);
@@ -57,14 +58,16 @@ async function createOrder(event) {
     await db.put(params);
     console.log("Order successfully added to database.");
 
-    console.log("Order Data1:", orderData);
     return sendResponse(201, { message: "Order added successfully.", order: orderData });
   } catch (error) {
     console.error("Error:", error.stack);
     return sendError(500, `Failed to create order: ${error.message}`);
   }
 }
-console.log("Order Data2:", orderData);
-export const handler = middy(createOrder).use(jsonBodyParser()).use(httpErrorHandler());
 
-// Författare: SANDRA
+export const handler = middy(createOrder)
+  .use(jsonBodyParser())
+  .use(httpErrorHandler())
+  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
+
+  // Författare: SANDRA

@@ -1,46 +1,50 @@
-.Staff-page {
+.staff__page {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
     background-color: var(--dark);
     font-family: var(--p);
-    color: white;
+    color: var(--white);
+    min-height: 80vh;
+    margin-bottom: 4rem;
 }
 
-.orders-section,
-.preparation-section,
-.done-section {
+.orders__section,
+.preparation__section,
+.done__section {
     background: #333;
     padding: 15px;
     border-radius: 8px;
+    min-height: 80vh;
 }
 
-.order-card {
-    background: var(--dark);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
+p {
+    margin-bottom: 15px;
 }
 
-.order-card p {
-    margin: 5px 0;
+.orders__section--orders,
+.orders__section--preparing,
+.orders__section--done {
+    overflow-y: auto;
+    height: 80vh;
 }
 
-.order-card ul {
-    margin: 5px 0;
-    padding-left: 20px;
+@media screen and (max-width: 900px) {
+    .staff__page {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-.status-buttons {
-    margin-top: 10px;
+@media screen and (max-width: 580px) {
+    .staff__page {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    Footer {
+        position: unset;
+    }
 }
 
-.status-buttons label {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.staff__order-status {
-    color: var(--orange);
-}
+/* Författare: Sandra 
+    Modifierare: Anton
+*/
