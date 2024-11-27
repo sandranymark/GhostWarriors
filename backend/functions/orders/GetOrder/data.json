@@ -5,5 +5,5 @@
   "headers": {
     "Content-Type": "application/json"
   },
-  "httpMethod": "DELETE"
+  "httpMethod": "GET"
 }
