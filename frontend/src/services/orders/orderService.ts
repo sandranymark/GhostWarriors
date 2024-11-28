@@ -47,6 +47,8 @@ export const updateOrder = async (id: string, updatedOrder: Partial<Order>): Pro
   const response = await axios.put<Order>(`${API_URL}/${id}`, updatedOrder, {
     headers: { "Content-Type": "application/json" },
   });
+  console.log("Uppdaterade ordern: ", response.data);
+
   return response.data;
 };
 

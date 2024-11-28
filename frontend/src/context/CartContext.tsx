@@ -48,6 +48,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const closePaymentConfirmed = () => {
     setIsPaymentConfirmedVisible(false);
+    const bodyRef = document.querySelector("body") as HTMLBodyElement;
+    bodyRef.classList.remove("no-scroll");
   };
 
   // Returnerar en Prover komponent som delar värden vidare till barn komponenter

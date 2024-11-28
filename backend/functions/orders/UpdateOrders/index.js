@@ -5,6 +5,7 @@ import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 // import { updateOrderSchema } from "../../../models/OrderSchema.js";
 import { validateId } from "../../../utils/validation.js";
+// import { checkRole} from "../../../utils/auth.js";
 
 async function updatedOrder(event) {
     try {
@@ -59,6 +60,7 @@ async function updatedOrder(event) {
   
   export const handler = middy(updatedOrder)
     .use(jsonBodyParser())
-    .use(httpErrorHandler());
+    .use(httpErrorHandler())
+    // .use(checkRole(['admin', 'user']));
   
     //Författare: SANDRA

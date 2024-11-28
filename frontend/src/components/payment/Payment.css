@@ -129,6 +129,7 @@
   .payment__wrapper {
     width: 95%;
     padding: 0.8rem;
+    border: 1px solid var(--orange);
   }
 
   .payment__form {

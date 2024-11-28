@@ -11,6 +11,7 @@ export interface Order {
   };
   createdAt: string;
   updatedAt: string;
+  kitchenMessage?: string;
 }
 
 export interface NewOrder {
@@ -23,6 +24,7 @@ export interface NewOrder {
   customerContacts: {
     email: string;
   };
+  kitchenMessage?: string;
 }
 
 export interface OrderItem {

@@ -2,7 +2,7 @@
   top: 50%;
   left: 50%;
   width: 700px;
-  height: 500px;
+  height: auto;
   display: flex;
   position: fixed;
   align-items: center;
@@ -46,8 +46,44 @@
   font-family: var(--p);
 }
 
-.paymentConfirmed__price-text {
+.paymentConfirmed__product-wrapper {
+  padding: 1rem;
+  display: flex;
   margin-top: 2rem;
+  border-radius: 10px;
+  list-style-type: none;
+  flex-direction: column;
+  border: 1px solid var(--white);
+}
+
+.paymentConfirmed__product {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.paymentConfirmed__product-name {
+  font-size: 1.5rem;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__product-qty {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__textarea {
+  border: none;
+  resize: none;
+  width: 250px;
+  outline: none;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  line-height: 25px;
+}
+
+.paymentConfirmed__price-text {
   font-size: 1.5rem;
   color: var(--white);
   font-family: var(--p);
@@ -59,8 +95,13 @@
   font-family: var(--p);
 }
 
-.paymentConfirmed__order {
+.paymentConfirmed__order-price--container {
+  gap: 2rem;
+  display: flex;
   margin-top: 2rem;
+}
+
+.paymentConfirmed__order {
   font-size: 1.5rem;
   color: var(--white);
   font-family: var(--p);
@@ -72,35 +113,43 @@
   font-family: var(--p);
 }
 
-.paymentConfirmed__button {
+.paymentConfirmed__btn-container {
+  display: flex;
+  gap: 3rem;
+}
+
+.paymentConfirmed__button-cancel {
   font-size: 18px;
   cursor: pointer;
   margin-top: 3rem;
   border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--p);
+  color: var(--white);
+  border: 0px solid red;
+  background-color: var(--dark);
+}
+
+.paymentConfirmed__button-cancel:hover {
+  scale: 1.1;
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.paymentConfirmed__button-confirm {
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 3rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
   padding: 0.5rem 1rem;
   font-family: var(--p);
   border: 1px solid var(--orange);
   background-color: var(--orange);
 }
 
-.paymentConfirmed__close-btn {
-  top: 0;
-  right: 0;
-  display: flex;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-right: 1rem;
-  position: absolute;
-  border-radius: 50%;
-  color: var(--white);
-  align-items: center;
-  font-family: var(--h1);
-  justify-content: center;
-  border: 2px solid var(--orange);
+.paymentConfirmed__button-confirm:hover {
+  scale: 1.1;
 }
 
 @media (max-width: 768px) {
@@ -143,6 +192,11 @@
     font-size: 1.2rem;
   }
 
+  .paymentConfirmed__textarea {
+    height: 100px;
+    width: 200px;
+  }
+
   .paymentConfirmed__icon {
     font-size: 3rem;
   }
@@ -169,15 +223,8 @@
     font-size: 1.2rem;
   }
 
-  .paymentConfirmed__button {
-    font-size: 14px;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .paymentConfirmed__close-btn {
-    width: 1.8rem;
-    height: 1.8rem;
-    font-size: 0.8rem;
+  .paymentConfirmed__button-cancel {
+    background-color: rgba(255, 0, 0, 0.4);
   }
 }
 

@@ -2,6 +2,7 @@ import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
+// import { checkRole } from "../../../middleware/checkRole.js";
 
 
 async function GetAllOrders(event) {
@@ -20,6 +21,7 @@ async function GetAllOrders(event) {
 }
 
 export const handler = middy(GetAllOrders)
-  .use(httpErrorHandler());
+  .use(httpErrorHandler())
+  // .use(checkRole(['admin','staff']));
   
   //Författare: SANDRA
