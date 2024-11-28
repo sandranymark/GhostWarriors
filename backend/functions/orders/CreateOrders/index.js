@@ -58,15 +58,24 @@ async function createOrder(event) {
     await db.put(params);
     console.log("Order successfully added to database.");
 
-    console.log("Order Data1:", orderData);
     return sendResponse(201, { message: "Order added successfully.", order: orderData });
   } catch (error) {
     console.error("Error:", error.stack);
     return sendError(500, `Failed to create order: ${error.message}`);
   }
 }
+<<<<<<< HEAD
 
 export const handler = middy(createOrder).use(jsonBodyParser()).use(httpErrorHandler());
 // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
 
 // Författare: SANDRA
+=======
+
+export const handler = middy(createOrder)
+  .use(jsonBodyParser())
+  .use(httpErrorHandler())
+  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
+
+  // Författare: SANDRA
+>>>>>>> 074a3cde18db63177fcb6040dbe93a04988b2694
