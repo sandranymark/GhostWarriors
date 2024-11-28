@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 import { Product } from "../../types/productType";
-import {
-  getProducts,
-  updateProduct,
-} from "../../services/products/productService";
+import { getProducts, updateProduct } from "../../services/products/productService";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffMenuItem from "../../components/staffMenuItem/StaffMenuItem";
-import EditMenuItemModal from "../../components/editMenuItemModal/EditMenuItemModal";
 
 function StaffMenuPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  //   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Håller reda på den valda produkten
-  //   const [modalVisible, setModalVisible] = useState<boolean>(false); // Visar modalen
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,7 +39,7 @@ function StaffMenuPage() {
       return; // Avsluta funktion om id saknas
     }
 
-    // Ta bort createdAt och id från payloaden som skickas valideras via joi i backenden.
+    // Ta bort createdAt och id från payloaden som valideras via joi i backenden.
     const { createdAt, id, ...updateField } = updatedProduct;
 
     try {

@@ -1,4 +1,29 @@
 
+.staff__menuItem--btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background-color: var(--orange);
+}
+
+.edit__btn {
+    border: none;
+    padding: .5rem;
+    background-color: var(--orange);
+    border-radius: 5px;
+}
+
+
+/* EDIT VY NEDAN! */
+
+.menuItem__article {
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+  }
+  
+
 .edit__menuItem {
     display: flex;
     flex-direction: column;
@@ -6,7 +31,14 @@
     font-family: var(--p);
 }
 
-input {
+.edit__menuItem {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-end; 
+  }
+
+.input {
     padding: .5rem 1.5rem;
     border: none;
     background-color: var(--grey);
@@ -15,7 +47,7 @@ input {
 }
 
 .input__name {
-    padding: .5rem 1.5rem;
+    padding: .5rem;
     color: var(--orange);
     border: none;
     background-color: var(--grey);
@@ -23,6 +55,7 @@ input {
     text-align: center;
     font-size: 30px;
     font-family: var(--h1);
+    font-weight: 900;
 }
 
 .input__price {
@@ -33,18 +66,27 @@ input {
 .input__desc {
     font-size: 20px;
     padding: 8px;
+    margin-bottom: .5rem;
+}
+
+
+.edit__menuItem--btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
+    padding: .5rem;
 }
 
 .edit__menuItem--btn {
     border: none;
     padding: .5rem;
-    
-}
-
-.staff__menuItem--btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
     background-color: var(--orange);
+    border-radius: 5px;
 }
+    
+
+  
+  
+  .edit__menuItem--btn-wrapper {
+    margin-top: auto; /* Se till att knapparna skjuts ner till botten */
+  }

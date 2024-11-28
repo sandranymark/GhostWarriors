@@ -36,24 +36,24 @@ interface StaffMenuItemProps {
             alt={updatedProduct.productName}
           />
         </figure>
-  
+        
         {editMode ? (
           <div className="edit__menuItem">
             <input
-              className="input__name"
+              className="input__name input"
               name="productName"
               value={updatedProduct.productName}
               onChange={handleInputChange}
             />
             <input
-              className="input__price"
+              className="input__price input"
               name="productPrice"
               type="number"
               value={updatedProduct.productPrice}
               onChange={handleInputChange}
             />
             <input
-              className="input__desc"
+              className="input__desc input"
               name="description"
               value={updatedProduct.description || ""}
               onChange={handleInputChange}
@@ -68,7 +68,7 @@ interface StaffMenuItemProps {
             <h2 className="menuItem__heading">{product.productName}</h2>
             <p className="menuItem__price">{product.productPrice} SEK</p>
             <p className="menuItem__description">{product.description}</p>
-            <button onClick={() => setEditMode(true)}>Edit</button>
+            <button className="edit__btn" onClick={() => setEditMode(true)}>Edit</button>
           </div>
         )}
       </article>
