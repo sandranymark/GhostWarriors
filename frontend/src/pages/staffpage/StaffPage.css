@@ -10,6 +10,16 @@
   margin-bottom: 4rem;
 }
 
+.staffpage__loading,
+.staffpage__errorMsg {
+  padding: 2rem;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--white);
+  font-family: var(--p);
+}
+
 .orders__section,
 .preparation__section,
 .done__section {
@@ -19,7 +29,7 @@
   min-height: 80vh;
 }
 
-p {
+.orders__total-orders {
   margin-bottom: 15px;
 }
 
@@ -38,7 +48,7 @@ p {
 .done__clear-btn {
   cursor: pointer;
   border-radius: 5px;
-  color: var(--white);
+  color: var(--dark);
   padding: 0.5rem 1rem;
   border: 0px solid var(--orange);
   background-color: var(--orange);

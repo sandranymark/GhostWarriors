@@ -24,7 +24,7 @@
 .paymentConfirmed__icon {
   color: green;
   font-size: 5rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
 }
 
 .paymentConfirmed__sent-to-kitchen {
@@ -152,7 +152,12 @@
   scale: 1.1;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
+  .paymentConfirmed__wrapper {
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+
   .paymentConfirmed__heading {
     font-size: 1.3rem;
   }
@@ -181,10 +186,12 @@
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .paymentConfirmed__wrapper {
     width: 95%;
-    padding: 0.8rem;
+    padding: 23rem 0.8rem 0.8rem 0.8rem;
+    overflow-y: auto;
+    max-height: 90vh;
     border: 1px solid var(--orange);
   }
 
@@ -198,7 +205,9 @@
   }
 
   .paymentConfirmed__icon {
+    overflow: visible;
     font-size: 3rem;
+    margin: 0.5rem 0;
   }
 
   .paymentConfirmed__sent-to-kitchen {

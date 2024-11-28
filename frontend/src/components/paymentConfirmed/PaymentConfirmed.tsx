@@ -8,13 +8,13 @@ function PaymentConfirmed() {
   const { isPaymentConfirmedVisible, closePaymentConfirmed, order } = useCart();
   const [kitchenMessage, setKitchenMessage] = useState<string>("");
 
-  const saveKitchenMessage = async () => {
+  const saveKitchenMessage = async (): Promise<void> => {
     if (!order?.id) {
       return;
     }
     try {
       await updateOrder(order.id, { kitchenMessage });
-      console.log("Kitchen message saved successfully!");
+      setKitchenMessage("");
     } catch (error) {
       console.error("Error saving kitchen message", error);
     }

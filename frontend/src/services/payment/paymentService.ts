@@ -2,8 +2,8 @@
 import { CartItem } from "../../types/cartType";
 import { FormData } from "./../../types/formData";
 import { createOrder } from "./../orders/orderService";
-import { paymentSchema } from "./../../models/paymentSchema";
 import { NewOrder, Order } from "../../types/orderType";
+import { paymentSchema } from "./../../models/paymentSchema";
 
 export const handlePayment = async (
   formData: FormData,
@@ -16,6 +16,9 @@ export const handlePayment = async (
   setErrorMsg("");
 
   // Validera formuläret
+  // När abortEarly är inställt på false, instruerar det biblioteket att fortsätta kontrollera alla fält
+  // i data även om den hittar ett valideringsfel tidigt.
+  // Om det är true (vilket är standardvärdet i Joi), stoppar valideringen så snart det första felet hittas.
   const { error } = paymentSchema.validate(formData, { abortEarly: false });
   if (error) {
     setErrorMsg(error.details[0].message);
@@ -48,7 +51,6 @@ export const handlePayment = async (
 
       // Spara ordern i Context eller State
       if (createdOrder) {
-        console.log("Created Order from API:", createdOrder);
         setOrder(createdOrder); // Säkerställ att setOrder anropas korrekt
         clearCart(); // Rensa kundvagnen
         handlePaymentSuccess(); // Visa PaymentConfirmed

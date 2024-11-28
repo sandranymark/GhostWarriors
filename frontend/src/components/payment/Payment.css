@@ -103,7 +103,7 @@
   border: 2px solid var(--orange);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .payment__wrapper {
     width: 90%;
     height: 400px;
@@ -125,9 +125,10 @@
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .payment__wrapper {
     width: 95%;
+    height: 320px;
     padding: 0.8rem;
     border: 1px solid var(--orange);
   }

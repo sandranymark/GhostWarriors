@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { NewOrder, Order } from "../types/orderType";
+import { Order } from "../types/orderType";
 
 interface CartContextProps {
   isCartVisible: boolean;
@@ -84,9 +84,12 @@ export const useCart = (): CartContextProps => {
 
 // Författare: Anton
 // modifierare: Adréan
+// order,
+// setOrder,
 // showPayment,
 // closePayment,
 // isPaymentVisible,
+// toggleCartVisibility,
 // showPaymentConfirmed,
 // closePaymentConfirmed,
 // isPaymentConfirmedVisible,

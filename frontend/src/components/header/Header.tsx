@@ -14,13 +14,6 @@ function Header() {
   const cart = useCartStore((state) => state.cart);
   const quantity = cart.reduce((total, item) => total + item.quantity, 0); // Summerar total kvantitet
 
-  // const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
-
-  // const toggleCartVisibility = () => {
-  //   setIsCartVisible(!isCartVisible)
-  //   console.log(isCartVisible);
-  // }
-
   useEffect(() => {
     const navRef = document.querySelector(".nav") as HTMLElement;
     const bodyRef = document.querySelector("body") as HTMLBodyElement;
@@ -82,7 +75,6 @@ function Header() {
       </nav>
 
       {isHamburgerVisible && <HamburgerBar onClose={() => setIsHamburgerVisible(false)} />}
-      {/* <Cart isVisible={isCartVisible} onClose={() => setIsCartVisible(false)} /> */}
     </header>
   );
 }
