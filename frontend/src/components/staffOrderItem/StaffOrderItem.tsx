@@ -1,5 +1,4 @@
-
-import './StaffOrderItem.css'
+import "./StaffOrderItem.css";
 import { Order } from "../../types/orderType";
 
 interface StaffOrderItemProps {
@@ -9,45 +8,54 @@ interface StaffOrderItemProps {
 }
 
 const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, isEditable }) => {
-  
   return (
-    <div className="order-card">
-      <p>
-        <strong>Status:</strong>
+    <div className="staff__order-card">
+      <p className="staff__order-info">
+        Status<span className="staff__order-colon">: </span>
         <span className="staff__order-status"> {order.orderStatus}</span>
       </p>
-      <p>
-        <strong>OrderNr:</strong> {order.id}
+      <p className="staff__order-info">
+        OrderNr<span className="staff__order-colon">: </span>
+        {order.id}
       </p>
-      <p>
-        <strong>Customer:</strong> {order.customerName}
+      <p className="staff__order-info">
+        Customer<span className="staff__order-colon">: </span>
+        {order.customerName}
       </p>
-      <p>
-        <strong>Price:</strong> {order.totalPrice} sek
+      <p className="staff__order-info">
+        Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
       </p>
-      <p>
-        <strong>Items:</strong>
+      <p className="staff__order-info">
+        Price<span className="staff__order-colon">: </span>
+        {order.totalPrice} sek
       </p>
-      <ul>
+
+      <p className="staff__order-info">
+        Items<span className="staff__order-colon">: </span>
+      </p>
+      <ul className="staff__order-ul">
         {order.orderItems.map((item, index) => (
           <li key={index}>
-            <p>
-              <strong>Product:</strong> {item.productName}
+            <p className="staff__order-info">
+              Product<span className="staff__order-colon">: </span>
+              {item.productName}
             </p>
-            <p>
-              <strong>Price:</strong> {item.productPrice} sek
+            <p className="staff__order-info">
+              Price<span className="staff__order-colon">: </span>
+              {item.productPrice} sek
             </p>
-            <p>
-              <strong>Quantity:</strong> {item.productQuantity}
+            <p className="staff__order-info">
+              Quantity<span className="staff__order-colon">: </span>
+              {item.productQuantity}
             </p>
           </li>
         ))}
       </ul>
       {isEditable && ( // Om ordern kan redigeras, visa knappar
-        <div className="status-buttons">
-          <label>
+        <div className="staff__status-buttons">
+          <label className="staff__status-buttons-label">
             <input
-              className="radio-btn"
+              className="staff__radio-btn"
               type="radio"
               name={`status-${order.id}`}
               checked={order.orderStatus === "Preparing"}
@@ -55,9 +63,9 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
             />
             Preparing
           </label>
-          <label>
+          <label className="staff__status-buttons-label">
             <input
-              className="radio-btn"
+              className="staff__radio-btn"
               type="radio"
               name={`status-${order.id}`}
               checked={order.orderStatus === "Done"}

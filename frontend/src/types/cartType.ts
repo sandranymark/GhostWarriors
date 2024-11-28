@@ -15,3 +15,5 @@ export interface CartState {
   ) => void;
   clearCart: () => void;
 }
+
+// Författare Adréan, Sandra, Anton

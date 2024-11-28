@@ -43,6 +43,12 @@ function Register() {
       <form className="register-form">
         <input
           type="text"
+          aria-label="E-mail"
+          placeholder="E-mail"
+          className="register-inputField"
+        />
+        <input
+          type="text"
           aria-label="Username"
           placeholder="Username"
           className="register-inputField"
