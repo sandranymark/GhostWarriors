@@ -13,8 +13,8 @@ function StaffMenuPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Håller reda på den valda produkten
-  const [modalVisible, setModalVisible] = useState<boolean>(false); // Visar modalen
+  //   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Håller reda på den valda produkten
+  //   const [modalVisible, setModalVisible] = useState<boolean>(false); // Visar modalen
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,33 +35,39 @@ function StaffMenuPage() {
     fetchProducts();
   }, []);
 
-  // Hantera produktredigering
-  const handleEdit = (product: Product) => {
-    console.log("Selected product for editing:", product);
-    console.log("Modal is visible", modalVisible);
-    setSelectedProduct(product); // Spara den valda produkten i state
-    setModalVisible(true); // Visa modalen
-  };
+  const handleUpdateProduct = async (updatedProduct: Product) => {
+    const prevProducts = [...products]; // Spara nuvarande state
+    console.log("Payload sent to backend:", updatedProduct);
 
-  const handleSaveChanges = async (updatedProduct: Product) => {
+    if (!updatedProduct.id) {
+      console.log("Product id is missing");
+      setError("Product id is missing");
+      return; // Avsluta funktion om id saknas
+    }
+
+    // Ta bort createdAt och id från payloaden som skickas valideras via joi i backenden.
+    const { createdAt, id, ...updateField } = updatedProduct;
+
     try {
-      if (!updatedProduct.id) throw new Error("Product ID is missing");
-
-      const response = await updateProduct(updatedProduct.id, updatedProduct);
       setProducts((prevProducts) =>
         prevProducts.map((product) =>
-          product.id === response.id ? response : product
+          product.id === updatedProduct.id ? updatedProduct : product
         )
       );
-      setModalVisible(false); // Stäng modalen
-      setSelectedProduct(null); // Nollställ vald produkt
+
+      console.log("Updated product", updateField);
+      const response = await updateProduct(updatedProduct.id, updateField);
+      console.log("Response from updateProduct:", response);
+      
     } catch (error) {
-      console.error("Failed to save changes:", error);
+      console.log("Failed to update product", error);
+      setProducts(prevProducts);
+      setError("Could not update product");
     }
   };
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+//   if (error) return <p>{error}</p>;
 
   return (
     <section className="menupage-section">
@@ -72,27 +78,14 @@ function StaffMenuPage() {
             <StaffMenuItem
               key={product.id}
               product={product}
-              onSave={(updatedProduct) => {
-                setProducts((prevProducts) =>
-                  prevProducts.map((product) =>
-                    product.id === updatedProduct.id ? updatedProduct : product
-                  )
-                );
-              }}
-            //   onEdit={handleEdit} // Skicka redigeringshanteraren som prop
+              onSave={handleUpdateProduct}
             />
           ))
         ) : (
           <p>No products available</p>
         )}
       </menu>
-      {modalVisible && selectedProduct && (
-        <EditMenuItemModal
-          product={selectedProduct}
-          onClose={() => setModalVisible(false)} // Stäng modalen vid klick på stäng
-          onSave={handleSaveChanges} // Hantera sparandet av ändringar
-        />
-      )}
+      {error && <p>{error}</p>}
       <Footer />
     </section>
   );

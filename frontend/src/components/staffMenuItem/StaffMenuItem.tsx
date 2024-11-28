@@ -13,6 +13,7 @@ interface StaffMenuItemProps {
     const [updatedProduct, setUpdatedProduct] = useState<Product>(product); // Lokalt state för uppdaterad produkt
   
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("product to be edited:", product);
       const { name, value } = e.target;
       setUpdatedProduct((prev) => ({
         ...prev,
@@ -21,6 +22,7 @@ interface StaffMenuItemProps {
     };
   
     const saveChanges = () => {
+      console.log("SaveChanges:", saveChanges)
       onSave(updatedProduct); // Anropa `onSave` med den uppdaterade produkten
       setEditMode(false); // Avsluta redigeringsläge
     };
