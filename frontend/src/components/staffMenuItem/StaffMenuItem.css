@@ -1,0 +1,49 @@
+
+.edit__menuItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-family: var(--p);
+}
+
+input {
+    padding: .5rem 1.5rem;
+    border: none;
+    background-color: var(--grey);
+    font-family: var(--p);
+    color: var(--white);
+}
+
+.input__name {
+    padding: .5rem 1.5rem;
+    color: var(--orange);
+    border: none;
+    background-color: var(--grey);
+    font-size: 24px;
+    text-align: center;
+    font-size: 30px;
+    font-family: var(--h1);
+}
+
+.input__price {
+    font-size: 24px;
+    padding: 8px;
+}
+
+.input__desc {
+    font-size: 20px;
+    padding: 8px;
+}
+
+.edit__menuItem--btn {
+    border: none;
+    padding: .5rem;
+}
+
+.staff__menuItem--btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background-color: var(--orange);
+}

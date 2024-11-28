@@ -6,6 +6,7 @@ import Aboutpage from "../pages/aboutpage/Aboutpage";
 import Contactpage from "../pages/contactpage/Contactpage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StaffPage from "../pages/staffpage/StaffPage";
+import StaffMenuPage from "../pages/staffmenupage/StaffMenuPage";
 
 function Routers() {
   const { isCartVisible, toggleCartVisibility } = useCart();
@@ -16,10 +17,10 @@ function Routers() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/menu" element={<Menupage />} />
-        {/* <Route path="/cart" element={ <Cartpage /> } /> */}
         <Route path="/about" element={<Aboutpage />} />
         <Route path="/contact" element={<Contactpage />} />
-        <Route path="/staff" element={<StaffPage />} />
+        <Route path="/staff/orders" element={<StaffPage />} />
+        <Route path="/staff/menu" element={<StaffMenuPage />} />
       </Routes>
     </BrowserRouter>
   );
