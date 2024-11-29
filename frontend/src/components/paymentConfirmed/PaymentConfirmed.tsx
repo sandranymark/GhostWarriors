@@ -39,7 +39,9 @@ function PaymentConfirmed() {
         {order.orderItems.map((item) => (
           <span className="paymentConfirmed__product" key={item.productID}>
             <li className="paymentConfirmed__product-name"> {item.productName}:</li>
-            <li className="paymentConfirmed__product-qty">x {item.productQuantity}</li>
+            <div>
+              <li className="paymentConfirmed__product-qty">{item.productQuantity}x {item.productPrice}:-</li>
+            </div>
           </span>
         ))}
         <textarea
