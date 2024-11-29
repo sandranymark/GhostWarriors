@@ -1,0 +1,240 @@
+.paymentConfirmed__wrapper {
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: auto;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--dark);
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.paymentConfirmed__heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__icon {
+  color: green;
+  font-size: 5rem;
+  margin: 2rem 0;
+}
+
+.paymentConfirmed__sent-to-kitchen {
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+  font-family: var(--p);
+}
+
+.paymentConfirmed__text {
+  font-size: 1.2rem;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__email {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__product-wrapper {
+  padding: 1rem;
+  display: flex;
+  margin-top: 2rem;
+  border-radius: 10px;
+  list-style-type: none;
+  flex-direction: column;
+  border: 1px solid var(--white);
+}
+
+.paymentConfirmed__product {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.paymentConfirmed__product-name {
+  font-size: 1.5rem;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__product-qty {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__textarea {
+  border: none;
+  resize: none;
+  width: 250px;
+  outline: none;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  line-height: 25px;
+}
+
+.paymentConfirmed__price-text {
+  font-size: 1.5rem;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__price {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__order-price--container {
+  gap: 2rem;
+  display: flex;
+  margin-top: 2rem;
+}
+
+.paymentConfirmed__order {
+  font-size: 1.5rem;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__order-id {
+  font-size: 1.5rem;
+  color: var(--orange);
+  font-family: var(--p);
+}
+
+.paymentConfirmed__btn-container {
+  display: flex;
+  gap: 3rem;
+}
+
+.paymentConfirmed__button-cancel {
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 3rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--p);
+  color: var(--white);
+  border: 0px solid red;
+  background-color: var(--dark);
+}
+
+.paymentConfirmed__button-cancel:hover {
+  scale: 1.1;
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.paymentConfirmed__button-confirm {
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 3rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--p);
+  border: 1px solid var(--orange);
+  background-color: var(--orange);
+}
+
+.paymentConfirmed__button-confirm:hover {
+  scale: 1.1;
+}
+
+@media screen and (max-width: 768px) {
+  .paymentConfirmed__wrapper {
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+
+  .paymentConfirmed__heading {
+    font-size: 1.3rem;
+  }
+
+  .paymentConfirmed__icon {
+    font-size: 3.5rem;
+  }
+
+  .paymentConfirmed__sent-to-kitchen {
+    font-size: 1.1rem;
+  }
+
+  .paymentConfirmed__price-text,
+  .paymentConfirmed__order {
+    font-size: 1rem;
+  }
+
+  .paymentConfirmed__price,
+  .paymentConfirmed__order-id {
+    font-size: 1rem;
+  }
+
+  .paymentConfirmed__button {
+    font-size: 14px;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .paymentConfirmed__wrapper {
+    width: 95%;
+    padding: 23rem 0.8rem 0.8rem 0.8rem;
+    overflow-y: auto;
+    max-height: 90vh;
+    border: 1px solid var(--orange);
+  }
+
+  .paymentConfirmed__heading {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__textarea {
+    height: 100px;
+    width: 200px;
+  }
+
+  .paymentConfirmed__icon {
+    overflow: visible;
+    font-size: 3rem;
+    margin: 0.5rem 0;
+  }
+
+  .paymentConfirmed__sent-to-kitchen {
+    font-size: 1rem;
+  }
+
+  .paymentConfirmed__text {
+    font-size: 0.9rem;
+  }
+
+  .paymentConfirmed__email {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__price-text,
+  .paymentConfirmed__order {
+    font-size: 0.9rem;
+  }
+
+  .paymentConfirmed__price,
+  .paymentConfirmed__order-id {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__button-cancel {
+    background-color: rgba(255, 0, 0, 0.4);
+  }
+}
+
+/* Författare Adréan */

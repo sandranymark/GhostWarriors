@@ -1,6 +1,6 @@
-import middy from '@middy/core';
-import jsonBodyParser from '@middy/http-json-body-parser';
-import httpErrorHandler from '@middy/http-error-handler';
+import middy from "@middy/core";
+import jsonBodyParser from "@middy/http-json-body-parser";
+import httpErrorHandler from "@middy/http-error-handler";
 import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
@@ -39,11 +39,11 @@ async function createOrder(event) {
     // if (validationResult.error) {
     //   return sendError(400, validationResult.error.details.map((detail) => detail.message));
     // }
-  // // Validering - joi schema för order 2
-// const validationResult = orderSchema.validate(orderData, { abortEarly: false }); // Validerar hela objektet
-//     if (validationResult.error) {
-//   return sendError(400, validationResult.error.details.map((detail) => detail.message));
-// }
+    // // Validering - joi schema för order 2
+    // const validationResult = orderSchema.validate(orderData, { abortEarly: false }); // Validerar hela objektet
+    //     if (validationResult.error) {
+    //   return sendError(400, validationResult.error.details.map((detail) => detail.message));
+    // }
 
     // Lägger till ID,createdAT och updatedAT efter validering
     orderData.id = uuid().substring(0, 8);
@@ -55,16 +55,22 @@ async function createOrder(event) {
       TableName: "ordersTable",
       Item: orderData,
     };
-
     await db.put(params);
     console.log("Order successfully added to database.");
 
-    return sendResponse(201, { message: "Order added successfully.", orderID: orderData.orderID });
+    return sendResponse(201, { message: "Order added successfully.", order: orderData });
   } catch (error) {
     console.error("Error:", error.stack);
     return sendError(500, `Failed to create order: ${error.message}`);
   }
 }
+<<<<<<< HEAD
+
+export const handler = middy(createOrder).use(jsonBodyParser()).use(httpErrorHandler());
+// .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
+
+// Författare: SANDRA
+=======
 
 export const handler = middy(createOrder)
   .use(jsonBodyParser())
@@ -72,3 +78,4 @@ export const handler = middy(createOrder)
   // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
 
   // Författare: SANDRA
+>>>>>>> 074a3cde18db63177fcb6040dbe93a04988b2694

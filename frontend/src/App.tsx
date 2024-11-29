@@ -4,7 +4,8 @@ import { CartProvider } from "./context/CartContext";
 import Register from "./components/register/Register";
 import Routers from "./routers/Routers";
 import { LoginProvider } from "./context/LoginContext";
-
+import Payment from "./components/payment/Payment";
+import PaymentConfirmed from "./components/paymentConfirmed/PaymentConfirmed";
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Routers />
         <Login />
         <Register />
+        <Payment />
+        <PaymentConfirmed />
       </div>
     </LoginProvider>
     </CartProvider>
@@ -29,4 +32,4 @@ export default App;
 
 // Författare Adréan
 
-// Modifierad Anton 
+// Modifierad Anton Sandra

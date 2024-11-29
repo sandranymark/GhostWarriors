@@ -15,7 +15,7 @@
   top: 250px;
   right: 200px;
   width: 470px;
-  height: 350px;
+  height: 300px;
   display: flex;
   position: absolute;
   flex-direction: column;
@@ -64,7 +64,6 @@
     top: 100px;
     right: 100px;
     width: 410px;
-    height: 300px;
     position: absolute;
   }
 }
@@ -74,7 +73,6 @@
     top: 100px;
     right: 100px;
     width: 410px;
-    height: 300px;
     position: absolute;
   }
 }
@@ -85,7 +83,6 @@
     top: 100px;
     width: 410px;
     padding: 1rem;
-    height: 300px;
     position: absolute;
   }
   .hero__heading {
