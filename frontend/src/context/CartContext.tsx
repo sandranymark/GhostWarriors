@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Order } from "../types/orderType";
+import { Order } from "../types/OrderType";
 
 interface CartContextProps {
   isCartVisible: boolean;
