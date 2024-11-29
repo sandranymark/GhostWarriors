@@ -1,9 +1,49 @@
-import { useEffect } from "react";
+import React, { useState } from "react";
 import "./Register.css";
-// import { handleClose } from "../../Utils/handleClose/handleClose";
+import { RegisterUser } from "../../services/auth/authService"; 
+// import { useLogin } from "../../context/LoginContext"; // Om du vill logga in användaren direkt
 
 function Register() {
-  function handleClose(): void {
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  // const { login } = useLogin(); // Om du vill logga in användaren direkt efter registrering
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+  
+    const credentials = { username, email, password };
+  
+    try {
+      const response = await RegisterUser(credentials); // registerUser från authService
+      console.log("Registration success:", response);
+  
+      setError(null);
+  
+      alert("User registered successfully!");
+  
+      // Om du vill logga in användaren direkt
+      // login(response.user, response.token);
+    } catch (error: unknown) {
+      console.error("Registration error:", error);
+  
+      // Kontrollera om error är en instans av Error för att få ett tydligt felmeddelande
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
+      }
+    }
+  };
+
+  const handleClose = (): void => {
     const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
     const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
     const secondSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
@@ -21,9 +61,9 @@ function Register() {
     if (registerSectionRef) {
       registerSectionRef.classList.add("hide");
     }
-  }
+  };
 
-  function backToLogin(): void {
+  const backToLogin = (): void => {
     const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
     const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
     if (loginSectionRef) {
@@ -33,32 +73,51 @@ function Register() {
     if (registerSectionRef) {
       registerSectionRef.classList.add("hide");
     }
-  }
+  };
 
   return (
     <section className="register-wrapper hide">
       <span className="register__back-to-login" onClick={backToLogin}>
         Back to login
       </span>
-      <form className="register-form">
+      <form onSubmit={handleRegister} className="register-form">
         <input
           type="text"
           aria-label="Username"
           placeholder="Username"
           className="register-inputField"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
-          type="text"
+          type="email"
+          aria-label="Email"
+          placeholder="Email"
+          className="register-inputField"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
           aria-label="Password"
           placeholder="Password"
           className="register-inputField"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <input
-          type="text"
+          type="password"
           aria-label="Confirm password"
           placeholder="Confirm password"
           className="register-inputField"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
+        {error && <p className="error">{error}</p>}
         <button className="register-btn" type="submit">
           Register
         </button>
@@ -73,3 +132,4 @@ function Register() {
 export default Register;
 
 // Författare Adréan
+// Modifierad av: Sandra

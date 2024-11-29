@@ -23,6 +23,7 @@ const StaffPage: React.FC = () => {
           setErrorMsg("Failed to fetch orders.");
         }
       } catch (error) {
+        console.error("An error occurred while fetching orders:", error);
         setErrorMsg("An error occurred while fetching orders.");
       } finally {
         setLoading(false); // Stoppar laddingsindikatorn
