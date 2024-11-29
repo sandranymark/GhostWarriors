@@ -48,3 +48,5 @@ const useCartStore = create<CartState>((set) => ({
 }));
 
 export default useCartStore;
+
+// Författare Adréan, Sandra, Anton

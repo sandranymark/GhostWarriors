@@ -8,7 +8,7 @@ function Contact() {
       <article className="contact-article">
         <span className="contact-heading__wrapper">
           <h1 className="contact-heading">
-            Kontakta <span className="contact-heading--orange">oss</span>!
+            Contact <span className="contact-heading--orange">us</span>!
           </h1>
         </span>
         <span className="contact-wrapper">
@@ -17,11 +17,11 @@ function Contact() {
             <p className="contact-info-text">Jesper.Nyberg@DforBreakfast.com</p>
           </span>
           <span className="contact-wrapper__box">
-            <h2 className="contact-info-heading">Adress</h2>
+            <h2 className="contact-info-heading">Address</h2>
             <p className="contact-info-text">Bortom Horisonten 1, 888 88 Ingenmansland</p>
           </span>
           <span className="contact-wrapper__box">
-            <h2 className="contact-info-heading">Telefon</h2>
+            <h2 className="contact-info-heading">Phone</h2>
             <p className="contact-info-text">070-123 45 67</p>
           </span>
         </span>

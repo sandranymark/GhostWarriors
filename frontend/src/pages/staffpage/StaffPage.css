@@ -1,48 +1,72 @@
 .staff__page {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-    background-color: var(--dark);
-    font-family: var(--p);
-    color: var(--white);
-    min-height: 80vh;
-    margin-bottom: 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--dark);
+  font-family: var(--p);
+  color: var(--white);
+  min-height: 80vh;
+  margin-bottom: 4rem;
+}
+
+.staffpage__loading,
+.staffpage__errorMsg {
+  padding: 2rem;
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--white);
+  font-family: var(--p);
 }
 
 .orders__section,
 .preparation__section,
 .done__section {
-    background: #333;
-    padding: 15px;
-    border-radius: 8px;
-    min-height: 80vh;
+  background: #333;
+  padding: 15px;
+  border-radius: 8px;
+  min-height: 80vh;
 }
 
-p {
-    margin-bottom: 15px;
+.orders__total-orders {
+  margin-bottom: 15px;
 }
 
 .orders__section--orders,
 .orders__section--preparing,
 .orders__section--done {
-    overflow-y: auto;
-    height: 80vh;
+  overflow-y: auto;
+  height: 80vh;
+}
+
+.done__heading-clear--container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.done__clear-btn {
+  cursor: pointer;
+  border-radius: 5px;
+  color: var(--dark);
+  padding: 0.5rem 1rem;
+  border: 0px solid var(--orange);
+  background-color: var(--orange);
 }
 
 @media screen and (max-width: 900px) {
-    .staff__page {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .staff__page {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media screen and (max-width: 580px) {
-    .staff__page {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    Footer {
-        position: unset;
-    }
+  .staff__page {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  Footer {
+    position: unset;
+  }
 }
 
 /* Författare: Sandra 

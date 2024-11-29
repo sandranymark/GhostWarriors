@@ -8,10 +8,10 @@ export interface Order {
   customerName: string;
   customerContacts: {
     email: string;
-    phone: string;
   };
   createdAt: string;
   updatedAt: string;
+  kitchenMessage?: string;
 }
 
 export interface NewOrder {
@@ -23,8 +23,8 @@ export interface NewOrder {
   customerName: string;
   customerContacts: {
     email: string;
-    phone: string;
   };
+  kitchenMessage?: string;
 }
 
 export interface OrderItem {
@@ -33,3 +33,5 @@ export interface OrderItem {
   productPrice: number;
   productQuantity: number;
 }
+
+// Författare Sandra

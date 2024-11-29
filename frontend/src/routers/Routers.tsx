@@ -1,5 +1,4 @@
 import Cart from "../components/cart/Cart";
-import { useCart } from "../context/CartContext";
 import Homepage from "../pages/homepage/Homepage";
 import Menupage from "../pages/menupage/Menupage";
 import Aboutpage from "../pages/aboutpage/Aboutpage";
@@ -9,11 +8,9 @@ import StaffPage from "../pages/staffpage/StaffPage";
 import StaffMenuPage from "../pages/staffmenupage/StaffMenuPage";
 
 function Routers() {
-  const { isCartVisible, toggleCartVisibility } = useCart();
-
   return (
     <BrowserRouter>
-      <Cart isVisible={isCartVisible} onClose={toggleCartVisibility} />
+      <Cart />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/menu" element={<Menupage />} />
