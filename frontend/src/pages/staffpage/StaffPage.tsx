@@ -18,7 +18,12 @@ const StaffPage: React.FC = () => {
         const response = await getAllOrders();
         if (response.success) {
           if (response.data && response.data.length > 0) {
-            setOrders(response.data); // Sätt ordrar om det finns några
+            // Sortera ordrarna från äldst till nyast
+            const sortedOrders = response.data.sort(
+              (a: Order, b: Order) =>
+                new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            );
+            setOrders(sortedOrders); // Sätt de sorterade ordrarna
           } else {
             setErrorMsg("There are no orders to display at the moment."); // Om inga ordrar finns
           }
@@ -26,10 +31,8 @@ const StaffPage: React.FC = () => {
           setErrorMsg("Failed to fetch orders."); // Om API-svaret inte är framgångsrikt
         }
       } catch (error) {
-
         console.error("An error occurred while fetching orders:", error);
         setErrorMsg("An error occurred while fetching orders.");
-
       } finally {
         setLoading(false); // Stoppar laddningsindikatorn
       }
@@ -72,8 +75,9 @@ const StaffPage: React.FC = () => {
     const doneOrders = orders.filter((order) => order.orderStatus === "Done");
 
     try {
-      // Anropa deleteOrder för varje order med status "Done"
-      await Promise.all(doneOrders.map((order) => deleteOrder(order.id)));
+      for (const order of doneOrders) {
+        await deleteOrder(order.id); // Vänta på att varje order raderas
+      }
 
       // Uppdatera state och ta bort de raderade ordrarna
       setOrders((prevOrders) => prevOrders.filter((order) => order.orderStatus !== "Done"));
