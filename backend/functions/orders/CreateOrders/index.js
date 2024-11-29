@@ -64,18 +64,8 @@ async function createOrder(event) {
     return sendError(500, `Failed to create order: ${error.message}`);
   }
 }
-<<<<<<< HEAD
 
 export const handler = middy(createOrder).use(jsonBodyParser()).use(httpErrorHandler());
 // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
 
 // Författare: SANDRA
-=======
-
-export const handler = middy(createOrder)
-  .use(jsonBodyParser())
-  .use(httpErrorHandler())
-  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
-
-  // Författare: SANDRA
->>>>>>> 074a3cde18db63177fcb6040dbe93a04988b2694
