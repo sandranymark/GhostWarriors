@@ -2,7 +2,7 @@ import "./PaymentConfirmed.css";
 import { useCart } from "../../context/CartContext";
 import { MdOutlineDownloadDone } from "react-icons/md";
 import { useState } from "react";
-import { updateOrder } from "../../services/orders/orderService";
+import { updateOrder, deleteOrder } from "../../services/orders/orderService";
 
 function PaymentConfirmed() {
   const { isPaymentConfirmedVisible, closePaymentConfirmed, order } = useCart();
@@ -15,8 +15,21 @@ function PaymentConfirmed() {
     try {
       await updateOrder(order.id, { kitchenMessage });
       setKitchenMessage("");
+      closePaymentConfirmed();
     } catch (error) {
       console.error("Error saving kitchen message", error);
+    }
+  };
+
+  const handleDeleteOrder = async (): Promise<void> => {
+    if (!order?.id) {
+      return;
+    }
+    try {
+      await deleteOrder(order.id);
+      closePaymentConfirmed();
+    } catch (error) {
+      console.error("Error deleting order", error);
     }
   };
 
@@ -58,16 +71,10 @@ function PaymentConfirmed() {
         </p>
       </span>
       <span className="paymentConfirmed__btn-container">
-        <button className="paymentConfirmed__button-cancel" onClick={closePaymentConfirmed}>
+        <button className="paymentConfirmed__button-cancel" onClick={handleDeleteOrder}>
           Cancel order
         </button>
-        <button
-          className="paymentConfirmed__button-confirm"
-          onClick={async () => {
-            await saveKitchenMessage();
-            closePaymentConfirmed();
-          }}
-        >
+        <button className="paymentConfirmed__button-confirm" onClick={saveKitchenMessage}>
           Confirm
         </button>
       </span>
