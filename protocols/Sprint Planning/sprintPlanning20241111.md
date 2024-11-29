@@ -1,6 +1,6 @@
 # Sprint Planning
 
-**Sprint:** Sprint 5  
+**Sprint:** Sprint 1
 **Datum:** 2024-11-11  
 **Team:** Ghost Warriors  
 **Närvarande:** Sandra, Adréan & Anton
