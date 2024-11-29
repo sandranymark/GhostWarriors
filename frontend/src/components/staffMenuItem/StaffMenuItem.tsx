@@ -28,7 +28,7 @@ interface StaffMenuItemProps {
     };
   
     return (
-      <article className="menuItem__article">
+      <article className="staff__menuItem--article">
         <figure className="menuItem__figure">
           <img
             className="menuItem__image"
@@ -64,10 +64,12 @@ interface StaffMenuItemProps {
             </div>
           </div>
         ) : (
-          <div>
-            <h2 className="menuItem__heading">{product.productName}</h2>
-            <p className="menuItem__price">{product.productPrice} SEK</p>
-            <p className="menuItem__description">{product.description}</p>
+          <div className="menuItem__edit--content">
+              <div className="menuItem__details">
+              <h2 className="menuItem__heading">{product.productName}</h2>
+              <p className="menuItem__price">{product.productPrice} SEK</p>
+              <p className="menuItem__description--edit">{product.description}</p>
+              </div>
             <button className="edit__btn" onClick={() => setEditMode(true)}>Edit</button>
           </div>
         )}

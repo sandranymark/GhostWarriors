@@ -1,11 +1,31 @@
+.menuItem__edit--content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
 
-.staff__menuItem--btn-wrapper {
+.menuItem__details {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 5rem;
+}
+
+.menuItem__description--edit {
+    min-height: 120px;
+    padding: 0.5rem;
+    font-size: 20px;
+    color: var(--white);
+    font-family: var(--p);
+}
+
+/* .staff__menuItem--btn-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem 2rem;
     background-color: var(--orange);
-}
+} */
 
 .edit__btn {
     border: none;
@@ -13,15 +33,21 @@
     background-color: var(--orange);
     border-radius: 5px;
     margin: .5rem;
+    align-self: flex-start;
+    justify-self: end;
+    position: absolute;
+    bottom: 0;
 }
+
 
 
 /* EDIT VY NEDAN! */
 
-.menuItem__article {
+.staff__menuItem--article {
     display: flex;
     flex-direction: column;
     height: 100%; 
+    background-color: #80808021;
   }
   
 
@@ -85,9 +111,6 @@
     border-radius: 5px;
 }
     
-
-  
-  
-  .edit__menuItem--btn-wrapper {
+.edit__menuItem--btn-wrapper {
     margin-top: auto; /* Se till att knapparna skjuts ner till botten */
-  }
+}
