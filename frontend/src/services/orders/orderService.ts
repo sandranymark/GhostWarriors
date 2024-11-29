@@ -3,7 +3,12 @@ import { Order, NewOrder } from "../../types/orderType.ts";
 
 interface OrderResponse {
   success: boolean;
-  data: Order[];
+  data: Order[]; // Hanterar en lista av ordrar
+}
+
+interface SingleOrderResponse {
+  success: boolean;
+  data: Order; // Hanterar en enskild order
 }
 
 const API_URL = "https://i0hwwn0u7f.execute-api.eu-north-1.amazonaws.com/orders";
@@ -54,4 +59,10 @@ export const updateOrder = async (id: string, updatedOrder: Partial<Order>): Pro
 // DELETE: Ta bort en order
 export const deleteOrder = async (id: string): Promise<void> => {
   await axios.delete(`${API_URL}/${id}`);
+};
+
+// GET: Hämta statusen på en order
+export const getOrderStatusById = async (id: string): Promise<Order> => {
+  const response = await axios.get<SingleOrderResponse>(`${API_URL}/${id}`);
+  return response.data.data; // Returnera den enskilda ordern
 };

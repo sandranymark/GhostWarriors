@@ -1,23 +1,52 @@
 import "./PaymentConfirmed.css";
+import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { MdOutlineDownloadDone } from "react-icons/md";
-import { useState } from "react";
-import { updateOrder, deleteOrder } from "../../services/orders/orderService";
+import { updateOrder, deleteOrder, getOrderStatusById } from "../../services/orders/orderService";
 
 function PaymentConfirmed() {
   const { isPaymentConfirmedVisible, closePaymentConfirmed, order } = useCart();
   const [kitchenMessage, setKitchenMessage] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  const closeAndReset = () => {
+    setErrorMsg("");
+    setKitchenMessage("");
+    closePaymentConfirmed();
+  };
 
   const saveKitchenMessage = async (): Promise<void> => {
     if (!order?.id) {
       return;
     }
+
     try {
-      await updateOrder(order.id, { kitchenMessage });
-      setKitchenMessage("");
-      closePaymentConfirmed();
+      const currentStatus = await getOrderStatusById(order.id); // Använd rätt funktion
+      const currentOrderStatus = currentStatus.orderStatus;
+
+      // Kontrollera att orderStatus existerar
+      if (!currentStatus?.orderStatus) {
+        setErrorMsg("Order status is unavailable. Please try again later.");
+        return;
+      }
+
+      // Om status är "pending", uppdatera ordern och avsluta funktionen
+      if (currentOrderStatus === "pending") {
+        await updateOrder(order.id, { kitchenMessage });
+        closeAndReset();
+        return;
+      }
+
+      // Om status är "Preparing" eller "Done", visa felmeddelande
+      if (currentOrderStatus === "Preparing" || currentOrderStatus === "Done") {
+        setErrorMsg("Cannot add a kitchen message. Order is locked or completed.");
+        return; // Låt användaren stänga sidan manuellt
+      }
+
+      // Hantera andra statusar
+      setErrorMsg("Cannot add a kitchen message. Order is no longer pending.");
     } catch (error) {
-      console.error("Error saving kitchen message", error);
+      setErrorMsg("Failed to save kitchen message. Please try again.");
     }
   };
 
@@ -26,10 +55,18 @@ function PaymentConfirmed() {
       return;
     }
     try {
+      const currentStatus = await getOrderStatusById(order.id); // Använd rätt funktion
+      const currentOrderStatus = currentStatus.orderStatus;
+
+      if (currentOrderStatus !== "pending") {
+        setErrorMsg("Cannot cancel order. Order is no longer pending."); // Går så fort att meddelandet syns inte
+        return;
+      }
+
       await deleteOrder(order.id);
-      closePaymentConfirmed();
+      closeAndReset();
     } catch (error) {
-      console.error("Error deleting order", error);
+      setErrorMsg("Failed to delete order. Please try again.");
     }
   };
 
@@ -48,6 +85,14 @@ function PaymentConfirmed() {
         Order confirmation has been sent to:
         <span className="paymentConfirmed__email"> {order.customerContacts.email}</span>
       </p>
+      {errorMsg && (
+        <div className="paymentConfirmed__error-container">
+          <p className="paymentConfirmed__error">{errorMsg}</p>
+          <button className="paymentConfirmed__close-error-btn" onClick={closeAndReset}>
+            Close
+          </button>
+        </div>
+      )}
       <ul className="paymentConfirmed__product-wrapper">
         {order.orderItems.map((item) => (
           <span className="paymentConfirmed__product" key={item.productID}>
