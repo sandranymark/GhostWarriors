@@ -1,0 +1,57 @@
+.staff__order-card {
+  background: var(--dark);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.staff__order-info {
+  font-weight: 600;
+}
+
+.staff__order-colon {
+  color: var(--orange);
+}
+
+.staff__order__costomer-msg {
+  font-weight: 100;
+}
+
+.staff__order-ul {
+  margin: 5px 0;
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.staff__status-buttons {
+  gap: 0.3rem;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+.staff__status-buttons-label {
+  display: flex;
+  cursor: pointer;
+  margin-right: 10px;
+  align-items: center;
+}
+
+.staff__order-status {
+  color: var(--orange);
+}
+
+.staff__radio-btn {
+  appearance: none;
+  background-color: white;
+  height: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.staff__radio-btn:checked {
+  background-color: var(--orange);
+}
+
+/* Författare: Anton */

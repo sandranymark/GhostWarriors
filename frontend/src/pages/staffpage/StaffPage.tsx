@@ -1,105 +1,138 @@
-import React, { useState } from "react";
 import "./StaffPage.css";
+import { useEffect, useState } from "react";
+import { Order } from "../../types/orderType";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-
-interface Order {
-  id: string;
-  status: "New order" | "Preparing" | "Done";
-  items: string[];
-  note: string;
-}
+import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
+import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/orderService";
 
 const StaffPage: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>([
-    {
-      id: "abc123",
-      status: "New order",
-      items: ["Baguette x 1", "Kaffe x 3", "Toast x 2", "Chai Te x 1", "Äggmacka x 1"],
-      note: "Jag hatar tomater!",
-    },
-    {
-      id: "abc124",
-      status: "Preparing",
-      items: ["Baguette x 2", "Kaffe x 1"],
-      note: "Extra ost, tack!",
-    },
-    {
-      id: "abc125",
-      status: "Done",
-      items: ["Toast x 1", "Kaffe x 2"],
-      note: "Ingen mjölk i kaffet!",
-    },
-  ]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const handleChangeStatus = (id: string, newStatus: "Preparing" | "Done") => {
+  // Hämta alla ordrar med getAllOrders()
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await getAllOrders();
+        if (response.success) {
+          if (response.data && response.data.length > 0) {
+            setOrders(response.data); // Sätt ordrar om det finns några
+          } else {
+            setErrorMsg("There are no orders to display at the moment."); // Om inga ordrar finns
+          }
+        } else {
+          setErrorMsg("Failed to fetch orders."); // Om API-svaret inte är framgångsrikt
+        }
+      } catch (error) {
+
+        console.error("An error occurred while fetching orders:", error);
+        setErrorMsg("An error occurred while fetching orders.");
+
+      } finally {
+        setLoading(false); // Stoppar laddningsindikatorn
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  // Visar en text för användaren om ordrarna laddas eller om något gick fel
+  if (loading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
+  if (errorMsg) return <p className="staffpage__errorMsg">Error: {errorMsg}</p>; // Om det uppstår ett fel
+  if (orders.length === 0) {
+    return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;
+  }
+
+  const handleChangeStatus = async (id: string, newStatus: string) => {
+    const previousOrders = [...orders]; // Sparar nuvarande order om vi behöver återställa
+
+    // En lokal uppdatering för att göra statusändring synlig direkt för användaren.
+    // Detta sker INNAN servern svarar
     setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.id === id ? { ...order, status: newStatus } : order
-      )
+      prevOrders.map((order) => (order.id === id ? { ...order, orderStatus: newStatus } : order))
     );
+
+    try {
+      await updateOrder(id, { orderStatus: newStatus }); // Skicka uppdatering till servern med updateOrder
+      // console.log(`Order with ${id} new orderStatus`, newStatus);
+    } catch (error) {
+      console.error("Failed to update order status:", error);
+      setOrders(previousOrders); // Om fel, återställ order
+      setErrorMsg("Could not update order status: " + error);
+    }
   };
 
-  const renderOrders = (status: "New order" | "Preparing" | "Done") => {
-    return orders
-      .filter((order) => order.status === status)
-      .map((order) => (
-        <div key={order.id} className="order-card">
-          <p><strong>Status:</strong><span className="staff__order-status"> {order.status}</span></p>
-          <p><strong>OrderNr:</strong> {order.id}</p>
-          <p><strong>Items:</strong></p>
-          <ul>
-            {order.items.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-          <p><strong>Noteringar:</strong> {order.note}</p>
-          {status !== "Done" && (
-            <div className="status-buttons">
-              <label>
-                <input
-                  type="radio"
-                  name={`status-${order.id}`}
-                  checked={order.status === "Preparing"}
-                  onChange={() => handleChangeStatus(order.id, "Preparing")}
-                />
-                Preparing
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name={`status-${order.id}`}
-                  checked={order.status === "Done"}
-                  onChange={() => handleChangeStatus(order.id, "Done")}
-                />
-                Done
-              </label>
-            </div>
-          )}
-        </div>
-      ));
+  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "pending").length;
+  const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
+  const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
+
+  const handleClearDoneOrders = async () => {
+    const doneOrders = orders.filter((order) => order.orderStatus === "Done");
+
+    try {
+      // Anropa deleteOrder för varje order med status "Done"
+      await Promise.all(doneOrders.map((order) => deleteOrder(order.id)));
+
+      // Uppdatera state och ta bort de raderade ordrarna
+      setOrders((prevOrders) => prevOrders.filter((order) => order.orderStatus !== "Done"));
+    } catch (error) {
+      console.error("Failed to clear done orders:", error);
+      setErrorMsg("Could not clear done orders: " + error);
+    }
   };
 
   return (
-    <div>
-        <Header />
-    <div className="Staff-page">
-      <div className="orders-section">
-        <h2>Orders</h2>
-        {renderOrders("New order")}
-      </div>
-      <div className="preparation-section">
-        <h2>Under preparation</h2>
-        {renderOrders("Preparing")}
-      </div>
-      <div className="done-section">
-        <h2>Done</h2>
-        {renderOrders("Done")}
-      </div>
-    </div>
-    <Footer />
-    </div>  
+    <>
+      <Header />
+      <section className="staff__page">
+        <section className="orders__section">
+          <h2>Orders</h2>
+          <p className="orders__total-orders">Total orders: {pendingOrdersCount}</p>
+          <section className="orders__section--orders">
+            <StaffOrderList
+              orders={orders}
+              orderStatus="pending"
+              onChangeStatus={handleChangeStatus}
+            />
+          </section>
+        </section>
+        <div className="preparation__section">
+          <h2>Under preparation</h2>
+          <p className="orders__total-orders">Total orders: {preparingOrdersCount}</p>
+          <section className="orders__section--preparing">
+            <StaffOrderList
+              orders={orders}
+              orderStatus="Preparing"
+              onChangeStatus={handleChangeStatus}
+            />
+          </section>
+        </div>
+        <div className="done__section">
+          <span className="done__heading-clear--container">
+            <h2>Done</h2>
+            <button className="done__clear-btn" onClick={handleClearDoneOrders}>
+              Clear all orders
+            </button>
+          </span>
+          <p className="orders__total-orders">Total orders: {doneOrdersCount}</p>
+          <section className="orders__section--done">
+            <StaffOrderList
+              orders={orders}
+              orderStatus="Done"
+              onChangeStatus={handleChangeStatus}
+            />
+          </section>
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 
 export default StaffPage;
+
+// Författare: Sandra
+// Modifierare: Anton - rendering och sortering av ordrar
+// Modifierare: Adréan - handleClearDoneOrders
