@@ -9,7 +9,7 @@ import StaffMenuPage from "../pages/staffmenupage/StaffMenuPage";
 
 function Routers() {
   return (
-    <BrowserRouter>
+  <BrowserRouter>
       <Cart />
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -24,5 +24,5 @@ function Routers() {
 }
 
 export default Routers;
-
 // Författare Adréan Anton Sandra
+

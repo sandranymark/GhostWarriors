@@ -26,7 +26,10 @@ const StaffPage: React.FC = () => {
           setErrorMsg("Failed to fetch orders."); // Om API-svaret inte är framgångsrikt
         }
       } catch (error) {
-        setErrorMsg("An error occurred while fetching orders."); // Om ett faktiskt fel inträffar
+
+        console.error("An error occurred while fetching orders:", error);
+        setErrorMsg("An error occurred while fetching orders.");
+
       } finally {
         setLoading(false); // Stoppar laddningsindikatorn
       }
