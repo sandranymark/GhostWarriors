@@ -65,12 +65,12 @@ interface StaffMenuItemProps {
           </div>
         ) : (
           <div className="menuItem__edit--content">
-              <div className="menuItem__details">
+              {/* <div className="menuItem__details"> */}
               <h2 className="menuItem__heading">{product.productName}</h2>
               <p className="menuItem__price">{product.productPrice} SEK</p>
               <p className="menuItem__description--edit">{product.description}</p>
-              </div>
-            <button className="edit__btn" onClick={() => setEditMode(true)}>Edit</button>
+              {/* </div> */}
+              <button className="edit__btn" onClick={() => setEditMode(true)}>Edit</button>
           </div>
         )}
       </article>
