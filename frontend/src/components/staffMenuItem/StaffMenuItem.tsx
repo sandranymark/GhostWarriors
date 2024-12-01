@@ -12,7 +12,7 @@ interface StaffMenuItemProps {
     const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
     const [updatedProduct, setUpdatedProduct] = useState<Product>(product); // Lokalt state för uppdaterad produkt
   
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       console.log("product to be edited:", product);
       const { name, value } = e.target;
       setUpdatedProduct((prev) => ({
@@ -39,20 +39,24 @@ interface StaffMenuItemProps {
         
         {editMode ? (
           <div className="edit__menuItem">
-            <input
+            <textarea
               className="input__name input"
               name="productName"
               value={updatedProduct.productName}
               onChange={handleInputChange}
             />
+            <div className="input__price--wrapper">
             <input
               className="input__price input"
               name="productPrice"
               type="number"
+              min={0}
               value={updatedProduct.productPrice}
               onChange={handleInputChange}
-            />
-            <input
+              />
+            <span className="currency-label">SEK</span>
+            </div>
+            <textarea
               className="input__desc input"
               name="description"
               value={updatedProduct.description || ""}
