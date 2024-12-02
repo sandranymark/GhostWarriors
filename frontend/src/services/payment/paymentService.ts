@@ -38,11 +38,11 @@ export const handlePayment = async (
       const totalPrice = orderItems.reduce((total, item) => total + item.productTotalPrice, 0);
 
       const newOrder: NewOrder = {
-        orderStatus: "pending",
+        orderStatus: "Pending",
         orderItems,
         totalPrice,
         customerID: "cust12334",
-        paymentStatus: "pending",
+        paymentStatus: "Pending",
         customerName: formData.name,
         customerContacts: { email: formData.email },
       };
