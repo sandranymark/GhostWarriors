@@ -52,6 +52,7 @@ export const updateOrder = async (id: string, updatedOrder: Partial<Order>): Pro
   const response = await axios.put<Order>(`${API_URL}/${id}`, updatedOrder, {
     headers: { "Content-Type": "application/json" },
   });
+  console.log("UPDATEORDER", response.data);
 
   return response.data;
 };
@@ -64,5 +65,6 @@ export const deleteOrder = async (id: string): Promise<void> => {
 // GET: Hämta statusen på en order
 export const getOrderStatusById = async (id: string): Promise<Order> => {
   const response = await axios.get<SingleOrderResponse>(`${API_URL}/${id}`);
+
   return response.data.data; // Returnera den enskilda ordern
 };

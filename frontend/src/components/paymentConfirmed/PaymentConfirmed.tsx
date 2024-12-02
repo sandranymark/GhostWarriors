@@ -31,7 +31,7 @@ function PaymentConfirmed() {
       }
 
       // Om status är "pending", uppdatera ordern och avsluta funktionen
-      if (currentOrderStatus === "pending") {
+      if (currentOrderStatus === "Pending") {
         await updateOrder(order.id, { kitchenMessage });
         closeAndReset();
         return;
@@ -44,7 +44,7 @@ function PaymentConfirmed() {
       }
 
       // Hantera andra statusar
-      setErrorMsg("Cannot add a kitchen message. Order is no longer pending.");
+      setErrorMsg("Cannot add a kitchen message. Order is no longer Pending.");
     } catch (error) {
       setErrorMsg("Failed to save kitchen message. Please try again.");
     }
@@ -58,7 +58,7 @@ function PaymentConfirmed() {
       const currentStatus = await getOrderStatusById(order.id); // Använd rätt funktion
       const currentOrderStatus = currentStatus.orderStatus;
 
-      if (currentOrderStatus !== "pending") {
+      if (currentOrderStatus !== "Pending") {
         setErrorMsg("Cannot cancel order. Order is no longer pending."); // Går så fort att meddelandet syns inte
         return;
       }
