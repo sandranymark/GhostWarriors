@@ -1,0 +1,18 @@
+.addProduct__btn {
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 48px;
+  position: fixed;
+  bottom: 5rem;
+  right: 50px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.addProduct__btn:hover {
+  background-color: #ff9900;
+  transform: scale(1.1);
+  cursor: pointer;
+}
