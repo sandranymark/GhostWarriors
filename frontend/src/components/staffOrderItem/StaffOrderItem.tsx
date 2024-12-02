@@ -12,7 +12,12 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
     <div className="staff__order-card">
       <p className="staff__order-info">
         Status<span className="staff__order-colon">: </span>
-        <span className="staff__order-status"> {order.orderStatus}</span>
+        <span
+          className="staff__order-status"
+          style={{ color: order.orderStatus === "Done" ? "#008000" : "#f68f05" }}
+        >
+          {order.orderStatus}
+        </span>
       </p>
       <p className="staff__order-info">
         OrderNr<span className="staff__order-colon">: </span>
@@ -26,7 +31,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
         Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
       </p>
       <p className="staff__order-info">
-        Price<span className="staff__order-colon">: </span>
+        Total price<span className="staff__order-colon">: </span>
         {order.totalPrice} sek
       </p>
 

@@ -4,7 +4,7 @@ import httpErrorHandler from "@middy/http-error-handler";
 import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
-// import { orderSchema } from "../../../models/orderSchema.js";
+import { orderSchema } from "../../../models/orderSchema.js";
 // import { checkRole } from "../../../middleware/checkRole.js";
 
 async function createOrder(event) {
@@ -19,6 +19,7 @@ async function createOrder(event) {
       paymentStatus,
       customerName,
       customerContacts,
+      kitchenMessage,
     } = event.body;
 
     const createdAt = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
@@ -32,18 +33,17 @@ async function createOrder(event) {
       paymentStatus,
       customerName,
       customerContacts,
+      kitchenMessage,
     };
 
-    // // Validering - joi schema för order 1
-    // const validationResult = orderSchema.validate(orderData);
-    // if (validationResult.error) {
-    //   return sendError(400, validationResult.error.details.map((detail) => detail.message));
-    // }
-    // // Validering - joi schema för order 2
-    // const validationResult = orderSchema.validate(orderData, { abortEarly: false }); // Validerar hela objektet
-    //     if (validationResult.error) {
-    //   return sendError(400, validationResult.error.details.map((detail) => detail.message));
-    // }
+    // Validering - joi schema för order 1
+    const validationResult = orderSchema.validate(orderData);
+    if (validationResult.error) {
+      return sendError(
+        400,
+        validationResult.error.details.map((detail) => detail.message)
+      );
+    }
 
     // Lägger till ID,createdAT och updatedAT efter validering
     orderData.id = uuid().substring(0, 8);
