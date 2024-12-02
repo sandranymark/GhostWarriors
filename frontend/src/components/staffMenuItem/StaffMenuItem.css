@@ -41,6 +41,10 @@
   margin-top: auto;
 }
 
+.edit__btn:hover {
+  cursor: pointer;
+}
+
 /* EDIT VY NEDAN! */
 
 .staff__menuItem--article {
@@ -104,6 +108,10 @@
   padding: 0.5rem;
   background-color: var(--orange);
   border-radius: 5px;
+}
+
+.edit__menuItem--btn:hover {
+  cursor: pointer;
 }
 
 .edit__menuItem--btn-wrapper {
