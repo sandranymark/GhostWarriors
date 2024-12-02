@@ -1,40 +1,43 @@
-import React, { useState } from "react";
 import "./Register.css";
-import { RegisterUser } from "../../services/auth/authService"; 
-// import { useLogin } from "../../context/LoginContext"; // Om du vill logga in användaren direkt
+import React, { useState } from "react";
+import useHeaderStore from "../../stores/headerStore"; // Använd Zustand-storen
+import { RegisterUser } from "../../services/auth/authService";
 
 function Register() {
-  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  // const { login } = useLogin(); // Om du vill logga in användaren direkt efter registrering
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  // Zustand-metoder headerStore.ts
+  const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
+  const isRegisterVisible = useHeaderStore((state) => state.isRegisterVisible);
+  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
-  
+
     const credentials = { username, email, password };
-  
+
     try {
       const response = await RegisterUser(credentials); // registerUser från authService
       console.log("Registration success:", response);
-  
+
       setError(null);
-  
+
+      // Visa en alert och växla till login-komponenten
       alert("User registered successfully!");
-  
-      // Om du vill logga in användaren direkt
-      // login(response.user, response.token);
+      setRegisterVisible(false); // Dölj Register
+      setLoginVisible(true); // Visa Login
     } catch (error: unknown) {
       console.error("Registration error:", error);
-  
-      // Kontrollera om error är en instans av Error för att få ett tydligt felmeddelande
+
       if (error instanceof Error) {
         setError(error.message);
       } else {
@@ -44,49 +47,20 @@ function Register() {
   };
 
   const handleClose = (): void => {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
-    const secondSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
-
-    if (secondSectionRef) {
-      secondSectionRef.style.filter = "none";
-    }
-
-    if (loginSectionRef) {
-      loginSectionRef.classList.add("hide");
-      loginSectionRef.style.display = "none";
-      loginSectionRef.classList.remove("animate");
-    }
-
-    if (registerSectionRef) {
-      registerSectionRef.classList.add("hide");
-    }
+    setRegisterVisible(false); // Dölj Register
   };
 
   const backToLogin = (): void => {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
-    if (loginSectionRef) {
-      loginSectionRef.classList.remove("hide");
-    }
-
-    if (registerSectionRef) {
-      registerSectionRef.classList.add("hide");
-    }
+    setRegisterVisible(false); // Dölj Register
+    setLoginVisible(true); // Visa Login
   };
 
   return (
-    <section className="register-wrapper hide">
+    <section className={`register-wrapper ${isRegisterVisible ? "" : "hide"}`}>
       <span className="register__back-to-login" onClick={backToLogin}>
         Back to login
       </span>
       <form onSubmit={handleRegister} className="register-form">
-        <input
-          type="text"
-          aria-label="E-mail"
-          placeholder="E-mail"
-          className="register-inputField"
-        />
         <input
           type="text"
           aria-label="Username"
@@ -128,7 +102,7 @@ function Register() {
           Register
         </button>
       </form>
-      <p className="login__close-btn" onClick={handleClose}>
+      <p className="register__close-btn" onClick={handleClose}>
         X
       </p>
     </section>
@@ -136,6 +110,3 @@ function Register() {
 }
 
 export default Register;
-
-// Författare Adréan
-// Modifierad av: Sandra

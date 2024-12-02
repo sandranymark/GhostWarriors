@@ -1,16 +1,28 @@
 import "./Login.css";
 import { useState } from "react";
-import { useLogin } from "../../context/LoginContext";
-import { LoginCredentials } from "../../types/loginType"; // Importera typen
+import { LoginCredentials } from "../../types/loginType";
 import { RxAvatar } from "react-icons/rx";
-import React from "react";
-import { loginUser } from "../../services/auth/authService"; 
+import { loginUser } from "../../services/auth/authService";
+import { useNavigate } from "react-router-dom";
+import useHeaderStore from "../../stores/headerStore";
+import useAuthStore from "../../stores/authStore";
 
-function Login() {
-  const { login } = useLogin();
+interface LoginProps {
+  className?: string;
+  onClose?: () => void;
+}
+
+function Login({ className, onClose }: LoginProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
+  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
+
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +33,30 @@ function Login() {
       const data = await loginUser(credentials);
 
       if (data.user && data.token) {
-        login(data.user, data.token);
-        setError(null);
-        console.log("User logged in:", data.user);
-        console.log("Token:", data.token);
+        console.log("Saving user to localStorage:", data.user);
+
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.token);
+
+        console.log("localStorage after saving:", {
+          user: localStorage.getItem("user"),
+          token: localStorage.getItem("token"),
+        });
+
+        setIsLoggedIn(true);
+        setUser({ username: data.user.username, role: data.user.role });
+
+        // Kontrollera användarens roll och navigera
+        if (data.user.role === "admin") {
+          navigate("/staff");
+        } else if (data.user.role === "user") {
+          navigate("/menu");
+        } else {
+          setError("Unknown user role.");
+          return;
+        }
+
+        setLoginVisible(false); // Stäng login-dialogen
       } else {
         setError("Invalid response from server");
       }
@@ -34,37 +66,18 @@ function Login() {
     }
   };
 
-  const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
-    if (loginSectionRef) {
-      loginSectionRef.classList.add("hide");
-      registerSectionRef.classList.remove("hide");
-    }
+  const handleRegister = (): void => {
+    setLoginVisible(false); // Dölj Login
+    setRegisterVisible(true); // Visa Register
   };
 
   const handleClose = (): void => {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
-    const secondSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
-    if (secondSectionRef) {
-      secondSectionRef.style.filter = "none";
-    }
-
-    if (loginSectionRef) {
-      loginSectionRef.classList.add("hide");
-      loginSectionRef.style.display = "none";
-      loginSectionRef.classList.remove("animate");
-    }
-
-    if (registerSectionRef) {
-      registerSectionRef.classList.add("hide");
-    }
+    setLoginVisible(false);
+    onClose?.();
   };
 
   return (
-    <section className="login-wrapper hide">
+    <section className={`login-wrapper animate ${className || "hide"}`}>
       <RxAvatar className="login-avatar" />
       <form onSubmit={handleLogin} className="login-form">
         <div className="login-container">
@@ -87,14 +100,14 @@ function Login() {
             required
           />
           {error && <p className="error">{error}</p>}
-          <span className="login__button-wrapper">
+          <div className="login__button-wrapper">
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button onClick={handleRegister} type="button" className="register-btn">
-              Create an account
+            <button type="button" className="register-btn" onClick={handleRegister}>
+              Create Account
             </button>
-          </span>
+          </div>
         </div>
       </form>
       <p className="login__close-btn" onClick={handleClose}>
@@ -102,6 +115,6 @@ function Login() {
       </p>
     </section>
   );
-};
+}
 
-export default Login
+export default Login;

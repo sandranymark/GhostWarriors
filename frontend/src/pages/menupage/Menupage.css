@@ -9,7 +9,7 @@
 
 .menupage__category--select {
   height: fit-content;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border: 1px solid var(--orange);
   background-color: var(--dark);
   color: var(--white);
@@ -27,14 +27,14 @@
 } */
 
 .menupage__category--select:hover {
- cursor: pointer;
- color: var(--dark);
- background-color: var(--orange);
+  cursor: pointer;
+  color: var(--dark);
+  background-color: var(--orange);
 }
 
 .menupage__filter--btn {
   height: fit-content;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-family: var(--p);
   font-size: 18px;
   border: 1px solid var(--orange);

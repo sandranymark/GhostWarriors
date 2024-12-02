@@ -7,10 +7,14 @@ const API_URL = "https://i0hwwn0u7f.execute-api.eu-north-1.amazonaws.com/users";
 // POST: Logga in användare
 export const loginUser = async (credentials: LoginCredentials): Promise<LoginResponse> => {
   try {
-    const response = await axios.post<{ success: boolean; data: LoginResponse }>(`${API_URL}/login`, credentials, {
-      headers: { "Content-Type": "application/json" },
-    });
-    
+    const response = await axios.post<{ success: boolean; data: LoginResponse }>(
+      `${API_URL}/login`,
+      credentials,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    console.log("Login response:", response.data);
     return response.data.data; // Returnerar användare och token från servern
   } catch (error) {
     // Kollar om vi får ett specifikt felmeddelande från servern eller Axios
@@ -21,6 +25,12 @@ export const loginUser = async (credentials: LoginCredentials): Promise<LoginRes
   }
 };
 
+// Logga ut
+export const logoutUser = (): void => {
+  // Rensar eventuell token eller användardata
+  localStorage.removeItem("token"); // Om du lagrar token lokalt
+  console.log("User logged out successfully");
+};
 
 export const RegisterUser = async (credentials: LoginCredentials): Promise<RegisterResponse> => {
   try {

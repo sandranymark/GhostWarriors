@@ -7,24 +7,19 @@ import { LoginProvider } from "./context/LoginContext";
 import Payment from "./components/payment/Payment";
 import PaymentConfirmed from "./components/paymentConfirmed/PaymentConfirmed";
 
-
 function App() {
-  
   return (
-    
     <CartProvider>
-    <LoginProvider>
-      <div className="app">
-        <Routers />
-        <Login />
-        <Register />
-        <Payment />
-        <PaymentConfirmed />
-      </div>
-    </LoginProvider>
+      <LoginProvider>
+        <div className="app">
+          <Routers />
+          <Login />
+          <Register />
+          <Payment />
+          <PaymentConfirmed />
+        </div>
+      </LoginProvider>
     </CartProvider>
-
-   
   );
 }
 

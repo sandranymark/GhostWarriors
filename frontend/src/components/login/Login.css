@@ -1,6 +1,7 @@
 .login-wrapper {
   top: 50%;
   left: 50%;
+  z-index: 2001;
   width: 700px;
   height: 500px;
   display: flex;
@@ -135,6 +136,10 @@
     width: 100%;
     font-size: 16px;
   }
+}
+
+.hide {
+  display: none;
 }
 
 .animate {

@@ -5,11 +5,24 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
 import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/orderService";
+import { useLogin } from "../../context/LoginContext";
+import { useNavigate } from "react-router-dom";
 
 const StaffPage: React.FC = () => {
+  const { user } = useLogin();
+
+  const navigate = useNavigate();
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string>("");
+
+  useEffect(() => {
+    console.log("User data in StaffPage:", user);
+    if (!user || user.role !== "admin") {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
 
   // Hämta alla ordrar med getAllOrders()
   useEffect(() => {
@@ -21,7 +34,7 @@ const StaffPage: React.FC = () => {
             // Sortera ordrarna från äldst till nyast
             const sortedOrders = response.data.sort(
               (a: Order, b: Order) =>
-                new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+                new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()
             );
             setOrders(sortedOrders); // Sätt de sorterade ordrarna
           } else {
