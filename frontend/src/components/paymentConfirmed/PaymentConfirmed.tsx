@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { MdOutlineDownloadDone } from "react-icons/md";
 import { updateOrder, deleteOrder, getOrderStatusById } from "../../services/orders/orderService";
+import axios from "axios";
 
 function PaymentConfirmed() {
   const { isPaymentConfirmedVisible, closePaymentConfirmed, order } = useCart();
@@ -46,7 +47,13 @@ function PaymentConfirmed() {
       // Hantera andra statusar
       setErrorMsg("Cannot add a kitchen message. Order is no longer Pending.");
     } catch (error) {
-      setErrorMsg("Failed to save kitchen message. Please try again.");
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data?.message || error.message);
+        setErrorMsg("Failed to save kitchen message. Please try again.");
+      } else {
+        console.error("Unexpected error:", error);
+        setErrorMsg("Failed to save kitchen message. Please try again.");
+      }
     }
   };
 
@@ -66,7 +73,13 @@ function PaymentConfirmed() {
       await deleteOrder(order.id);
       closeAndReset();
     } catch (error) {
-      setErrorMsg("Failed to delete order. Please try again.");
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data?.message || error.message);
+        setErrorMsg("Failed to delete order. Please try again.");
+      } else {
+        console.error("Unexpected error:", error);
+        setErrorMsg("Failed to delete order. Please try again.");
+      }
     }
   };
 
@@ -109,7 +122,7 @@ function PaymentConfirmed() {
       </ul>
       <span className="paymentConfirmed__order-price--container">
         <p className="paymentConfirmed__order">
-          Order id: <span className="paymentConfirmed__order-id"> {order.id}</span>
+          Order id: <span className="paymentConfirmed__order-id"> {order?.id || null}</span>
         </p>
         <p className="paymentConfirmed__price-text">
           Total price: <span className="paymentConfirmed__price"> {order.totalPrice}:-</span>
