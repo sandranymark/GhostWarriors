@@ -65,7 +65,9 @@ async function createOrder(event) {
   }
 }
 
-export const handler = middy(createOrder).use(jsonBodyParser()).use(httpErrorHandler());
-// .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
+export const handler = middy(createOrder)
+  .use(jsonBodyParser())
+  .use(httpErrorHandler())
+  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
 
-// Författare: SANDRA
+  // Författare: SANDRA

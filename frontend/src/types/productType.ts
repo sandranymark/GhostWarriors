@@ -10,6 +10,7 @@ export interface Product {
     ingredients?: Record<string, string>; // valfri, kan vara ett objekt med nyckel-värde-par
     inStock?: boolean; // valfri
     preparationTime?: string; // valfri
+    createdAt?: string; // Var tvungen att ha med denna för att kunna plocka bort den vid uppdatering av produkt i staffMenuPage...
   }
 
   // ? Kan liknas med optional, man får välja om man ska skriva in eller inte.
