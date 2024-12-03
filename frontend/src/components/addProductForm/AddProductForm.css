@@ -2,7 +2,7 @@
 .addProduct__form--wrapper {
     top: 50%;
     left: 50%;
-    max-width: 700px;
+    width: 700px;
     height: 500px;
     display: flex;
     position: fixed;
@@ -19,8 +19,9 @@
 .addProduct__form {
     display: flex;
     flex-direction: column;
-    min-width: 400px;
+    max-width: 400px;
     gap: 1rem;
+    width: 100%;
 }
 
 .login__close-btn--add {
@@ -51,4 +52,15 @@
 
 .addProduct__form-btn:hover {
     background-color: #45a049; 
+}
+
+
+@media (max-width: 768px) {
+    .addProduct__form--wrapper {
+        max-width: 90%;
+    }
+    .addProduct__form {
+        width: 90%;
+    }
+
 }
