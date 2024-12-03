@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Order, NewOrder } from "../../types/orderType.ts";
+import { Order, NewOrder } from "../../types/OrderType.ts";
 
 interface OrderResponse {
   success: boolean;
@@ -39,12 +39,11 @@ export const createOrder = async (order: NewOrder): Promise<Order> => {
   }>(API_URL, order, {
     headers: { "Content-Type": "application/json" },
   });
-  
 
   // Skapa en Order baserat på responsen och den inkommande `order`
   const createdOrder: Order = {
     ...order, // Kopiera all information från den nya ordern
-    id: response.data.data.order.id,  // Lägg till det returnerade orderID
+    id: response.data.data.order.id, // Lägg till det returnerade orderID
     createdAt: new Date().toISOString(), // Mocka en skapad tid
     updatedAt: new Date().toISOString(), // Mocka en uppdaterad tid
   };
@@ -69,6 +68,6 @@ export const deleteOrder = async (id: string): Promise<void> => {
 // GET: Hämta statusen på en order
 export const getOrderStatusById = async (id: string): Promise<Order> => {
   const response = await axios.get<SingleOrderResponse>(`${API_URL}/${id}`);
-console.log("GETORDERSTATUS", response.data.data);
+  console.log("GETORDERSTATUS", response.data.data);
   return response.data.data; // Returnera den enskilda ordern
 };
