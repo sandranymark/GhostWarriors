@@ -1,6 +1,6 @@
 import "./StaffPage.css";
 import { useEffect, useState } from "react";
-import { Order } from "../../types/orderType";
+import { Order } from "../../types/OrderType";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
