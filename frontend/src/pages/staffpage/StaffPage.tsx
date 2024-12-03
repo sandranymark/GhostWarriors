@@ -1,33 +1,33 @@
 import "./StaffPage.css";
 import { useEffect, useState } from "react";
 import { Order } from "../../types/OrderType";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../stores/authStore";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
 import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/orderService";
-import { useLogin } from "../../context/LoginContext";
-import { useNavigate } from "react-router-dom";
 
 const StaffPage: React.FC = () => {
-  const { user } = useLogin();
+  // const { user } = useLogin();
   const navigate = useNavigate();
+  const { user, isLoading, setLoading } = useAuthStore();
 
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   useEffect(() => {
     console.log("User data in StaffPage:", user);
-    if (!user) {
-      // Om användaren inte är laddad, vänta med att navigera
+    if (isLoading) {
+      console.log("Waiting for user data...");
       return;
     }
-    if (user.role !== "admin") {
+    if (!user || user.role !== "admin") {
       navigate("/", { replace: true });
     }
   }, [user, navigate]);
 
-  // Hämta alla ordrar med getAllOrders()
+  // Hämta alla ordrar med getAllOrders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -61,7 +61,7 @@ const StaffPage: React.FC = () => {
   }
 
   // Visar en text för användaren om ordrarna laddas eller om något gick fel
-  if (loading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
+  if (isLoading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
   if (errorMsg) return <p className="staffpage__errorMsg">Error: {errorMsg}</p>; // Om det uppstår ett fel
   if (orders.length === 0) {
     return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;

@@ -37,10 +37,10 @@ function Header() {
 
     if (token && user) {
       setIsLoggedIn(true);
-      setUser(user); // Återställ användarinfo
+      setUser(user); // Detta ska sätta `isLoading` till `false`
     } else {
       setUser(null);
-      setLoading(false);
+      setLoading(false); // Här är det viktigt att stoppa laddningen
       setIsLoggedIn(false);
     }
   }, [setIsLoggedIn, setUser, setLoading]);

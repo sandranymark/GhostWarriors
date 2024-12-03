@@ -9,8 +9,7 @@ export const registerSchema = Joi.object<RegisterType>({
     .messages({
       "string.empty": "Email is required",
       "string.email": "Email must be valid",
-  
-  }),
+    }),
   username: Joi.string().min(3).max(30).required().messages({
     "string.min": "Username must be at least 3 characters long.",
     "string.max": "Username must be at most 30 characters long.",
@@ -21,4 +20,13 @@ export const registerSchema = Joi.object<RegisterType>({
     "string.max": "Password must be at most 30 characters long.",
     "any.required": "Password is required.",
   }),
+  // confirmPassword: Joi.string()
+  // .required()
+  // .valid(Joi.ref("password"))
+  // .messages({
+  //   "any.only": "Passwords must match.",
+  //   "any.required": "Confirm Password is required.",
+  // }),
 });
+
+// Författare Sandra

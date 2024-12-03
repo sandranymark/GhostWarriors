@@ -19,3 +19,5 @@ const useHeaderStore = create<HeaderState>((set) => ({
 }));
 
 export default useHeaderStore;
+
+// Författare Adréan

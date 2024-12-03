@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { createContext, useState, useEffect, ReactNode, useContext } from "react";
 import { User } from "../types/loginType";
 import { logoutUser } from "../services/auth/authService";
 
@@ -23,8 +23,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
     try {
       const savedUser = localStorage.getItem("user");
       const savedToken = localStorage.getItem("token");
-
-      console.log("LoginContext: Loaded user and token from localStorage:", savedUser, savedToken);
 
       if (savedUser && savedUser !== "null" && savedUser !== "undefined") {
         const parsedUser = JSON.parse(savedUser);

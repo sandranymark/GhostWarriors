@@ -1,11 +1,11 @@
 import "./Login.css";
 import { useState } from "react";
-import { LoginCredentials } from "../../types/loginType";
 import { RxAvatar } from "react-icons/rx";
-import { loginUser } from "../../services/auth/authService";
 import { useNavigate } from "react-router-dom";
-import useHeaderStore from "../../stores/headerStore";
 import useAuthStore from "../../stores/authStore";
+import useHeaderStore from "../../stores/headerStore";
+import { LoginCredentials } from "../../types/loginType";
+import { loginUser } from "../../services/auth/authService";
 
 interface LoginProps {
   className?: string;
@@ -13,16 +13,17 @@ interface LoginProps {
 }
 
 function Login({ className, onClose }: LoginProps) {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+
+  const setUser = useAuthStore((state) => state.setUser);
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
   const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
-
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
-  const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,3 +106,5 @@ function Login({ className, onClose }: LoginProps) {
 }
 
 export default Login;
+
+// Författare Adréan

@@ -1,19 +1,31 @@
 import { create } from "zustand";
 
+type User = {
+  username: string;
+  role: "admin" | "user";
+};
+
 interface AuthState {
   isLoggedIn: boolean;
-  user: { username: string; role: string } | null;
-  isLoading: boolean; // Nytt tillstånd för att spåra laddning
+  user: User | null;
+  isLoading: boolean;
   setIsLoggedIn: (loggedIn: boolean) => void;
-  setUser: (user: { username: string; role: string } | null) => void;
+  setUser: (user: User | null) => void;
   setLoading: (loading: boolean) => void;
   logout: () => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: !!localStorage.getItem("token"),
-  user: JSON.parse(localStorage.getItem("user") || "null"),
-  isLoading: true, // Börja som laddande
+  user: (() => {
+    try {
+      const user = localStorage.getItem("user");
+      return user ? JSON.parse(user) : null;
+    } catch {
+      return null;
+    }
+  })(),
+  isLoading: !(localStorage.getItem("token") && localStorage.getItem("user")),
   setIsLoggedIn: (loggedIn) => {
     set({ isLoggedIn: loggedIn });
     if (!loggedIn) {
@@ -21,14 +33,18 @@ const useAuthStore = create<AuthState>((set) => ({
     }
   },
   setUser: (user) => {
-    set({ user, isLoading: false }); // Stäng av laddning när användaren är satt
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
+    try {
+      set({ user, isLoading: false });
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        localStorage.removeItem("user");
+      }
+    } catch (error) {
+      console.error("Failed to update user in localStorage:", error);
     }
   },
-  setLoading: (loading) => set({ isLoading: loading }), // Manuell laddningskontroll
+  setLoading: (loading) => set({ isLoading: loading }),
   logout: () =>
     set(() => {
       localStorage.removeItem("token");
@@ -38,3 +54,5 @@ const useAuthStore = create<AuthState>((set) => ({
 }));
 
 export default useAuthStore;
+
+// Författare Adréan

@@ -4,15 +4,13 @@ import useAuthStore from "../../stores/authStore";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: string;
+  requiredRole?: "admin" | "user";
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
   const { user, isLoading } = useAuthStore();
-
   console.log("ProtectedRoute user:", user);
-  console.log("ProtectedRoute loading:", isLoading);
-
+  console.log("ProtectedRoute isLoading:", isLoading);
   // Vänta tills användarinformation är laddad
   if (isLoading) {
     return (
@@ -24,15 +22,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 
   // Kontrollera om användaren inte är inloggad
   if (!user) {
-    console.log("User not logged in, redirecting to /");
     return <Navigate to="/" replace />;
   }
 
   // Kontrollera användarens roll
   if (requiredRole && user.role !== requiredRole) {
-    console.log(
-      `User role ${user.role} does not match required role ${requiredRole}, redirecting to /menu`
-    );
     return <Navigate to="/menu" replace />;
   }
 

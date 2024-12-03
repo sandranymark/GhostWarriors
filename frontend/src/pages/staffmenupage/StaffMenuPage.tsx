@@ -31,10 +31,8 @@ function StaffMenuPage() {
 
   const handleUpdateProduct = async (updatedProduct: Product) => {
     const prevProducts = [...products]; // Spara nuvarande state
-    console.log("Payload sent to backend:", updatedProduct);
 
     if (!updatedProduct.id) {
-      console.log("Product id is missing");
       setError("Product id is missing");
       return; // Avsluta funktion om id saknas
     }
@@ -44,24 +42,19 @@ function StaffMenuPage() {
 
     try {
       setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === updatedProduct.id ? updatedProduct : product
-        )
+        prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
       );
 
-      console.log("Updated product", updateField);
       const response = await updateProduct(updatedProduct.id, updateField);
       console.log("Response from updateProduct:", response);
-      
     } catch (error) {
-      console.log("Failed to update product", error);
       setProducts(prevProducts);
       setError("Could not update product");
     }
   };
 
   if (isLoading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
+  //   if (error) return <p>{error}</p>;
 
   return (
     <section className="menupage-section">
@@ -69,11 +62,7 @@ function StaffMenuPage() {
       <menu className="menu">
         {products.length > 0 ? (
           products.map((product) => (
-            <StaffMenuItem
-              key={product.id}
-              product={product}
-              onSave={handleUpdateProduct}
-            />
+            <StaffMenuItem key={product.id} product={product} onSave={handleUpdateProduct} />
           ))
         ) : (
           <p>No products available</p>
@@ -86,3 +75,5 @@ function StaffMenuPage() {
 }
 
 export default StaffMenuPage;
+
+// Författare Anton
