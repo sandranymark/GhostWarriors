@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const StaffPage: React.FC = () => {
   const { user } = useLogin();
-
   const navigate = useNavigate();
 
   const [orders, setOrders] = useState<Order[]>([]);
@@ -19,7 +18,11 @@ const StaffPage: React.FC = () => {
 
   useEffect(() => {
     console.log("User data in StaffPage:", user);
-    if (!user || user.role !== "admin") {
+    if (!user) {
+      // Om användaren inte är laddad, vänta med att navigera
+      return;
+    }
+    if (user.role !== "admin") {
       navigate("/", { replace: true });
     }
   }, [user, navigate]);
@@ -30,29 +33,32 @@ const StaffPage: React.FC = () => {
       try {
         const response = await getAllOrders();
         if (response.success) {
-          if (Array.isArray(response.data) && response.data.length > 0) {
-            // Sortera ordrarna från äldst till nyast
-            const sortedOrders = response.data.sort(
-              (a: Order, b: Order) =>
-                new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()
-            );
-            setOrders(sortedOrders); // Sätt de sorterade ordrarna
-          } else {
-            setErrorMsg("There are no orders to display at the moment."); // Om inga ordrar finns
-          }
+          const sortedOrders = Array.isArray(response.data)
+            ? response.data.sort(
+                (a: Order, b: Order) =>
+                  new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()
+              )
+            : [];
+          setOrders(sortedOrders);
         } else {
-          setErrorMsg("Failed to fetch orders."); // Om API-svaret inte är framgångsrikt
+          setErrorMsg("Failed to fetch orders.");
         }
       } catch (error) {
         console.error("An error occurred while fetching orders:", error);
         setErrorMsg("An error occurred while fetching orders.");
       } finally {
-        setLoading(false); // Stoppar laddningsindikatorn
+        setLoading(false);
       }
     };
 
-    fetchOrders();
-  }, []);
+    if (user?.role === "admin") {
+      fetchOrders();
+    }
+  }, [user]);
+
+  if (!user) {
+    return <p className="staffpage__loading">Loading user data...</p>;
+  }
 
   // Visar en text för användaren om ordrarna laddas eller om något gick fel
   if (loading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data

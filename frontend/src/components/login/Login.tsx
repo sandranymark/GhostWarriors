@@ -46,7 +46,6 @@ function Login({ className, onClose }: LoginProps) {
         setError("Invalid response from server");
       }
     } catch (err) {
-      console.error("Error logging in:", err);
       setError("An error occurred while logging in");
     }
   };
@@ -59,12 +58,16 @@ function Login({ className, onClose }: LoginProps) {
   const handleClose = (): void => {
     setLoginVisible(false);
     onClose?.();
+    setError("");
+    setUsername("");
+    setPassword("");
   };
 
   return (
     <section className={`login-wrapper animate ${className || "hide"}`}>
       <RxAvatar className="login-avatar" />
       <form onSubmit={handleLogin} className="login-form">
+        {error && <p className="error">{error}</p>}
         <div className="login-container">
           <input
             className="login-inputField"
@@ -84,7 +87,6 @@ function Login({ className, onClose }: LoginProps) {
             placeholder="Password"
             required
           />
-          {error && <p className="error">{error}</p>}
           <div className="login__button-wrapper">
             <button type="submit" className="login-btn">
               Login

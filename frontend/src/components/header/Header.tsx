@@ -20,12 +20,14 @@ function Header() {
   const quantity = cart.reduce((total, item) => total + item.quantity, 0);
 
   // Zustand-tillstånd
+  const setUser = useAuthStore((state) => state.setUser);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const setLoading = useAuthStore((state) => state.setLoading);
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+
   const isLoginVisible = useHeaderStore((state) => state.isLoginVisible);
   const isHamburgerVisible = useHeaderStore((state) => state.isHamburgerVisible);
   const isRegisterVisible = useHeaderStore((state) => state.isRegisterVisible);
-  const setUser = useAuthStore((state) => state.setUser);
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
   const setHamburgerVisible = useHeaderStore((state) => state.setHamburgerVisible);
 
@@ -37,10 +39,11 @@ function Header() {
       setIsLoggedIn(true);
       setUser(user); // Återställ användarinfo
     } else {
-      setIsLoggedIn(false);
       setUser(null);
+      setLoading(false);
+      setIsLoggedIn(false);
     }
-  }, [setIsLoggedIn, setUser]);
+  }, [setIsLoggedIn, setUser, setLoading]);
 
   const handleLogin = (): void => {
     setLoginVisible(true); // Visa Login-komponenten

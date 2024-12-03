@@ -39,6 +39,12 @@
   margin-bottom: 0.5rem;
 }
 
+.error {
+  color: red;
+  font-family: var(--p);
+  padding-bottom: 0.5rem;
+}
+
 .login__button-wrapper {
   display: flex;
   justify-content: space-between;
