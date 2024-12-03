@@ -92,7 +92,7 @@ functions:
       - httpApi:
           path: /users/register
           method: post
-          cors: true
+
   LoginUser:
     handler: functions/users/LoginUser/index.handler
     events:

@@ -56,9 +56,12 @@ async function createOrder(event) {
       Item: orderData,
     };
     await db.put(params);
-    console.log("Order successfully added to database.");
+    console.log("Order successfully added to database:", orderData);
 
-    return sendResponse(201, { message: "Order added successfully.", order: orderData });
+    return sendResponse(201, {
+      message: "Order added successfully.",
+      order: orderData,
+    });
   } catch (error) {
     console.error("Error:", error.stack);
     return sendError(500, `Failed to create order: ${error.message}`);
