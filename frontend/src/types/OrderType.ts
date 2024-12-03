@@ -1,5 +1,4 @@
 export interface Order {
-  
   id: string;
   orderStatus: string;
   orderItems: OrderItem[];
@@ -33,6 +32,7 @@ export interface OrderItem {
   productName: string;
   productPrice: number;
   productQuantity: number;
+  productTotalPrice: number;
 }
 
 // Författare Sandra

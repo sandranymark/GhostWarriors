@@ -30,7 +30,7 @@ const StaffPage: React.FC = () => {
       try {
         const response = await getAllOrders();
         if (response.success) {
-          if (response.data && response.data.length > 0) {
+          if (Array.isArray(response.data) && response.data.length > 0) {
             // Sortera ordrarna från äldst till nyast
             const sortedOrders = response.data.sort(
               (a: Order, b: Order) =>
