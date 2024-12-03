@@ -29,7 +29,7 @@ export const loginUser = async (credentials: LoginCredentials): Promise<LoginRes
 export const logoutUser = (): void => {
   // Rensar eventuell token eller användardata
   localStorage.removeItem("token"); // Om du lagrar token lokalt
-  console.log("User logged out successfully");
+  localStorage.removeItem("user");
 };
 
 export const RegisterUser = async (credentials: LoginCredentials): Promise<RegisterResponse> => {

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
 import { User } from "../types/loginType";
+import { logoutUser } from "../services/auth/authService";
 
 interface LoginProviderProps {
   children: ReactNode;
@@ -17,10 +18,6 @@ export const LoginContext = createContext<LoginContextProps | undefined>(undefin
 export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    console.log("LoginProvider rendering");
-  });
 
   useEffect(() => {
     try {
@@ -64,8 +61,7 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    logoutUser();
   };
 
   return (
