@@ -4,7 +4,7 @@ import httpErrorHandler from "@middy/http-error-handler";
 import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
-// import { orderSchema } from "../../../models/orderSchema.js";
+import { orderSchema } from "../../../models/orderSchema.js";
 // import { checkRole } from "../../../middleware/checkRole.js";
 
 async function createOrder(event) {
@@ -19,6 +19,7 @@ async function createOrder(event) {
       paymentStatus,
       customerName,
       customerContacts,
+      kitchenMessage,
     } = event.body;
 
     const createdAt = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
@@ -32,18 +33,17 @@ async function createOrder(event) {
       paymentStatus,
       customerName,
       customerContacts,
+      kitchenMessage,
     };
 
-    // // Validering - joi schema för order 1
-    // const validationResult = orderSchema.validate(orderData);
-    // if (validationResult.error) {
-    //   return sendError(400, validationResult.error.details.map((detail) => detail.message));
-    // }
-    // // Validering - joi schema för order 2
-    // const validationResult = orderSchema.validate(orderData, { abortEarly: false }); // Validerar hela objektet
-    //     if (validationResult.error) {
-    //   return sendError(400, validationResult.error.details.map((detail) => detail.message));
-    // }
+    // Validering - joi schema för order 1
+    const validationResult = orderSchema.validate(orderData);
+    if (validationResult.error) {
+      return sendError(
+        400,
+        validationResult.error.details.map((detail) => detail.message)
+      );
+    }
 
     // Lägger till ID,createdAT och updatedAT efter validering
     orderData.id = uuid().substring(0, 8);
@@ -56,16 +56,21 @@ async function createOrder(event) {
       Item: orderData,
     };
     await db.put(params);
-    console.log("Order successfully added to database.");
+    console.log("Order successfully added to database:", orderData);
 
-    return sendResponse(201, { message: "Order added successfully.", order: orderData });
+    return sendResponse(201, {
+      message: "Order added successfully.",
+      order: orderData,
+    });
   } catch (error) {
     console.error("Error:", error.stack);
     return sendError(500, `Failed to create order: ${error.message}`);
   }
 }
 
-export const handler = middy(createOrder).use(jsonBodyParser()).use(httpErrorHandler());
-// .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
+export const handler = middy(createOrder)
+  .use(jsonBodyParser())
+  .use(httpErrorHandler())
+  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
 
-// Författare: SANDRA
+  // Författare: SANDRA

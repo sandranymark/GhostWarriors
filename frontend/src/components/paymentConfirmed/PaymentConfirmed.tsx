@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { MdOutlineDownloadDone } from "react-icons/md";
 import { updateOrder, deleteOrder, getOrderStatusById } from "../../services/orders/orderService";
+import axios from "axios";
 
 function PaymentConfirmed() {
   const { isPaymentConfirmedVisible, closePaymentConfirmed, order } = useCart();
@@ -31,7 +32,7 @@ function PaymentConfirmed() {
       }
 
       // Om status är "pending", uppdatera ordern och avsluta funktionen
-      if (currentOrderStatus === "pending") {
+      if (currentOrderStatus === "Pending") {
         await updateOrder(order.id, { kitchenMessage });
         closeAndReset();
         return;
@@ -44,9 +45,15 @@ function PaymentConfirmed() {
       }
 
       // Hantera andra statusar
-      setErrorMsg("Cannot add a kitchen message. Order is no longer pending.");
+      setErrorMsg("Cannot add a kitchen message. Order is no longer Pending.");
     } catch (error) {
-      setErrorMsg("Failed to save kitchen message. Please try again.");
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data?.message || error.message);
+        setErrorMsg("Failed to save kitchen message. Please try again.");
+      } else {
+        console.error("Unexpected error:", error);
+        setErrorMsg("Failed to save kitchen message. Please try again.");
+      }
     }
   };
 
@@ -58,7 +65,7 @@ function PaymentConfirmed() {
       const currentStatus = await getOrderStatusById(order.id); // Använd rätt funktion
       const currentOrderStatus = currentStatus.orderStatus;
 
-      if (currentOrderStatus !== "pending") {
+      if (currentOrderStatus !== "Pending") {
         setErrorMsg("Cannot cancel order. Order is no longer pending."); // Går så fort att meddelandet syns inte
         return;
       }
@@ -66,7 +73,13 @@ function PaymentConfirmed() {
       await deleteOrder(order.id);
       closeAndReset();
     } catch (error) {
-      setErrorMsg("Failed to delete order. Please try again.");
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data?.message || error.message);
+        setErrorMsg("Failed to delete order. Please try again.");
+      } else {
+        console.error("Unexpected error:", error);
+        setErrorMsg("Failed to delete order. Please try again.");
+      }
     }
   };
 
@@ -97,7 +110,9 @@ function PaymentConfirmed() {
         {order.orderItems.map((item) => (
           <span className="paymentConfirmed__product" key={item.productID}>
             <li className="paymentConfirmed__product-name"> {item.productName}:</li>
-            <li className="paymentConfirmed__product-qty">x {item.productQuantity}</li>
+            <div>
+              <li className="paymentConfirmed__product-qty">{item.productQuantity}x {item.productPrice}:-</li>
+            </div>
           </span>
         ))}
         <textarea
@@ -109,7 +124,7 @@ function PaymentConfirmed() {
       </ul>
       <span className="paymentConfirmed__order-price--container">
         <p className="paymentConfirmed__order">
-          Order id: <span className="paymentConfirmed__order-id"> {order.id}</span>
+          Order id: <span className="paymentConfirmed__order-id"> {order?.id || null}</span>
         </p>
         <p className="paymentConfirmed__price-text">
           Total price: <span className="paymentConfirmed__price"> {order.totalPrice}:-</span>

@@ -84,6 +84,7 @@
 .paymentConfirmed__product {
   display: flex;
   gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .paymentConfirmed__product-name {

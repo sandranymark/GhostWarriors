@@ -80,7 +80,7 @@ const StaffPage: React.FC = () => {
     }
   };
 
-  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "pending").length;
+  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "Pending").length;
   const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
   const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
 
@@ -110,7 +110,7 @@ const StaffPage: React.FC = () => {
           <section className="orders__section--orders">
             <StaffOrderList
               orders={orders}
-              orderStatus="pending"
+              orderStatus="Pending"
               onChangeStatus={handleChangeStatus}
             />
           </section>
