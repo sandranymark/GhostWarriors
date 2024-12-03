@@ -1,34 +1,36 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useLogin } from "./../../context/LoginContext";
+import useAuthStore from "../../stores/authStore";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: string; // T.ex. "admin" eller "user"
+  requiredRole?: "admin" | "user";
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
-  const { user } = useLogin();
+  const { user, isLoading } = useAuthStore();
   console.log("ProtectedRoute user:", user);
-
-  if (user === null) {
-    console.log("ProtectedRoute: No user found, redirecting...");
-    return <p>LOADING</p>; // HÄR SKA EN LAZY LOADER IN!!!!!!!!!!
+  console.log("ProtectedRoute isLoading:", isLoading);
+  // Vänta tills användarinformation är laddad
+  if (isLoading) {
+    return (
+      <div className="loading-indicator">
+        <p style={{ color: "#FFFFFF" }}>Loading...</p>
+      </div>
+    );
   }
 
+  // Kontrollera om användaren inte är inloggad
   if (!user) {
-    console.log("User not logged in, redirecting to /");
     return <Navigate to="/" replace />;
   }
 
+  // Kontrollera användarens roll
   if (requiredRole && user.role !== requiredRole) {
-    console.log(
-      `User role ${user.role} does not match required role ${requiredRole}, redirecting to /menu`
-    );
     return <Navigate to="/menu" replace />;
   }
 
-  // Om användaren är inloggad och har rätt roll, rendera barnkomponenterna
+  // Rendera innehållet om användaren är inloggad och har rätt roll
   return <>{children}</>;
 };
 

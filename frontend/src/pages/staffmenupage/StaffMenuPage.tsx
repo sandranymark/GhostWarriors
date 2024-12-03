@@ -1,18 +1,26 @@
-import './StaffMenuPage.css'
+import "./StaffMenuPage.css";
 import { useEffect, useState } from "react";
 import { Product } from "../../types/productType";
-import { createProduct, deleteProduct, getProducts, updateProduct } from "../../services/products/productService";
+import {
+  createProduct,
+  deleteProduct,
+  getProducts,
+  updateProduct,
+} from "../../services/products/productService";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffMenuItem from "../../components/staffMenuItem/StaffMenuItem";
 import AddProductForm from "../../components/addProductForm/AddProductForm";
+import useAuthStore from "../../stores/authStore";
 
 function StaffMenuPage() {
+  const { isLoading, setLoading, user } = useAuthStore();
+
   const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
-  
+
   const fetchProducts = async () => {
     try {
       const response = await getProducts();
@@ -24,10 +32,10 @@ function StaffMenuPage() {
     } catch (err) {
       setErrorMsg("Failed to fetch products");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -36,8 +44,8 @@ function StaffMenuPage() {
     try {
       const response = await createProduct(newProduct);
       // console.log("API response", response);
-      if (response) { 
-        setProducts((prevProducts) => [...prevProducts, response]); 
+      if (response) {
+        setProducts((prevProducts) => [...prevProducts, response]);
         // console.log("Full response", response);
         // console.log(handleAddProduct)
         // console.log(newProduct)
@@ -46,10 +54,9 @@ function StaffMenuPage() {
       } else {
         setErrorMsg("Failed to add product");
       }
-
     } catch (error) {
       setErrorMsg("Failed to add product");
-      // console.error("Failed to add product", error); 
+      // console.error("Failed to add product", error);
     }
   };
 
@@ -74,15 +81,12 @@ function StaffMenuPage() {
     try {
       // Uppdatera state lokalt INNAN api-anropet
       setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === updatedProduct.id ? updatedProduct : product
-        )
+        prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
       );
 
       // console.log("Updated product", updateField);
       const response = await updateProduct(updatedProduct.id, updateField);
       console.log("Response from updateProduct:", response);
-      
     } catch (error) {
       // console.log("Failed to update product", error);
       setProducts(prevProducts); // Vid fel visa produkt som innan ändring
@@ -91,17 +95,15 @@ function StaffMenuPage() {
   };
 
   const handleDeleteProduct = async (id: string) => {
-
-    if(!id) {
+    if (!id) {
       setErrorMsg("Id for this product could not be found");
       // console.log("Id for this product could not be found", id);
       return;
     }
     try {
-      console.log("Try to delete product with ID:", id)
+      console.log("Try to delete product with ID:", id);
       await deleteProduct(id);
-      setProducts((prevProducts) => 
-      prevProducts.filter((product) => product.id !== id));
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
       // console.log("delete success, new list", products);
     } catch (error) {
       setErrorMsg("Failed to remove product");
@@ -110,12 +112,14 @@ function StaffMenuPage() {
   };
 
   if (isLoading) return <p>Loading...</p>;
-  if (errorMsg) return <p>{errorMsg}</p>; 
+  if (errorMsg) return <p>{errorMsg}</p>;
 
   return (
     <section className="menupage-section">
       <Header />
-      {isFormVisible && <AddProductForm onAddProduct={handleAddProduct} onClose={toggleFormVisibility} />}
+      {isFormVisible && (
+        <AddProductForm onAddProduct={handleAddProduct} onClose={toggleFormVisibility} />
+      )}
       <menu className="menu">
         {products.length > 0 ? (
           products.map((product) => (
@@ -130,10 +134,8 @@ function StaffMenuPage() {
           <p>No products available</p>
         )}
       </menu>
-      <button
-        className="addProduct__btn"
-        onClick={toggleFormVisibility}
-      >+
+      <button className="addProduct__btn" onClick={toggleFormVisibility}>
+        +
       </button>
       <Footer />
     </section>

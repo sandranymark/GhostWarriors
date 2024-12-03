@@ -1,11 +1,11 @@
 import "./Login.css";
 import { useState } from "react";
-import { LoginCredentials } from "../../types/loginType";
 import { RxAvatar } from "react-icons/rx";
-import { loginUser } from "../../services/auth/authService";
 import { useNavigate } from "react-router-dom";
-import useHeaderStore from "../../stores/headerStore";
 import useAuthStore from "../../stores/authStore";
+import useHeaderStore from "../../stores/headerStore";
+import { LoginCredentials } from "../../types/loginType";
+import { loginUser } from "../../services/auth/authService";
 
 interface LoginProps {
   className?: string;
@@ -13,16 +13,17 @@ interface LoginProps {
 }
 
 function Login({ className, onClose }: LoginProps) {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+
+  const setUser = useAuthStore((state) => state.setUser);
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
   const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
-
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
-  const setUser = useAuthStore((state) => state.setUser);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,53 +34,41 @@ function Login({ className, onClose }: LoginProps) {
       const data = await loginUser(credentials);
 
       if (data.user && data.token) {
-        console.log("Saving user to localStorage:", data.user);
-
-        localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
-
-        console.log("localStorage after saving:", {
-          user: localStorage.getItem("user"),
-          token: localStorage.getItem("token"),
-        });
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         setIsLoggedIn(true);
         setUser({ username: data.user.username, role: data.user.role });
 
         // Kontrollera användarens roll och navigera
-        if (data.user.role === "admin") {
-          navigate("/staff");
-        } else if (data.user.role === "user") {
-          navigate("/menu");
-        } else {
-          setError("Unknown user role.");
-          return;
-        }
-
-        setLoginVisible(false); // Stäng login-dialogen
+        navigate(data.user.role === "admin" ? "/staff" : "/menu");
+        setLoginVisible(false);
       } else {
         setError("Invalid response from server");
       }
     } catch (err) {
-      console.error("Error logging in:", err);
       setError("An error occurred while logging in");
     }
   };
 
   const handleRegister = (): void => {
-    setLoginVisible(false); // Dölj Login
-    setRegisterVisible(true); // Visa Register
+    setLoginVisible(false);
+    setRegisterVisible(true);
   };
 
   const handleClose = (): void => {
     setLoginVisible(false);
     onClose?.();
+    setError("");
+    setUsername("");
+    setPassword("");
   };
 
   return (
     <section className={`login-wrapper animate ${className || "hide"}`}>
       <RxAvatar className="login-avatar" />
       <form onSubmit={handleLogin} className="login-form">
+        {error && <p className="error">{error}</p>}
         <div className="login-container">
           <input
             className="login-inputField"
@@ -99,7 +88,6 @@ function Login({ className, onClose }: LoginProps) {
             placeholder="Password"
             required
           />
-          {error && <p className="error">{error}</p>}
           <div className="login__button-wrapper">
             <button type="submit" className="login-btn">
               Login
@@ -118,3 +106,5 @@ function Login({ className, onClose }: LoginProps) {
 }
 
 export default Login;
+
+// Författare Adréan

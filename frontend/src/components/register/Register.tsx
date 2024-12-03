@@ -1,14 +1,18 @@
 import "./Register.css";
 import React, { useState } from "react";
+import { registerSchema } from "../../models/registerSchema";
 import useHeaderStore from "../../stores/headerStore"; // Använd Zustand-storen
 import { RegisterUser } from "../../services/auth/authService";
+import { RegisterType } from "../../types/registerType"; // Kontrollera importvägen
 
 function Register() {
-  const [email, setEmail] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<RegisterType>({
+    email: "",
+    username: "",
+    password: "",
+  });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   // Zustand-metoder headerStore.ts
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
@@ -18,23 +22,27 @@ function Register() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    // Kontrollera att lösenord matchar
+    if (formData.password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    const credentials = { username, email, password };
+    // Validera formData med registerSchema
+    const { error: validationError } = registerSchema.validate(formData, { abortEarly: false });
+    if (validationError) {
+      setError(validationError.details.map((detail) => detail.message).join(", "));
+      return;
+    }
 
     try {
-      const response = await RegisterUser(credentials); // registerUser från authService
-      console.log("Registration success:", response);
+      const response = await RegisterUser(formData); // registerUser från authService
 
       setError(null);
 
-      // Visa en alert och växla till login-komponenten
-      alert("User registered successfully!");
-      setRegisterVisible(false); // Dölj Register
-      setLoginVisible(true); // Visa Login
+      // Växla till login-vyn
+      setRegisterVisible(false);
+      setLoginVisible(true);
     } catch (error: unknown) {
       console.error("Registration error:", error);
 
@@ -46,13 +54,18 @@ function Register() {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const handleClose = (): void => {
-    setRegisterVisible(false); // Dölj Register
+    setRegisterVisible(false);
   };
 
   const backToLogin = (): void => {
-    setRegisterVisible(false); // Dölj Register
-    setLoginVisible(true); // Visa Login
+    setRegisterVisible(false);
+    setLoginVisible(true);
   };
 
   return (
@@ -61,31 +74,35 @@ function Register() {
         Back to login
       </span>
       <form onSubmit={handleRegister} className="register-form">
+        {error && <p className="error">{error}</p>}
         <input
+          name="username"
           type="text"
           aria-label="Username"
           placeholder="Username"
           className="register-inputField"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formData.username}
+          onChange={handleChange}
           required
         />
         <input
+          name="email"
           type="email"
           aria-label="Email"
           placeholder="Email"
           className="register-inputField"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           required
         />
         <input
+          name="password"
           type="password"
           aria-label="Password"
           placeholder="Password"
           className="register-inputField"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           required
         />
         <input
@@ -97,7 +114,6 @@ function Register() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        {error && <p className="error">{error}</p>}
         <button className="register-btn" type="submit">
           Register
         </button>
@@ -110,3 +126,5 @@ function Register() {
 }
 
 export default Register;
+
+// Författare Adréan

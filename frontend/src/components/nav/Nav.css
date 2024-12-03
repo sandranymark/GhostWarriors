@@ -71,6 +71,7 @@
     display: flex;
     display: block;
     flex-direction: column;
+    /* z-index: 100; */
   }
 
   .nav__ul {

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { createContext, useState, useEffect, ReactNode, useContext } from "react";
 import { User } from "../types/loginType";
 import { logoutUser } from "../services/auth/authService";
 
@@ -24,8 +24,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
       const savedUser = localStorage.getItem("user");
       const savedToken = localStorage.getItem("token");
 
-      console.log("LoginContext: Loaded user and token from localStorage:", savedUser, savedToken);
-
       if (savedUser && savedUser !== "null" && savedUser !== "undefined") {
         const parsedUser = JSON.parse(savedUser);
         console.log("Parsed user:", parsedUser);
@@ -41,7 +39,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   }, []);
 
   const login = (userData: User, userToken: string) => {
-    console.log("LoginContext: Setting user data and token", userData, userToken);
     if (userData && userToken) {
       setUser(userData);
       setToken(userToken);
@@ -49,10 +46,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
       // Spara användare och token i localStorage
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", userToken);
-
-      console.log("User logged in:", userData);
-      console.log("Token:", userToken);
-      console.log("LoginContext: User and token saved to localStorage");
     } else {
       console.error("Invalid user data or token");
     }

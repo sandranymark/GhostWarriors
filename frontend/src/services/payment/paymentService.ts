@@ -2,7 +2,7 @@
 import { CartItem } from "../../types/cartType";
 import { FormData } from "./../../types/formData";
 import { createOrder } from "./../orders/orderService";
-import { NewOrder, Order } from "../../types/orderType";
+import { NewOrder, Order } from "../../types/OrderType";
 import { paymentSchema } from "./../../models/paymentSchema";
 
 export const handlePayment = async (
