@@ -5,14 +5,15 @@ import "./StaffMenuItem.css";
 interface StaffMenuItemProps {
   product: Product;
   onSave: (updatedProduct: Product) => void;
-  // onEdit: (product: Product) => void; // Ny prop för att hantera redigering
+  onDelete: () => void;
 }
 
-function StaffMenuItem({ product, onSave }: StaffMenuItemProps) {
+function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
   const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
   const [updatedProduct, setUpdatedProduct] = useState<Product>(product); // Lokalt state för uppdaterad produkt
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    console.log("product to be edited:", product);
     const { name, value } = e.target;
     setUpdatedProduct((prev) => ({
       ...prev,
@@ -21,8 +22,16 @@ function StaffMenuItem({ product, onSave }: StaffMenuItemProps) {
   };
 
   const saveChanges = () => {
+    console.log("SaveChanges:", saveChanges);
     onSave(updatedProduct); // Anropa `onSave` med den uppdaterade produkten
     setEditMode(false); // Avsluta redigeringsläge
+  };
+
+  const confirmDelete = () => {
+    const confirmed = window.confirm("Are you sure you want to delete this product?");
+    if (confirmed) {
+      onDelete(); // Anropa onDelete endast om användaren bekräftar
+    }
   };
 
   return (
@@ -66,6 +75,9 @@ function StaffMenuItem({ product, onSave }: StaffMenuItemProps) {
             </button>
             <button className="edit__menuItem--btn" onClick={() => setEditMode(false)}>
               Cancel
+            </button>
+            <button className="edit__menuItem--btn" onClick={confirmDelete}>
+              Delete
             </button>
           </div>
         </div>
