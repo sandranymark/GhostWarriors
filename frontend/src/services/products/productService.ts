@@ -40,8 +40,16 @@ export const updateProduct = async (id: string, updatedProduct: Partial<Product>
 };
 
 // DELETE: Ta bort en produkt
-export const deleteProduct = async (id: string): Promise<void> => {
-  await axios.delete(`${API_URL}/${id}`);
+// Eftersom att vi inte returnerar den bortagna produkten och dess data så kommer response.data vara undefined
+// Nu returnerar vi bara en success status.
+export const deleteProduct = async (id: string): Promise<{ success : boolean }> => {
+  try {
+    await axios.delete(`${API_URL}/${id}`);
+    return { success : true };
+  } catch (error) {
+    console.error(`Error deleting product with id ${id}`, error);
+    throw new Error("Failed to delete product");
+  }
 };
 
 
