@@ -2,7 +2,7 @@ import './AddProductForm.css';
 import { useState } from 'react';
 import { Product } from '../../types/productType';
 
-function AddProductForm({ onAddProduct }: { onAddProduct: (product: Omit<Product, "id" | "createdAt">) => void }) {
+function AddProductForm({ onAddProduct, onClose }: { onAddProduct: (product: Omit<Product, "id" | "createdAt">) => void; onClose: () => void; }) {
     const [productName, setProductName] = useState("");
     const [productPrice, setProductPrice] = useState(0);
     const [description, setDescription] = useState("");
@@ -39,6 +39,10 @@ function AddProductForm({ onAddProduct }: { onAddProduct: (product: Omit<Product
 
     return (
         <section className='addProduct__form--wrapper'>
+            <button className="login__close-btn login__close-btn--add"
+            onClick={onClose}>
+            X
+            </button>
             <form 
                 className='addProduct__form'
                 onSubmit={handleSubmit}>
@@ -55,6 +59,7 @@ function AddProductForm({ onAddProduct }: { onAddProduct: (product: Omit<Product
                     placeholder="Product Price"
                     value={productPrice}
                     onChange={(e) => setProductPrice(Number(e.target.value))}
+                    min={0}
                 />
                 <input
                     className="addProduct__input desc"

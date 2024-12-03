@@ -20,12 +20,16 @@
     display: flex;
     flex-direction: column;
     min-width: 400px;
+    gap: 1rem;
+}
+
+.login__close-btn--add {
+    background-color: var(--dark);
 }
 
 .addProduct__input {
     width: 100%; 
-    padding: 10px; 
-    margin: 10px 0; 
+    padding: 10px;
     border: 1px solid var(--orange);
     background-color: var(--dark); 
     color: var(--white);

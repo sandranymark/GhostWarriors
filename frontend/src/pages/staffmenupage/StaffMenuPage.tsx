@@ -95,7 +95,7 @@ function StaffMenuPage() {
   return (
     <section className="menupage-section">
       <Header />
-      {isFormVisible && <AddProductForm onAddProduct={handleAddProduct} />}
+      {isFormVisible && <AddProductForm onAddProduct={handleAddProduct} onClose={toggleFormVisibility} />}
       <menu className="menu">
         {products.length > 0 ? (
           products.map((product) => (
