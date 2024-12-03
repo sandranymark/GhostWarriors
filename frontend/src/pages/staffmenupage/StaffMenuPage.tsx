@@ -49,13 +49,13 @@ function StaffMenuPage() {
 
     } catch (error) {
       setError("Failed to add product");
-      console.error("Failed to add product", error); // Använd console.error för fel
+      console.error("Failed to add product", error); 
     }
   };
 
   const toggleFormVisibility = () => {
     setIsFormVisible((prev) => !prev);
-    console.log("Form visibility toggled to", !isFormVisible); // Logga det nya värdet
+    // console.log("Form visibility toggled to", !isFormVisible);
   };
 
   const handleUpdateProduct = async (updatedProduct: Product) => {
@@ -90,7 +90,7 @@ function StaffMenuPage() {
   };
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>; // Visa felmeddelandet
+  if (error) return <p>{error}</p>; 
 
   return (
     <section className="menupage-section">
@@ -113,7 +113,6 @@ function StaffMenuPage() {
         className="addProduct__btn"
         onClick={toggleFormVisibility}
       >+
-        {/* {isFormVisible ? "Close form" : "Add product"} */}
       </button>
       <Footer />
     </section>
