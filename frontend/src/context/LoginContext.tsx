@@ -41,7 +41,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   }, []);
 
   const login = (userData: User, userToken: string) => {
-    console.log("LoginContext: Setting user data and token", userData, userToken);
     if (userData && userToken) {
       setUser(userData);
       setToken(userToken);
@@ -49,10 +48,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
       // Spara användare och token i localStorage
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", userToken);
-
-      console.log("User logged in:", userData);
-      console.log("Token:", userToken);
-      console.log("LoginContext: User and token saved to localStorage");
     } else {
       console.error("Invalid user data or token");
     }

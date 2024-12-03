@@ -33,30 +33,15 @@ function Login({ className, onClose }: LoginProps) {
       const data = await loginUser(credentials);
 
       if (data.user && data.token) {
-        console.log("Saving user to localStorage:", data.user);
-
-        localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
-
-        console.log("localStorage after saving:", {
-          user: localStorage.getItem("user"),
-          token: localStorage.getItem("token"),
-        });
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         setIsLoggedIn(true);
         setUser({ username: data.user.username, role: data.user.role });
 
         // Kontrollera användarens roll och navigera
-        if (data.user.role === "admin") {
-          navigate("/staff");
-        } else if (data.user.role === "user") {
-          navigate("/menu");
-        } else {
-          setError("Unknown user role.");
-          return;
-        }
-
-        setLoginVisible(false); // Stäng login-dialogen
+        navigate(data.user.role === "admin" ? "/staff" : "/menu");
+        setLoginVisible(false);
       } else {
         setError("Invalid response from server");
       }
@@ -67,8 +52,8 @@ function Login({ className, onClose }: LoginProps) {
   };
 
   const handleRegister = (): void => {
-    setLoginVisible(false); // Dölj Login
-    setRegisterVisible(true); // Visa Register
+    setLoginVisible(false);
+    setRegisterVisible(true);
   };
 
   const handleClose = (): void => {

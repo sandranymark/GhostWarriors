@@ -13,7 +13,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 
   if (user === null) {
     console.log("ProtectedRoute: No user found, redirecting...");
-    return <p>LOADING</p>; // HÄR SKA EN LAZY LOADER IN!!!!!!!!!!
+    return <p style={{ color: "#FFFFFF" }}>You have no rights to visit this site.</p>; // HÄR SKA EN LAZY LOADER IN!!!!!!!!!!
   }
 
   if (!user) {

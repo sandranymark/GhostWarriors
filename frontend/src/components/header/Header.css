@@ -84,6 +84,13 @@
 .blur {
   filter: blur(10px);
 }
+
+.header--hamburger-open .hamburger,
+.header--hamburger-open .header__link,
+.header--hamburger-open .header__cart-btn--wrapper {
+  display: none;
+}
+
 @media screen and (max-width: 3000px) {
   .hamburger {
     display: none;

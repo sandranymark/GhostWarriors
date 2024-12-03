@@ -2,40 +2,20 @@ import Nav from "../nav/Nav";
 import "./HamburgerBar.css";
 import { useEffect } from "react";
 
-interface HanburgerBarProps {
+interface HamburgerBarProps {
   onClose: () => void;
 }
 
-function HamburgerBar({ onClose }: HanburgerBarProps) {
+function HamburgerBar({ onClose }: HamburgerBarProps) {
   useEffect(() => {
-    const hamburgerBarCloseBtnRef = document.querySelector(
-      ".hamburgerBar__close-btn"
-    ) as HTMLParagraphElement;
-    // const navRef = document.querySelector(".nav") as HTMLElement;
-    const bodyRef = document.querySelector("body") as HTMLBodyElement;
-    const hamburgerRef = document.querySelector(".hamburger") as HTMLElement;
-    const headerLogoRef = document.querySelector(".header__logo") as HTMLImageElement;
-    const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
-    const cartBtnWrapperRef = document.querySelector(".header__cart-btn--wrapper") as HTMLElement;
+    // Lägg till "no-scroll" på body när menyn öppnas
+    document.body.classList.add("no-scroll");
 
-    const handleClose = (): void => {
-      // navRef.classList.add("hide");
-      bodyRef.classList.remove("no-scroll");
-      hamburgerRef.classList.remove("hide");
-      headerLogoRef.classList.remove("hide");
-      headerLinkAroundLogoRef.classList.remove("hide");
-      cartBtnWrapperRef.classList.remove("hide");
-      onClose();
-    };
-
-    // Lägg till event listener
-    hamburgerBarCloseBtnRef?.addEventListener("click", handleClose);
-
-    // Ta bort event listener när komponenten avmonteras
     return () => {
-      hamburgerBarCloseBtnRef?.removeEventListener("click", handleClose);
+      // Ta bort "no-scroll" när menyn stängs
+      document.body.classList.remove("no-scroll");
     };
-  }, [onClose]);
+  }, []);
 
   return (
     <section className="hamburgerBar-section">
@@ -48,5 +28,3 @@ function HamburgerBar({ onClose }: HanburgerBarProps) {
 }
 
 export default HamburgerBar;
-
-// Författare Adréan

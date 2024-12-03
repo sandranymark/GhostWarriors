@@ -11,21 +11,36 @@ import useHeaderStore from "../../stores/headerStore";
 import HamburgerBar from "../hamburgerBar/HamburgerBar";
 import DforBreakfast from "../../assets/DforBreakfast.svg";
 import { logoutUser } from "../../services/auth/authService";
+import { useEffect } from "react";
 
 function Header() {
   const navigate = useNavigate();
   const { toggleCartVisibility } = useCart();
   const cart = useCartStore((state) => state.cart);
   const quantity = cart.reduce((total, item) => total + item.quantity, 0);
+
   // Zustand-tillstånd
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const isLoginVisible = useHeaderStore((state) => state.isLoginVisible);
   const isHamburgerVisible = useHeaderStore((state) => state.isHamburgerVisible);
   const isRegisterVisible = useHeaderStore((state) => state.isRegisterVisible);
+  const setUser = useAuthStore((state) => state.setUser);
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
   const setHamburgerVisible = useHeaderStore((state) => state.setHamburgerVisible);
 
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+
+    if (token && user) {
+      setIsLoggedIn(true);
+      setUser(user); // Återställ användarinfo
+    } else {
+      setIsLoggedIn(false);
+      setUser(null);
+    }
+  }, [setIsLoggedIn, setUser]);
 
   const handleLogin = (): void => {
     setLoginVisible(true); // Visa Login-komponenten
@@ -43,7 +58,8 @@ function Header() {
 
   return (
     <>
-      <header className="header">
+      {/* <header className="header"> */}
+      <header className={`header ${isHamburgerVisible ? "header--hamburger-open" : ""}`}>
         <Link className="header__link" to={"/"}>
           <img className="header__logo" src={DforBreakfast} alt="D For Breakfast logo" />
         </Link>
@@ -64,7 +80,11 @@ function Header() {
           </div>
         </div>
 
-        <nav className="hamburger" onClick={() => setHamburgerVisible(true)}>
+        <nav
+          className="hamburger"
+          aria-label="Toggle menu"
+          onClick={() => setHamburgerVisible(true)}
+        >
           <hr className="hamburger-line" />
           <hr className="hamburger-line" />
           <hr className="hamburger-line" />
