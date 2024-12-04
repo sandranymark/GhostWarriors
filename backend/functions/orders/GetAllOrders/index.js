@@ -4,24 +4,25 @@ import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 // import { checkRole } from "../../../middleware/checkRole.js";
 
-
 async function GetAllOrders(event) {
   try {
     const { Items } = await db.scan({ TableName: "ordersTable" });
     console.log("Items:", Items);
     if (Items && Items.length > 0) {
-      return sendResponse(200, Items)
+      return sendResponse(200, Items);
     } else {
-      return sendError(404, 'No product items found, please add product items to database')
+      return sendError(
+        404,
+        "No product items found, please add product items to database"
+      );
     }
   } catch (error) {
     console.error("Scan error:", error);
-    return sendError(404, error.message)
+    return sendError(404, error.message);
   }
 }
 
-export const handler = middy(GetAllOrders)
-  .use(httpErrorHandler())
-  // .use(checkRole(['admin','staff']));
-  
-  //Författare: SANDRA
+export const handler = middy(GetAllOrders).use(httpErrorHandler());
+// .use(checkRole(['admin']));
+
+//Författare: SANDRA

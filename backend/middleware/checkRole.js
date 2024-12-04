@@ -1,31 +1,37 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+import { sendError } from "../responses/responses.js";
 
 // Middleware som både verifierar JWT och kontrollerar användarroll
 export const checkRole = (requiredRoles) => ({
   before: (handler) => {
     // Extrahera token från Authorization-headern
-    const token = handler.event.headers?.Authorization?.split(' ')[1];
-    
-    // Om token saknas, kasta ett fel
+    const token =
+      handler.event.headers.authorization &&
+      handler.event.headers.authorization.split(" ")[1];
+    console.log("validate", token);
+
     if (!token) {
-      throw new Error('Token not provided');
+      console.log("Token not provided");
+      return sendError(401, "Token not provided");
     }
 
     try {
       // Verifiera token och extrahera användardata
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("decoded", decoded);
 
       // Kontrollera om användarens roll finns i de tillåtna rollerna
       if (!requiredRoles.includes(decoded.role)) {
-        throw new Error('Access denied');
+        console.log(`Unauthorized access attempt by role: ${decoded.role}`);
+        return sendError(403, "Access denied"); // Returnera ett felmeddelande om användarens roll inte är tillåten
       }
 
-      // Lägg till användardata i eventet för att använda senare
+      // Lägg till användardata i eventet för att kunna användas i efterföljande funktioner
       handler.event.user = decoded;
-
     } catch (err) {
-      // Kasta fel om token inte är giltig eller om det uppstår något annat fel
-      throw new Error('Invalid or expired token');
+      console.error("Invalid or expired token:", err.message);
+      return sendError(401, "Invalid or expired token"); // Returnera ett felmeddelande vid valideringsfel
     }
-  }
+  },
 });

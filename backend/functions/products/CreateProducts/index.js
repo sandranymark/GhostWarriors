@@ -1,10 +1,11 @@
-import middy from '@middy/core';
-import jsonBodyParser from '@middy/http-json-body-parser';
-import httpErrorHandler from '@middy/http-error-handler';
+import middy from "@middy/core";
+import jsonBodyParser from "@middy/http-json-body-parser";
+import httpErrorHandler from "@middy/http-error-handler";
 import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
 import { productSchema } from "../../../models/productSchema.js";
+import { checkRole } from "../../../middleware/checkRole.js"; // Importera checkRole-middleware
 
 async function createProduct(event) {
   console.log("Incoming event body:", event.body);
@@ -23,7 +24,9 @@ async function createProduct(event) {
       productName,
     } = event.body;
 
-    const createdAt = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
+    const createdAt = new Date().toLocaleString("sv-SE", {
+      timeZone: "Europe/Stockholm",
+    });
 
     const productData = {
       imageURL,
@@ -39,7 +42,10 @@ async function createProduct(event) {
     const validationResult = productSchema.validate(productData);
 
     if (validationResult.error) {
-      return sendError(400, validationResult.error.details.map((detail) => detail.message));
+      return sendError(
+        400,
+        validationResult.error.details.map((detail) => detail.message)
+      );
     }
     // lägger till productID och CreatedAT i productData EFTER validering
     productData.id = productID;
@@ -60,10 +66,10 @@ async function createProduct(event) {
   }
 }
 
-
 export const handler = middy(createProduct)
   .use(jsonBodyParser())
-  .use(httpErrorHandler());
+  .use(httpErrorHandler())
+  .use(checkRole(["admin"])); // Lägg till rollkontroll som middleware för att endast tillåta admin
 
 // Författare: Anton
 // Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi.

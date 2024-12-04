@@ -23,7 +23,9 @@ function Login({ className, onClose }: LoginProps) {
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
-  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
+  const setRegisterVisible = useHeaderStore(
+    (state) => state.setRegisterVisible
+  );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +40,10 @@ function Login({ className, onClose }: LoginProps) {
         localStorage.setItem("user", JSON.stringify(data.user));
 
         setIsLoggedIn(true);
-        setUser({ username: data.user.username, role: data.user.role });
+        setUser({
+          username: data.user.username,
+          role: data.user.role as "admin" | "user",
+        });
 
         // Kontrollera användarens roll och navigera
         navigate(data.user.role === "admin" ? "/staff" : "/menu");
@@ -47,6 +52,7 @@ function Login({ className, onClose }: LoginProps) {
         setError("Invalid response from server");
       }
     } catch (err) {
+      console.error("Login error:", err);
       setError("An error occurred while logging in");
     }
   };
@@ -92,7 +98,11 @@ function Login({ className, onClose }: LoginProps) {
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button type="button" className="register-btn" onClick={handleRegister}>
+            <button
+              type="button"
+              className="register-btn"
+              onClick={handleRegister}
+            >
               Create Account
             </button>
           </div>
