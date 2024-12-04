@@ -106,6 +106,24 @@ const StaffPage: React.FC = () => {
     }
   };
 
+  const handleSaveOrder = async (updatedOrder: Order) => {
+    const previousOrders = [...orders];
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === updatedOrder.id ? updatedOrder : order
+      )
+    );
+
+    try {
+      await updateOrder(updatedOrder.id, { kitchenMessage: updatedOrder.kitchenMessage });
+    } catch (error) {
+      console.error("Failed to update order:", error);
+      setOrders(previousOrders); // Återställ om något går fel
+      setErrorMsg("Failed to save changes: " + error);
+    }
+  };
+  
+
   return (
     <>
       <Header />
@@ -117,6 +135,7 @@ const StaffPage: React.FC = () => {
             <StaffOrderList
               orders={orders}
               orderStatus="Pending"
+              onSave={handleSaveOrder}
               onChangeStatus={handleChangeStatus}
             />
           </section>
@@ -128,6 +147,7 @@ const StaffPage: React.FC = () => {
             <StaffOrderList
               orders={orders}
               orderStatus="Preparing"
+              onSave={handleSaveOrder}
               onChangeStatus={handleChangeStatus}
             />
           </section>
@@ -144,6 +164,7 @@ const StaffPage: React.FC = () => {
             <StaffOrderList
               orders={orders}
               orderStatus="Done"
+              onSave={handleSaveOrder}
               onChangeStatus={handleChangeStatus}
             />
           </section>

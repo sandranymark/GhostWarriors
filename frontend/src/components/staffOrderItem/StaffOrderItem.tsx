@@ -1,13 +1,37 @@
 import "./StaffOrderItem.css";
-import { Order } from "../../types/orderType";
+import { Order } from "../../types/OrderType";
+import { useState } from "react";
 
 interface StaffOrderItemProps {
   order: Order;
+  onSave: (updatedOrder: Order) => void; // Funktion för att spara ändringar
   onChangeStatus: (id: string, newStatus: string) => void; // Funktion för att ändra status
   isEditable: boolean; // Om statusknapparna kan visas
 }
 
-const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, isEditable }) => {
+const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, onSave, isEditable }) => {
+  
+  const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
+  const [updatedOrder, setUpdatedOrder] = useState<Order>(order); // Lokalt state för uppdaterad order
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setUpdatedOrder((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const saveChanges = () => {
+    onSave(updatedOrder); // Spara ändringarna via callback
+    setEditMode(false); // Stäng redigeringsläget
+  };
+
+  const cancelChanges = () => {
+    setUpdatedOrder(order); // Återställ lokala ändringar
+    setEditMode(false);
+  };
+  
   return (
     <div className="staff__order-card">
       <p className="staff__order-info">
@@ -27,14 +51,22 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
         Customer<span className="staff__order-colon">: </span>
         {order.customerName}
       </p>
-      <p className="staff__order-info">
-        Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
-      </p>
+      {editMode ? (
+        <textarea
+          className="staff__textarea"
+          name="kitchenMessage"
+          value={updatedOrder.kitchenMessage}
+          onChange={handleInputChange}
+        />
+      ) : (
+        <p className="staff__order-info">
+          Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
+        </p>
+      )}
       <p className="staff__order-info">
         Total price<span className="staff__order-colon">: </span>
         {order.totalPrice} sek
       </p>
-
       <p className="staff__order-info">
         Items<span className="staff__order-colon">: </span>
       </p>
@@ -56,29 +88,53 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
           </li>
         ))}
       </ul>
-      {isEditable && ( // Om ordern kan redigeras, visa knappar
-        <div className="staff__status-buttons">
-          <label className="staff__status-buttons-label">
-            <input
-              className="staff__radio-btn"
-              type="radio"
-              name={`status-${order.id}`}
-              checked={order.orderStatus === "Preparing"}
-              onChange={() => onChangeStatus(order.id, "Preparing")}
-            />
-            Preparing
-          </label>
-          <label className="staff__status-buttons-label">
-            <input
-              className="staff__radio-btn"
-              type="radio"
-              name={`status-${order.id}`}
-              checked={order.orderStatus === "Done"}
-              onChange={() => onChangeStatus(order.id, "Done")}
-            />
-            Done
-          </label>
-        </div>
+      {isEditable && (
+        <>
+          {/* Status-knappar */}
+          <div className="staff__status-buttons">
+            <label className="staff__status-buttons-label">
+              <input
+                className="staff__radio-btn"
+                type="radio"
+                name={`status-${order.id}`}
+                checked={order.orderStatus === "Preparing"}
+                onChange={() => onChangeStatus(order.id, "Preparing")}
+              />
+              Preparing
+            </label>
+            <label className="staff__status-buttons-label">
+              <input
+                className="staff__radio-btn"
+                type="radio"
+                name={`status-${order.id}`}
+                checked={order.orderStatus === "Done"}
+                onChange={() => onChangeStatus(order.id, "Done")}
+              />
+              Done
+            </label>
+          </div>
+
+          {/* Edit, Save och Cancel-knappar */}
+          <div className="staff__edit-buttons">
+            {!editMode ? (
+              <button
+                className="staff__button"
+                onClick={() => setEditMode(true)} // Öppna redigeringsläge
+              >
+                Edit
+              </button>
+            ) : (
+              <>
+                <button className="staff__button" onClick={saveChanges}>
+                  Save
+                </button>
+                <button className="staff__button" onClick={cancelChanges}>
+                  Cancel
+                </button>
+              </>
+            )}
+          </div>
+        </>
       )}
     </div>
   );
