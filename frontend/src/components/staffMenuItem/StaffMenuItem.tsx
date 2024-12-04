@@ -82,10 +82,10 @@ function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
           </div>
         </div>
       ) : (
-        <div className="menuItem__edit--content">
-          <h2 className="menuItem__heading">{product.productName}</h2>
-          <p className="menuItem__price">{product.productPrice} SEK</p>
-          <p className="menuItem__description--edit">{product.description}</p>
+        <div className="staffMenuItem__edit--content">
+          <h2 className="staffMenuItem__heading">{product.productName}</h2>
+          <p className="staffMenuItem__price">{product.productPrice} SEK</p>
+          <p className="staffMenuItem__description--edit">{product.description}</p>
           <button className="edit__btn" onClick={() => setEditMode(true)}>
             Edit
           </button>

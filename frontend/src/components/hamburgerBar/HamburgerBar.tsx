@@ -22,7 +22,7 @@ function HamburgerBar({ onClose }: HamburgerBarProps) {
       <p className="hamburgerBar__close-btn" onClick={onClose}>
         X
       </p>
-      <Nav className="hamburger-nav" />
+      <Nav className="hamburger-nav" onClose={onClose} />
     </section>
   );
 }
