@@ -4,6 +4,7 @@ import { RxAvatar } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
 import useHeaderStore from "../../stores/headerStore";
+import { loginSchema } from "../../models/loginSchema";
 import { LoginCredentials } from "../../types/loginType";
 import { loginUser } from "../../services/auth/authService";
 
@@ -23,14 +24,16 @@ function Login({ className, onClose }: LoginProps) {
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
-  const setRegisterVisible = useHeaderStore(
-    (state) => state.setRegisterVisible
-  );
+  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const credentials: LoginCredentials = { username, password };
+    const { error: validationError } = loginSchema.validate(credentials);
+    if (validationError) {
+      return setError("Invalid username or password");
+    }
 
     try {
       const data = await loginUser(credentials);
@@ -53,7 +56,7 @@ function Login({ className, onClose }: LoginProps) {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("An error occurred while logging in");
+      setError("Invalid username or password");
     }
   };
 
@@ -98,11 +101,7 @@ function Login({ className, onClose }: LoginProps) {
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button
-              type="button"
-              className="register-btn"
-              onClick={handleRegister}
-            >
+            <button type="button" className="register-btn" onClick={handleRegister}>
               Create Account
             </button>
           </div>
