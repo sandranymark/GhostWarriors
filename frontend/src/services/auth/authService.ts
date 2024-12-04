@@ -28,7 +28,7 @@ export const loginUser = async (credentials: LoginCredentials): Promise<LoginRes
 
 // Logga ut
 export const logoutUser = (): void => {
-  // Rensar eventuell token eller användardata
+  // Rensar token och användardata
   localStorage.removeItem("user");
   localStorage.removeItem("token");
 };

@@ -14,10 +14,9 @@ import AddProductForm from "../../components/addProductForm/AddProductForm";
 import useAuthStore from "../../stores/authStore";
 
 function StaffMenuPage() {
-  const { isLoading, setLoading, user } = useAuthStore();
+  const { isLoading, setLoading } = useAuthStore();
 
   const [products, setProducts] = useState<Product[]>([]);
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
 

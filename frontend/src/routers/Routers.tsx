@@ -1,10 +1,11 @@
 import Cart from "../components/cart/Cart";
+import { Route, Routes } from "react-router-dom";
 import Homepage from "../pages/homepage/Homepage";
 import Menupage from "../pages/menupage/Menupage";
 import Aboutpage from "../pages/aboutpage/Aboutpage";
-import Contactpage from "../pages/contactpage/Contactpage";
-import { Route, Routes } from "react-router-dom";
 import StaffPage from "../pages/staffpage/StaffPage";
+import Contactpage from "../pages/contactpage/Contactpage";
+import LazyLoader from "../components/lazyLoader/LazyLoader";
 import StaffMenuPage from "../pages/staffmenupage/StaffMenuPage";
 import ProtectedRoute from "../components/protectedRoute/ProtectedRoute";
 
@@ -19,6 +20,14 @@ function Routers() {
         <Route path="/contact" element={<Contactpage />} />
         <Route
           path="/staff"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <LazyLoader targetPath="/StaffPage" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/staffpage"
           element={
             <ProtectedRoute requiredRole="admin">
               <StaffPage />

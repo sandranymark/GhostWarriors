@@ -9,7 +9,6 @@ import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
 import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/orderService";
 
 const StaffPage: React.FC = () => {
-  // const { user } = useLogin();
   const navigate = useNavigate();
   const { user, isLoading, setLoading } = useAuthStore();
 
@@ -63,9 +62,9 @@ const StaffPage: React.FC = () => {
   // Visar en text för användaren om ordrarna laddas eller om något gick fel
   if (isLoading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
   if (errorMsg) return <p className="staffpage__errorMsg">Error: {errorMsg}</p>; // Om det uppstår ett fel
-  if (orders.length === 0) {
-    return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;
-  }
+  // if (orders.length === 0) {
+  //   return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;
+  // }
 
   const handleChangeStatus = async (id: string, newStatus: string) => {
     const previousOrders = [...orders]; // Sparar nuvarande order om vi behöver återställa
