@@ -38,7 +38,7 @@ async function updatedOrder(event) {
     UpdateExpression = UpdateExpression.slice(0, -2);
 
     const updateParams = {
-      TableName: process.env.ORDERS_TABLE || "ordersTable",
+      TableName: "ordersTable",
       Key: { id },
       UpdateExpression,
       ExpressionAttributeValues,
