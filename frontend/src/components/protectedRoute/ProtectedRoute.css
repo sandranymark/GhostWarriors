@@ -1,0 +1,15 @@
+.loading-indicator {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark);
+}
+
+.gandalf {
+  width: 90%;
+  border: 1px solid var(--orange);
+  box-shadow: 1px 1px 50px var(--orange);
+}
+
+/* Författare Adréan */

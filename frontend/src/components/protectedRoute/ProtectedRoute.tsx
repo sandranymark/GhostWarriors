@@ -1,4 +1,5 @@
 import React from "react";
+import "./ProtectedRoute.css";
 import { Navigate } from "react-router-dom";
 import useAuthStore from "../../stores/authStore";
 
@@ -11,23 +12,30 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   const { user, isLoading } = useAuthStore();
   console.log("ProtectedRoute user:", user);
   console.log("ProtectedRoute isLoading:", isLoading);
+
   // Vänta tills användarinformation är laddad
   if (isLoading) {
     return (
       <div className="loading-indicator">
-        <p style={{ color: "#FFFFFF" }}>Loading...</p>
+        <img
+          className="gandalf"
+          src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3d1cmF5MHJmcTkyNmJ4NnFtdXRteXhxM3dwYXZ4eThpbDl0bG13MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8abAbOrQ9rvLG/200.webp"
+          alt="You shall not pass"
+        />
       </div>
     );
   }
 
-  // Kontrollera om användaren inte är inloggad
   if (!user) {
+    // Oinloggade användare omdirigeras till startsidan
     return <Navigate to="/" replace />;
   }
 
-  // Kontrollera användarens roll
   if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/menu" replace />;
+    if (user.role === "user") {
+      return <Navigate to="/menu" replace />; // "user" skickas till meny
+    }
+    return <Navigate to="/" replace />; // Alla andra skickas till startsidan
   }
 
   // Rendera innehållet om användaren är inloggad och har rätt roll
@@ -35,3 +43,5 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 };
 
 export default ProtectedRoute;
+
+// Författare Adréan
