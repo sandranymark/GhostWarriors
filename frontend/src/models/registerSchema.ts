@@ -20,13 +20,6 @@ export const registerSchema = Joi.object<RegisterType>({
     "string.max": "Password must be at most 30 characters long.",
     "any.required": "Password is required.",
   }),
-  // confirmPassword: Joi.string()
-  // .required()
-  // .valid(Joi.ref("password"))
-  // .messages({
-  //   "any.only": "Passwords must match.",
-  //   "any.required": "Confirm Password is required.",
-  // }),
 });
 
 // Författare Sandra
