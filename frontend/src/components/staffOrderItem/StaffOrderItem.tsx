@@ -1,6 +1,6 @@
 import "./StaffOrderItem.css";
 import { Order } from "../../types/OrderType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface StaffOrderItemProps {
   order: Order;
@@ -9,18 +9,49 @@ interface StaffOrderItemProps {
   isEditable: boolean; // Om statusknapparna kan visas
 }
 
-const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, onSave, isEditable }) => {
-  
+const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
+  order,
+  onChangeStatus,
+  onSave,
+  isEditable,
+}) => {
   const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
   const [updatedOrder, setUpdatedOrder] = useState<Order>(order); // Lokalt state för uppdaterad order
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setUpdatedOrder((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+
+  const handleProductQuantityChange = (index: number, newQuantity: number) => {
+    const updatedItems = [...updatedOrder.orderItems];
+    updatedItems[index].productQuantity = newQuantity;
+    setUpdatedOrder((prev) => ({
+      ...prev,
+      orderItems: updatedItems,
+    }));
+  };
+
+  // Funktion för att uppdatera totalpriset baserat på produkterna
+  const calculateTotalPrice = () => {
+    const total = updatedOrder.orderItems.reduce(
+      (sum, item) => sum + item.productPrice * item.productQuantity,
+      0
+    );
+    setUpdatedOrder((prev) => ({
+      ...prev,
+      totalPrice: total,
+    }));
+  };
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [updatedOrder.orderItems]);
 
   const saveChanges = () => {
     onSave(updatedOrder); // Spara ändringarna via callback
@@ -31,14 +62,16 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
     setUpdatedOrder(order); // Återställ lokala ändringar
     setEditMode(false);
   };
-  
+
   return (
     <div className="staff__order-card">
       <p className="staff__order-info">
         Status<span className="staff__order-colon">: </span>
         <span
           className="staff__order-status"
-          style={{ color: order.orderStatus === "Done" ? "#008000" : "#f68f05" }}
+          style={{
+            color: order.orderStatus === "Done" ? "#008000" : "#f68f05",
+          }}
         >
           {order.orderStatus}
         </span>
@@ -53,19 +86,20 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
       </p>
       {editMode ? (
         <textarea
-          className="staff__textarea"
+          className="staff__kitchenMessage"
           name="kitchenMessage"
           value={updatedOrder.kitchenMessage}
           onChange={handleInputChange}
         />
       ) : (
         <p className="staff__order-info">
-          Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
+          Customer message<span className="staff__order-colon">: </span>{" "}
+          {order.kitchenMessage}
         </p>
       )}
       <p className="staff__order-info">
         Total price<span className="staff__order-colon">: </span>
-        {order.totalPrice} sek
+        {updatedOrder.totalPrice} sek
       </p>
       <p className="staff__order-info">
         Items<span className="staff__order-colon">: </span>
@@ -83,14 +117,29 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
             </p>
             <p className="staff__order-info">
               Quantity<span className="staff__order-colon">: </span>
-              {item.productQuantity}
+              {editMode ? (
+                <input
+                  type="number"
+                  className="staff__input"
+                  value={item.productQuantity}
+                  onChange={(e) =>
+                    handleProductQuantityChange(
+                      index,
+                      parseInt(e.target.value, 10) || 0
+                    )
+                  }
+                  min="0"
+                />
+              ) : (
+                item.productQuantity
+              )}
             </p>
           </li>
         ))}
       </ul>
       {isEditable && (
         <>
-          {/* Status-knappar */}
+          {/* Status-knappar visas alltid sålänge som isEditable är true */}
           <div className="staff__status-buttons">
             <label className="staff__status-buttons-label">
               <input
@@ -113,27 +162,32 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
               Done
             </label>
           </div>
-
           {/* Edit, Save och Cancel-knappar */}
-          <div className="staff__edit-buttons">
-            {!editMode ? (
-              <button
-                className="staff__button"
-                onClick={() => setEditMode(true)} // Öppna redigeringsläge
-              >
-                Edit
-              </button>
-            ) : (
-              <>
-                <button className="staff__button" onClick={saveChanges}>
-                  Save
+          {/* Visas bara när status är Pending */}
+          {order.orderStatus === "Pending" && (
+            <div className="staff__edit-buttons">
+              {!editMode ? (
+                <button
+                  className="staff__button"
+                  onClick={() => setEditMode(true)}
+                >
+                  Edit
                 </button>
-                <button className="staff__button" onClick={cancelChanges}>
-                  Cancel
-                </button>
-              </>
-            )}
-          </div>
+              ) : (
+                <>
+                  <button className="staff__button" onClick={saveChanges}>
+                    Save
+                  </button>
+                  <button
+                    className="staff__button staff__button--cancel"
+                    onClick={cancelChanges}
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </>
       )}
     </div>
