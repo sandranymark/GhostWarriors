@@ -14,7 +14,7 @@ import AddProductForm from "../../components/addProductForm/AddProductForm";
 import useAuthStore from "../../stores/authStore";
 
 function StaffMenuPage() {
-  const { isLoading, setLoading, user } = useAuthStore();
+  const { isLoading, setLoading } = useAuthStore();
 
   const [products, setProducts] = useState<Product[]>([]);
   // const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -40,7 +40,9 @@ function StaffMenuPage() {
     fetchProducts();
   }, []);
 
-  const handleAddProduct = async (newProduct: Omit<Product, "id" | "createdAt">) => {
+  const handleAddProduct = async (
+    newProduct: Omit<Product, "id" | "createdAt">
+  ) => {
     try {
       const response = await createProduct(newProduct);
       // console.log("API response", response);
@@ -81,7 +83,9 @@ function StaffMenuPage() {
     try {
       // Uppdatera state lokalt INNAN api-anropet
       setProducts((prevProducts) =>
-        prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+        prevProducts.map((product) =>
+          product.id === updatedProduct.id ? updatedProduct : product
+        )
       );
 
       // console.log("Updated product", updateField);
@@ -103,7 +107,9 @@ function StaffMenuPage() {
     try {
       console.log("Try to delete product with ID:", id);
       await deleteProduct(id);
-      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.id !== id)
+      );
       // console.log("delete success, new list", products);
     } catch (error) {
       setErrorMsg("Failed to remove product");
@@ -118,13 +124,16 @@ function StaffMenuPage() {
     <section className="menupage-section">
       <Header />
       {isFormVisible && (
-        <AddProductForm onAddProduct={handleAddProduct} onClose={toggleFormVisibility} />
+        <AddProductForm
+          onAddProduct={handleAddProduct}
+          onClose={toggleFormVisibility}
+        />
       )}
       <menu className="menu">
         {products.length > 0 ? (
-          products.map((product) => (
+          products.map((product, index) => (
             <StaffMenuItem
-              key={product.id}
+              key={product.id?.toString() || `temp-key-${index}`}
               product={product}
               onSave={handleUpdateProduct}
               onDelete={() => handleDeleteProduct(product.id!)} // Eftersom att vi kollar om vi har ett id tidigare kan vi alltid förvänta oss ett här.

@@ -1,6 +1,5 @@
 import middy from "@middy/core";
 import db from "../../../services/services.js";
-// import { checkRole} from "../../../utils/auth.js";
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import { validateId } from "../../../utils/validation.js";
@@ -10,7 +9,8 @@ import { sendError, sendResponse } from "../../../responses/responses.js";
 async function updatedOrder(event) {
   try {
     const { id } = event.pathParameters;
-    const updateFields = typeof event.body === "object" && event.body ? event.body : {};
+    const updateFields =
+      typeof event.body === "object" && event.body ? event.body : {};
 
     validateId(id);
 
@@ -58,7 +58,8 @@ async function updatedOrder(event) {
   }
 }
 
-export const handler = middy(updatedOrder).use(jsonBodyParser()).use(httpErrorHandler());
-// .use(checkRole(['admin', 'user']));
+export const handler = middy(updatedOrder)
+  .use(jsonBodyParser())
+  .use(httpErrorHandler());
 
 //Författare: SANDRA

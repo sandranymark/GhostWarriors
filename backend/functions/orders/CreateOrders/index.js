@@ -5,7 +5,6 @@ import { sendError, sendResponse } from "../../../responses/responses.js";
 import db from "../../../services/services.js";
 import { v4 as uuid } from "uuid";
 import { orderSchema } from "../../../models/orderSchema.js";
-// import { checkRole } from "../../../middleware/checkRole.js";
 
 async function createOrder(event) {
   console.log("Incoming event body:", event.body);
@@ -22,7 +21,9 @@ async function createOrder(event) {
       kitchenMessage,
     } = event.body;
 
-    const createdAt = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
+    const createdAt = new Date().toLocaleString("sv-SE", {
+      timeZone: "Europe/Stockholm",
+    });
     const updatedAt = createdAt;
 
     const orderData = {
@@ -70,7 +71,6 @@ async function createOrder(event) {
 
 export const handler = middy(createOrder)
   .use(jsonBodyParser())
-  .use(httpErrorHandler())
-  // .use(checkRole(['admin', 'user'])); // rollerna som har tillgång till att skapa en order
+  .use(httpErrorHandler());
 
-  // Författare: SANDRA
+// Författare: SANDRA
