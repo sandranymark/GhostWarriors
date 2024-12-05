@@ -12,7 +12,6 @@ import {
   getProducts,
   updateProduct,
 } from "../../services/products/productService";
-import LazyLoader from "../../components/lazyLoader/LazyLoader";
 
 function StaffMenuPage() {
   const { isLoading, setLoading } = useAuthStore();
@@ -40,7 +39,9 @@ function StaffMenuPage() {
     fetchProducts();
   }, []);
 
-  const handleAddProduct = async (newProduct: Omit<Product, "id" | "createdAt">) => {
+  const handleAddProduct = async (
+    newProduct: Omit<Product, "id" | "createdAt">
+  ) => {
     try {
       const response = await createProduct(newProduct);
       if (response) {
@@ -73,7 +74,9 @@ function StaffMenuPage() {
     try {
       // Uppdatera state lokalt INNAN api-anropet
       setProducts((prevProducts) =>
-        prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+        prevProducts.map((product) =>
+          product.id === updatedProduct.id ? updatedProduct : product
+        )
       );
 
       await updateProduct(updatedProduct.id, updateField);
@@ -90,7 +93,9 @@ function StaffMenuPage() {
     }
     try {
       await deleteProduct(id);
-      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.id !== id)
+      );
     } catch (error) {
       setErrorMsg("Failed to remove product");
     }
@@ -103,7 +108,10 @@ function StaffMenuPage() {
     <section className="menupage-section">
       <Header />
       {isFormVisible && (
-        <AddProductForm onAddProduct={handleAddProduct} onClose={toggleFormVisibility} />
+        <AddProductForm
+          onAddProduct={handleAddProduct}
+          onClose={toggleFormVisibility}
+        />
       )}
       <menu className="menu">
         {products.length > 0 ? (
