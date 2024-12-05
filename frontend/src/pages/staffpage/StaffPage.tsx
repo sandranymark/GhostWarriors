@@ -9,7 +9,6 @@ import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/or
 const StaffPage: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Hämta alla ordrar
   useEffect(() => {
@@ -30,8 +29,6 @@ const StaffPage: React.FC = () => {
       } catch (error) {
         console.error("Error fetching orders:", error);
         setErrorMsg("An error occurred while fetching orders.");
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -75,11 +72,6 @@ const StaffPage: React.FC = () => {
   const pendingOrdersCount = orders.filter((order) => order.orderStatus === "Pending").length;
   const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
   const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
-
-  // Om det laddas eller om det finns ett fel
-  if (isLoading) {
-    return <p className="staffpage__loading">Loading orders...</p>;
-  }
 
   if (errorMsg) {
     return <p className="staffpage__errorMsg">Error: {errorMsg}</p>;
@@ -134,3 +126,6 @@ const StaffPage: React.FC = () => {
 };
 
 export default StaffPage;
+
+// Författare Anton
+// Modifierare Adréan, tagit bort routing av admin och lagt det i ProtectedRoute.

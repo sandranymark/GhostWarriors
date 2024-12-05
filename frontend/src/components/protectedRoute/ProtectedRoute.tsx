@@ -57,12 +57,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 
   // Hantera omdirigering baserat på användarroll
   if (!user || (requiredRole && user.role !== requiredRole)) {
-    if (user?.role === "user") {
-      navigate("/menu", { replace: true }); // Omdirigera användare med rollen "user" till meny
-    } else {
-      navigate("/", { replace: true }); // Omdirigera alla andra till startsidan
-    }
-    return null; // Returnera null för att undvika ytterligare rendering
+    navigate(user?.role === "user" ? "/menu" : "/", { replace: true });
+    return null;
   }
 
   // Rendera innehållet om användaren är inloggad och har rätt roll
