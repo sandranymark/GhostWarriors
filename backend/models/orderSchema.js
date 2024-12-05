@@ -37,6 +37,7 @@ export const orderSchema = joi.object({
 export const updateOrderSchema = joi.object({
   orderStatus: joi.string().optional().valid("Pending", "Preparing", "Done"),
   kitchenMessage: joi.string().optional().allow(""),
+  totalPrice: joi.number().optional(),
 
   orderItems: joi
     .array()

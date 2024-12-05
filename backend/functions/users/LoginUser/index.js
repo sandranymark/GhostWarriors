@@ -17,7 +17,6 @@ async function LoginUser(event) {
   }
 
   try {
-    // Hämtar användaren från databasen baserat på användarnamn
     const params = {
       TableName: "usersTable",
       IndexName: "username-index",
@@ -35,7 +34,7 @@ async function LoginUser(event) {
 
     const user = result.Items[0];
 
-    // Verifiera lösenordet
+    // Validerar lösenordet
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return sendError(401, "Invalid username or password");

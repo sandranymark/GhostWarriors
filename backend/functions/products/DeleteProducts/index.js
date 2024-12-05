@@ -6,7 +6,6 @@ import { deleteProductSchema } from "../../../models/productSchema.js";
 
 async function deleteProduct(event) {
   try {
-    // Förvänta oss att id skickas med som en query parameter
     const { id } = event.pathParameters || {};
     console.log("Path parameters:", event.pathParameters);
 
@@ -23,11 +22,8 @@ async function deleteProduct(event) {
       TableName: "menuTable",
       Key: {
         id: id, // Partition key
-
       },
     };
-
-
 
     // Anropar delete-metoden
     await db.delete(params);
@@ -39,8 +35,7 @@ async function deleteProduct(event) {
   }
 }
 
-export const handler = middy(deleteProduct)
-  .use(httpErrorHandler());
+export const handler = middy(deleteProduct).use(httpErrorHandler());
 
 // Författare: Anton
 // Edit by Sandra - lagt till  middy, httpErrorHandler och lagt in validering med joi.

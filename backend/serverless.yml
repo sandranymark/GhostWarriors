@@ -114,14 +114,6 @@ functions:
           path: /users/{id}
           method: put
 
-  ProtectedEndpoint:
-    handler: functions/protected/protectedEndpoint.handler
-    events:
-      - http:
-          path: protected
-          method: get
-          cors: true
-
 #products Table
 resources:
   Resources:

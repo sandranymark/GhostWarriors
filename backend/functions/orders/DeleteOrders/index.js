@@ -10,14 +10,13 @@ async function deleteOrder(event) {
     console.log("Path parameters:", event.pathParameters);
 
     if (!id) {
-        return sendError(400, "No ID provided in path parameters.");
-      }
-
+      return sendError(400, "No ID provided in path parameters.");
+    }
 
     validateId(id);
 
     const params = {
-      TableName: 'ordersTable',
+      TableName: "ordersTable",
       Key: { id: id },
       ReturnValues: "ALL_OLD",
     };
@@ -29,17 +28,15 @@ async function deleteOrder(event) {
     }
 
     return sendResponse(200, {
-        message: `Order with id ${id} deleted successfully.`,
-        deletedOrder: result.Attributes, // Returnera data om den raderade posten
-      });
-
+      message: `Order with id ${id} deleted successfully.`,
+      deletedOrder: result.Attributes,
+    });
   } catch (error) {
-    console.error('Error deleting order:', error);
+    console.error("Error deleting order:", error);
     return sendError(500, `Internal Server Error: ${error.message}`);
   }
 }
 
-export const handler = middy(deleteOrder)
-  .use(httpErrorHandler());
+export const handler = middy(deleteOrder).use(httpErrorHandler());
 
-  //Författare: SANDRA
+//Författare: SANDRA

@@ -4,15 +4,12 @@ import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import { updateProductSchema } from "../../../models/productSchema.js";
-
-
+import { checkRole } from "../../../middleware/checkRole.js";
 
 async function updatedProduct(event) {
   try {
-    // Hämta `id` från URL-parameter och de uppdaterade fälten från body
     const { id } = event.pathParameters;
-    const updateFields = event.body; // jsonBodyParser parsar body till JSON
-
+    const updateFields = event.body; // Vi använder jsonBodyParser (middy) istället för JSON.parse
 
     const productParams = { TableName: "menuTable", Key: { id: id } };
     const product = await db.get(productParams);
@@ -20,11 +17,12 @@ async function updatedProduct(event) {
       return sendError(404, `Product with id ${id} not found.`);
     }
 
-
-
     const validationResult = updateProductSchema.validate(updateFields);
     if (validationResult.error) {
-      return sendError(400, validationResult.error.details.map((detail) => detail.message));
+      return sendError(
+        400,
+        validationResult.error.details.map((detail) => detail.message)
+      );
     }
 
     // Kontrollera att det finns några fält att uppdatera
@@ -71,8 +69,8 @@ async function updatedProduct(event) {
 
 export const handler = middy(updatedProduct)
   .use(jsonBodyParser())
-  .use(httpErrorHandler());
-
+  .use(httpErrorHandler())
+  .use(checkRole(["admin"])); // Lägger till rollkontroll som middleware för att endast tillåta admin
 
 // Författare: Anton
-// Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi.
+// Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi samt roll.

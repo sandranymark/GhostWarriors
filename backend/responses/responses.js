@@ -3,7 +3,8 @@ export function sendResponse(status, data) {
     statusCode: status,
     headers: {
       "Content-Type": "application/json",
-      // "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';", // CSP-standard
+      "Content-Security-Policy":
+        "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; img-src 'self' https://dforbreakfastimg.s3.eu-north-1.amazonaws.com;",
     },
     body: JSON.stringify({ success: true, data }),
   };
@@ -14,7 +15,8 @@ export function sendError(status, message) {
     statusCode: status,
     headers: {
       "Content-Type": "application/json",
-      // "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self';", // CSP-standard
+      "Content-Security-Policy":
+        "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; img-src 'self' https://dforbreakfastimg.s3.eu-north-1.amazonaws.com;",
     },
     body: JSON.stringify({ success: false, error: message }),
   };
@@ -22,7 +24,3 @@ export function sendError(status, message) {
 
 // Författare Anton
 // Modifierad av Sandra - lagt till CSP
-
-//Testa denna:
-//Content-Security-Policy: default-src 'self'; frame-ancestors 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' http://localhost:5173 https://zbehfdy0l4.execute-api.eu-north-1.amazonaws.com; base-uri 'self'; form-action 'self';
-//
