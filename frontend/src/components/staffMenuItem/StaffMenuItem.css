@@ -99,7 +99,7 @@
 .input__price {
   font-size: 24px;
   padding: 8px;
-  width: 90%;
+  width: 80%;
   margin-right: 0.5rem;
 }
 
@@ -147,13 +147,11 @@
 }
 
 @media screen and (max-width: 400px) {
-  .input__price {
-    width: 80%;
-  }
 
   .staaffMenuItem__heading {
     font-size: 25px;
   }
+
   .staffMenuItem__price,
   .staffMenuItem__description {
     padding: 0rem 0.5rem;
