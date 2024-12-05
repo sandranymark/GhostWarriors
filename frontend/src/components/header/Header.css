@@ -7,6 +7,7 @@
   background-color: var(--dark);
   position: sticky;
   top: 0;
+  z-index: 1;
 }
 
 .header__link {
@@ -95,9 +96,11 @@
   .hamburger {
     display: none;
   }
+
   .hamburger-line {
     display: none;
   }
+
   .header__link {
     margin-right: -2rem;
   }
@@ -117,6 +120,7 @@
   .header__cart {
     cursor: pointer;
   }
+
   .nav {
     margin: 0 1rem;
   }
@@ -146,6 +150,7 @@
   .header {
     justify-content: space-between;
   }
+
   .header__cart-btn--wrapper {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
