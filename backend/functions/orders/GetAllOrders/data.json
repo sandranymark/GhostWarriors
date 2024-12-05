@@ -1,9 +1,7 @@
 {
-    "body": "",
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "httpMethod": "GET"
-
+  "body": "",
+  "headers": {
+    "Authorization": "Bearer"
+  },
+  "httpMethod": "GET"
 }
-

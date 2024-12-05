@@ -16,7 +16,7 @@ interface SingleOrderResponse {
 
 const API_URL = "https://i0hwwn0u7f.execute-api.eu-north-1.amazonaws.com/orders";
 
-// GET: Hämta alla order
+//GET: Hämta alla order
 export const getAllOrders = async (): Promise<OrderResponse> => {
   const response = await axios.get<OrderResponse>(API_URL);
   return response.data;
@@ -55,6 +55,7 @@ export const updateOrder = async (id: string, updatedOrder: Partial<Order>): Pro
   const response = await axios.put<SingleOrderResponse>(`${API_URL}/${id}`, updatedOrder, {
     headers: { "Content-Type": "application/json" },
   });
+  console.log("Response from API: ", response.data);
 
   return response.data.data;
 };

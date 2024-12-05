@@ -23,6 +23,6 @@ async function GetAllOrders(event) {
 }
 
 export const handler = middy(GetAllOrders).use(httpErrorHandler());
-// .use(checkRole(['admin']));
+// .use(checkRole(["admin"]));
 
 //Författare: SANDRA
