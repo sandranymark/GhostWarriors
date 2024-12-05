@@ -2,7 +2,7 @@
   top: 0;
   right: 0;
   gap: 1rem;
-  opacity: 0; /* Osynlig initialt */
+  opacity: 0;
   width: 350px;
   height: 100%;
   z-index: 1000;
@@ -11,15 +11,15 @@
   position: fixed;
   color: var(--white);
   flex-direction: column;
-  transform: translateX(100%); /* Default: utanför skärmen */
+  transform: translateX(100%);
   background-color: var(--dark);
   transition: transform 0.3s ease-in-out;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .cart--visible {
-  opacity: 1; /* Gör den synlig */
-  transform: translateX(0); /* Flytta in på skärmen */
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .cart__top {
@@ -31,9 +31,6 @@
 }
 
 .cart__close-btn {
-  /* position: absolute;
-  top: 1rem;
-  right: 2rem; */
   display: flex;
   width: 2.5rem;
   height: 2.5rem;
@@ -47,8 +44,6 @@
   justify-content: center;
   background-color: var(--dark);
   border: 2px solid var(--orange);
-  /* margin-top: 1rem;
-  margin-right: 0.5rem; */
 }
 
 .cart__heading {
@@ -64,9 +59,6 @@
   height: 100vh;
   overflow: overlay;
   margin-top: 1.5rem;
-
-  /* background-color: white; */
-  /* padding-right: 1rem; */
 }
 
 .cart__empty-text {
@@ -93,8 +85,6 @@
 }
 
 .cart__clear {
-  /* color: var(--white); */
-  /* background-color: #923b2e; */
   background-color: var(--orange);
 }
 
@@ -108,7 +98,6 @@
   align-items: baseline;
   font-family: var(--h1);
   justify-content: space-between;
-  /* margin-top: 9rem; */
 }
 
 .cart__total--span {

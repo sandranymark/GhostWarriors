@@ -1,5 +1,5 @@
-import IncrementButton from "../incrementButton/IncrementButton";
 import "./MenuItem.css";
+import IncrementButton from "../incrementButton/IncrementButton";
 
 interface MenuItemProps {
   id: string;

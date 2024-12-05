@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect, ReactNode, useContext } from "react";
 import { User } from "../types/loginType";
 import { logoutUser } from "../services/auth/authService";
+import { createContext, useState, useEffect, ReactNode, useContext } from "react";
 
 interface LoginProviderProps {
   children: ReactNode;
@@ -25,13 +25,11 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
       const savedToken = localStorage.getItem("token");
 
       if (savedUser && savedUser !== "null" && savedUser !== "undefined") {
-        const parsedUser = JSON.parse(savedUser);
-        console.log("Parsed user:", parsedUser);
-        setUser(JSON.parse(savedUser)); // Parsar endast om det är en sträng
+        setUser(JSON.parse(savedUser));
       }
 
       if (savedToken && savedToken !== "null" && savedToken !== "undefined") {
-        setToken(savedToken); // Token är sannolikt en vanlig sträng
+        setToken(savedToken);
       }
     } catch (err) {
       console.error("Error loading user from localStorage in LoginContext:", err);
@@ -62,7 +60,6 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use the LoginContext
 export const useLogin = (): LoginContextProps => {
   const context = useContext(LoginContext);
   if (!context) {
@@ -71,4 +68,4 @@ export const useLogin = (): LoginContextProps => {
   return context;
 };
 
-//FUNGERANDE KOD OVANFÖR
+// Författare Sandra

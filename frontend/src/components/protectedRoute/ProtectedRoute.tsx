@@ -1,7 +1,8 @@
-import React from "react";
 import "./ProtectedRoute.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import useAuthStore from "../../stores/authStore";
+import LazyLoader from "../lazyLoader/LazyLoader";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -9,12 +10,34 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
+  const navigate = useNavigate();
   const { user, isLoading } = useAuthStore();
-  console.log("ProtectedRoute user:", user);
-  console.log("ProtectedRoute isLoading:", isLoading);
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [showGandalf, setShowGandalf] = useState<boolean>(false);
 
-  // Vänta tills användarinformation är laddad
-  if (isLoading) {
+  // Hantera omdirigering om ingen användare finns
+  useEffect(() => {
+    if (!user) {
+      setShowGandalf(true);
+      const timer = setTimeout(() => {
+        setShowGandalf(false);
+        navigate("/", { replace: true });
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoader(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Låt Gandalf sköta snacket
+  if (showGandalf) {
     return (
       <div className="loading-indicator">
         <img
@@ -26,16 +49,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
     );
   }
 
-  if (!user) {
-    // Oinloggade användare omdirigeras till startsidan
-    return <Navigate to="/" replace />;
+  if (isLoading || showLoader) {
+    return <LazyLoader />;
   }
 
-  if (requiredRole && user.role !== requiredRole) {
-    if (user.role === "user") {
-      return <Navigate to="/menu" replace />; // "user" skickas till meny
-    }
-    return <Navigate to="/" replace />; // Alla andra skickas till startsidan
+  if (!user || (requiredRole && user.role !== requiredRole)) {
+    navigate(user?.role === "user" ? "/menu" : "/", { replace: true });
+    return null;
   }
 
   // Rendera innehållet om användaren är inloggad och har rätt roll

@@ -1,11 +1,23 @@
-.menuItem__edit--content {
+.staffMenuItem__edit--content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.menuItem__heading {
-    height: 88px;
+.staffMenuItem__heading {
+  height: 88px;
+  font-size: 30px;
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--orange);
+  font-family: var(--h1);
+}
+
+.staffMenuItem__price {
+  padding: 0.5rem;
+  font-size: 24px;
+  color: var(--white);
+  font-family: var(--p);
 }
 
 .menuItem__details {
@@ -15,7 +27,7 @@
   min-height: 5rem;
 }
 
-.menuItem__description--edit {
+.staffMenuItem__description--edit {
   min-height: 120px;
   padding: 0.5rem;
   font-size: 20px;
@@ -24,9 +36,9 @@
 }
 
 .currency-label {
-    font-family: var(--p);
-    color: var(--white);
-    font-size: 24px;
+  font-family: var(--p);
+  color: var(--white);
+  font-size: 24px;
 }
 
 .edit__btn {
@@ -38,7 +50,7 @@
   align-self: flex-start;
   justify-self: end;
   bottom: 0;
-  margin-top: auto;
+  /* margin-top: auto; */
 }
 
 .edit__btn:hover {
@@ -87,20 +99,22 @@
 .input__price {
   font-size: 24px;
   padding: 8px;
+  width: 90%;
+  margin-right: 0.5rem;
 }
 
 .input__desc {
   font-size: 20px;
   padding: 8px;
-  height: 120px;
+  height: 110px;
   line-height: normal;
 }
 
 .edit__menuItem--btn-wrapper {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: .5rem;
-  margin-left: .5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
   position: relative;
 }
 
@@ -119,12 +133,11 @@
   background-color: red;
   justify-self: end;
   position: absolute;
-  right: .5rem;
+  right: 0.5rem;
 }
 
 .edit__menuItem--btn-wrapper {
-  margin-top: auto; 
+  margin-top: auto;
 }
-
 
 /* Författare: Anton */

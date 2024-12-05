@@ -35,7 +35,6 @@ const CartItem: React.FC<CartItemProps> = ({ id, image, heading, price, quantity
             +
           </button>
         </div>
-        {/* <p>Total: {price * quantity} SEK</p> */}
       </div>
     </div>
   );

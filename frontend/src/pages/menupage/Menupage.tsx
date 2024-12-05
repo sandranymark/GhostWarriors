@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
 import "./Menupage.css";
-import Footer from "../../components/footer/Footer";
+import { useEffect, useState } from "react";
+import { Product } from "../../types/productType";
+import useCartStore from "../../stores/cartStore";
 import Header from "../../components/header/Header";
+import Footer from "../../components/footer/Footer";
 import MenuItem from "../../components/menuItem/MenuItem";
 import { getProducts } from "../../services/products/productService.ts";
-import { Product } from "../../types/productType";
-import useCartStore from "../../stores/cartStore"; // Importera useCartStore
 
 function Menupage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -47,14 +47,15 @@ function Menupage() {
 
     // Sortera på pris
     if (sortOrder) {
-      filteredProducts = filteredProducts.sort((a, b) =>
-        sortOrder === "asc"
-          ? a.productPrice - b.productPrice // Stigande ordning
-          : b.productPrice - a.productPrice // Fallande ordning
+      filteredProducts = filteredProducts.sort(
+        (a, b) =>
+          sortOrder === "asc"
+            ? a.productPrice - b.productPrice // Stigande ordning
+            : b.productPrice - a.productPrice // Fallande ordning
       );
     }
 
-    return filteredProducts; // Retur av den filtrerade listan
+    return filteredProducts;
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -64,22 +65,28 @@ function Menupage() {
     <section className="menupage-section">
       <Header />
       <div className="menupage__filter">
-        <select className="menupage__category--select"
+        <select
+          className="menupage__category--select"
           onChange={(e) => setSelectedCategory(e.target.value)}
           value={selectedCategory || ""}
-          >
+        >
           <option value="">All Categories</option>
           <option value="Beverage">Beverage</option>
           <option value="Dish">Dish</option>
           <option value="SwedishFika">Swedish Fika</option>
         </select>
-        <button className={`menupage__filter--btn ${sortOrder === "asc" ? "active" : ""}`} 
-        onClick={() => setSortOrder("asc")}
+        <button
+          className={`menupage__filter--btn ${sortOrder === "asc" ? "active" : ""}`}
+          onClick={() => setSortOrder("asc")}
         >
           Price: Low to High
-          </button>
-        <button className={`menupage__filter--btn ${sortOrder === "desc" ? "active" : ""}`} 
-        onClick={() => setSortOrder("desc")}>Price: High to Low</button>
+        </button>
+        <button
+          className={`menupage__filter--btn ${sortOrder === "desc" ? "active" : ""}`}
+          onClick={() => setSortOrder("desc")}
+        >
+          Price: High to Low
+        </button>
       </div>
 
       <menu className="menu">
@@ -95,7 +102,7 @@ function Menupage() {
                 heading={product.productName}
                 price={product.productPrice}
                 description={product.description || "No description available"}
-                quantity={cartItem?.quantity || 0} // Visa kvantitet (eller 0 om produkten inte finns i cart)
+                quantity={cartItem?.quantity || 0}
               />
             );
           })

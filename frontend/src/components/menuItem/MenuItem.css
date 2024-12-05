@@ -37,9 +37,19 @@
   font-family: var(--p);
 }
 
+@media screen and (max-width: 500px) {
+  .menuItem__heading {
+    height: 50px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .menuItem__heading {
     font-size: 25px;
+  }
+  .menuItem__price,
+  .menuItem__description {
+    padding: 0rem 0.5rem;
   }
 
   .menuItem__description {

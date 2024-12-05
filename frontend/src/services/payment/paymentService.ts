@@ -1,4 +1,3 @@
-// services/paymentService.ts
 import { CartItem } from "../../types/cartType";
 import { FormData } from "./../../types/formData";
 import { createOrder } from "./../orders/orderService";
@@ -10,8 +9,8 @@ export const handlePayment = async (
   cart: CartItem[],
   clearCart: () => void,
   handlePaymentSuccess: () => void,
-  setErrorMsg: React.Dispatch<React.SetStateAction<string>>,
-  setOrder: (order: Order) => void
+  setOrder: (order: Order) => void,
+  setErrorMsg: React.Dispatch<React.SetStateAction<string>>
 ): Promise<void> => {
   setErrorMsg("");
 
@@ -51,9 +50,9 @@ export const handlePayment = async (
 
       // Spara ordern i Context eller State
       if (createdOrder) {
-        setOrder(createdOrder); // Säkerställ att setOrder anropas korrekt
-        clearCart(); // Rensa kundvagnen
-        handlePaymentSuccess(); // Visa PaymentConfirmed
+        setOrder(createdOrder);
+        clearCart();
+        handlePaymentSuccess();
       } else {
         setErrorMsg("Cart is empty. Unable to process payment.");
       }

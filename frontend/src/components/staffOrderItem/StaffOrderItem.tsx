@@ -2,19 +2,23 @@ import "./StaffOrderItem.css";
 import { Order } from "../../types/OrderType";
 import { useEffect, useState } from "react";
 
-interface StaffOrderItemProps {order: Order;
+interface StaffOrderItemProps {
+  order: Order;
   onSave: (updatedOrder: Order) => void; // Funktion för att spara ändringar
   onChangeStatus: (id: string, newStatus: string) => void; // Funktion för att ändra status
   isEditable: boolean; // Om statusknapparna kan visas
 }
 
-const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, onSave, isEditable }) => {
+const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
+  order,
+  onChangeStatus,
+  onSave,
+  isEditable,
+}) => {
   const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
   const [updatedOrder, setUpdatedOrder] = useState<Order>(order); // Lokalt state för uppdaterad order
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUpdatedOrder((prev) => ({
       ...prev,
@@ -48,12 +52,12 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
   }, [updatedOrder.orderItems]);
 
   const saveChanges: () => void = () => {
-    onSave(updatedOrder); 
-    setEditMode(false); 
+    onSave(updatedOrder);
+    setEditMode(false);
   };
 
   const cancelChanges: () => void = () => {
-    setUpdatedOrder(order); 
+    setUpdatedOrder(order);
     setEditMode(false);
   };
 
@@ -87,8 +91,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
         />
       ) : (
         <p className="staff__order-info">
-          Customer message<span className="staff__order-colon">: </span>{" "}
-          {order.kitchenMessage}
+          Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
         </p>
       )}
       <p className="staff__order-info">
@@ -117,10 +120,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
                   className="staff__input"
                   value={item.productQuantity}
                   onChange={(e) =>
-                    handleProductQuantityChange(
-                      index,
-                      parseInt(e.target.value, 10) || 0
-                    )
+                    handleProductQuantityChange(index, parseInt(e.target.value, 10) || 0)
                   }
                   min="0"
                 />
@@ -161,10 +161,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
           {order.orderStatus === "Pending" && (
             <div className="staff__edit-buttons">
               {!editMode ? (
-                <button
-                  className="staff__button"
-                  onClick={() => setEditMode(true)}
-                >
+                <button className="staff__button" onClick={() => setEditMode(true)}>
                   Edit
                 </button>
               ) : (
@@ -172,10 +169,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
                   <button className="staff__button" onClick={saveChanges}>
                     Save
                   </button>
-                  <button
-                    className="staff__button staff__button--cancel"
-                    onClick={cancelChanges}
-                  >
+                  <button className="staff__button staff__button--cancel" onClick={cancelChanges}>
                     Cancel
                   </button>
                 </>

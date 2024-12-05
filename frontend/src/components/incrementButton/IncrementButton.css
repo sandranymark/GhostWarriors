@@ -1,8 +1,8 @@
 .increment-section {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-end;
-    margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  margin-top: auto;
 }
 
 .menuItem-addToCart--btn {
@@ -50,3 +50,5 @@
   color: var(--dark);
   font-family: var(--p);
 }
+
+/* Författare: Anton */

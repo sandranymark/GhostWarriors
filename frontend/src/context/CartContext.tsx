@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from "react";
 import { Order } from "../types/OrderType";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface CartContextProps {
   isCartVisible: boolean;
@@ -16,7 +16,6 @@ interface CartContextProps {
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
-// Skapar en CartProvider för att dela Context värdena
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [order, setOrder] = useState<Order | null>(null);
   const [isCartVisible, setIsCartVisible] = useState<boolean>(false);
@@ -52,7 +51,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     bodyRef.classList.remove("no-scroll");
   };
 
-  // Returnerar en Prover komponent som delar värden vidare till barn komponenter
   return (
     <CartContext.Provider
       value={{

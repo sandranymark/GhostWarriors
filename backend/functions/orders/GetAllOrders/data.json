@@ -1,7 +1,7 @@
 {
   "body": "",
   "headers": {
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNTUyM2JlMiIsInVzZXJuYW1lIjoiQW50b24iLCJlbWFpbCI6IkFudG9uQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMzNDA4ODAwLCJleHAiOjE3MzM0MTI0MDB9.7JICKghud5biUsV0Lfq_2ywEkQ-I5CEYlZH9GIAU1fs"
+    "Authorization": "Bearer"
   },
   "httpMethod": "GET"
 }

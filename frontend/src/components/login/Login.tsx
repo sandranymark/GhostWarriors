@@ -48,7 +48,6 @@ function Login({ className, onClose }: LoginProps) {
           role: data.user.role as "admin" | "user",
         });
 
-        // Kontrollera användarens roll och navigera
         navigate(data.user.role === "admin" ? "/staff" : "/menu");
         setLoginVisible(false);
       } else {

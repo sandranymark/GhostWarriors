@@ -16,8 +16,8 @@ export interface LoginCredentials {
 }
 
 export interface ProtectedResourceResponse {
-  protectedData: string; // Exempel på vad som returneras
-  user: User; // Om användarinformation inkluderas
+  protectedData: string;
+  user: User;
 }
 
 export interface RegisterResponse {
@@ -25,3 +25,5 @@ export interface RegisterResponse {
   message: string;
   user: User;
 }
+
+// Författare Sandra

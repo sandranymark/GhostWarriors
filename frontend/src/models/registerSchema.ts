@@ -1,7 +1,6 @@
 import Joi from "joi";
-import { RegisterType } from "../types/registerType"; // Justera importvägen efter behov
+import { RegisterType } from "../types/registerType";
 
-// Definiera Joi-schema för användarregistrering
 export const registerSchema = Joi.object<RegisterType>({
   email: Joi.string()
     .email({ tlds: { allow: ["com", "net", "nu", "se"] } })

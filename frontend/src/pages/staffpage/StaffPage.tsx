@@ -1,32 +1,16 @@
 import "./StaffPage.css";
 import { useEffect, useState } from "react";
 import { Order } from "../../types/OrderType";
-import { useNavigate } from "react-router-dom";
-import useAuthStore from "../../stores/authStore";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
 import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/orderService";
 
 const StaffPage: React.FC = () => {
-  const navigate = useNavigate();
-  const { user, isLoading, setLoading } = useAuthStore();
-
   const [orders, setOrders] = useState<Order[]>([]);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  useEffect(() => {
-    console.log("User data in StaffPage:", user);
-    if (isLoading) {
-      console.log("Waiting for user data...");
-      return;
-    }
-    if (!user || user.role !== "admin") {
-      navigate("/", { replace: true });
-    }
-  }, [user, navigate]);
-
-  // Hämta alla ordrar med getAllOrders
+  // Hämta alla ordrar
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -43,44 +27,27 @@ const StaffPage: React.FC = () => {
           setErrorMsg("Failed to fetch orders.");
         }
       } catch (error) {
-        console.error("An error occurred while fetching orders:", error);
+        console.error("Error fetching orders:", error);
         setErrorMsg("An error occurred while fetching orders.");
-      } finally {
-        setLoading(false);
       }
     };
 
-    if (user?.role === "admin") {
-      fetchOrders();
-    }
-  }, [user]);
+    fetchOrders();
+  }, []);
 
-  if (!user) {
-    return <p className="staffpage__loading">Loading user data...</p>;
-  }
-
-  // Visar en text för användaren om ordrarna laddas eller om något gick fel
-  if (isLoading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
-  if (errorMsg) return <p className="staffpage__errorMsg">Error: {errorMsg}</p>; // Om det uppstår ett fel
-  // if (orders.length === 0) {
-  //   return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;
-  // }
-
+  // Funktion för att ändra status på en order
   const handleChangeStatus = async (id: string, newStatus: string) => {
-    const previousOrders = [...orders]; // Sparar nuvarande order om vi behöver återställa
+    const previousOrders = [...orders];
 
-    // En lokal uppdatering för att göra statusändring synlig direkt för användaren.
-    // Detta sker INNAN servern svarar
     setOrders((prevOrders) =>
       prevOrders.map((order) => (order.id === id ? { ...order, orderStatus: newStatus } : order))
     );
 
     try {
-      await updateOrder(id, { orderStatus: newStatus }); // Skicka uppdatering till servern med updateOrder
-      // console.log(`Order with ${id} new orderStatus`, newStatus);
+      await updateOrder(id, { orderStatus: newStatus });
     } catch (error) {
       console.error("Failed to update order status:", error);
-      setOrders(previousOrders); // Om fel, återställ order
+      setOrders(previousOrders);
       setErrorMsg("Could not update order status: " + error);
     }
   };
@@ -89,15 +56,15 @@ const StaffPage: React.FC = () => {
   const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
   const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
 
+  // Funktion för att rensa alla "Done"-ordrar
   const handleClearDoneOrders: () => Promise<void> = async () => {
     const doneOrders = orders.filter((order) => order.orderStatus === "Done");
 
     try {
       for (const order of doneOrders) {
-        await deleteOrder(order.id); // Vänta på att varje order raderas
+        await deleteOrder(order.id);
       }
 
-      // Uppdatera state och ta bort de raderade ordrarna
       setOrders((prevOrders) => prevOrders.filter((order) => order.orderStatus !== "Done"));
     } catch (error) {
       console.error("Failed to clear done orders:", error);
@@ -105,12 +72,14 @@ const StaffPage: React.FC = () => {
     }
   };
 
+  if (errorMsg) {
+    return <p className="staffpage__errorMsg">Error: {errorMsg}</p>;
+  }
+
   const handleSaveOrder = async (updatedOrder: Order) => {
     const previousOrders = [...orders];
     setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.id === updatedOrder.id ? updatedOrder : order
-      )
+      prevOrders.map((order) => (order.id === updatedOrder.id ? updatedOrder : order))
     );
 
     // Plocka ut det som vi inte vill skicka till backenden
@@ -124,7 +93,6 @@ const StaffPage: React.FC = () => {
       setErrorMsg("Failed to save changes: " + error);
     }
   };
-  
 
   return (
     <>
@@ -179,6 +147,6 @@ const StaffPage: React.FC = () => {
 
 export default StaffPage;
 
-// Författare: Sandra
+// Författare Anton, Sandra
 // Modifierare: Anton - rendering och sortering av ordrar handleChangeStatus handleSaveOrder
-// Modifierare: Adréan - handleClearDoneOrders
+// Modifierare: Adréan - handleClearDoneOrders, tagit bort routing av admin och lagt det i ProtectedRoute.

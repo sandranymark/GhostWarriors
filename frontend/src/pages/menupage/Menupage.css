@@ -21,10 +21,6 @@
   background-color: var(--dark);
   color: var(--white);
 }
-/* Funkar tydligen inte att göra såhär för att ändra hover färg på option */
-/* .menupage__category--select option:hover {
-  background-color: var(--orange);
-} */
 
 .menupage__category--select:hover {
   cursor: pointer;

@@ -1,9 +1,9 @@
 import "./Register.css";
 import React, { useState } from "react";
+import useHeaderStore from "../../stores/headerStore";
+import { RegisterType } from "../../types/registerType";
 import { registerSchema } from "../../models/registerSchema";
-import useHeaderStore from "../../stores/headerStore"; // Använd Zustand-storen
 import { RegisterUser } from "../../services/auth/authService";
-import { RegisterType } from "../../types/registerType"; // Kontrollera importvägen
 
 function Register() {
   const [formData, setFormData] = useState<RegisterType>({
@@ -11,8 +11,9 @@ function Register() {
     username: "",
     password: "",
   });
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
   const [error, setError] = useState<string | null>(null);
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   // Zustand-metoder headerStore.ts
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
@@ -22,7 +23,6 @@ function Register() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Kontrollera att lösenord matchar
     if (formData.password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -36,11 +36,9 @@ function Register() {
     }
 
     try {
-      const response = await RegisterUser(formData); // registerUser från authService
+      await RegisterUser(formData);
 
       setError(null);
-
-      // Växla till login-vyn
       setRegisterVisible(false);
       setLoginVisible(true);
     } catch (error: unknown) {
