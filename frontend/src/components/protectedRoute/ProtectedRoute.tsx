@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 import "./ProtectedRoute.css";
 import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import useAuthStore from "../../stores/authStore";
 import LazyLoader from "../lazyLoader/LazyLoader";
 
@@ -66,3 +66,5 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
 };
 
 export default ProtectedRoute;
+
+// Författare Adréan
