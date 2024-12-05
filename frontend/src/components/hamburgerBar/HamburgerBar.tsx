@@ -9,9 +9,18 @@ interface HamburgerBarProps {
 function HamburgerBar({ onClose }: HamburgerBarProps) {
   useEffect(() => {
     document.body.classList.add("no-scroll");
+    const addProductBtnRef = document.querySelector(".addProduct__btn") as HTMLButtonElement | null;
+
+    if (addProductBtnRef) {
+      addProductBtnRef.style.position = "unset";
+    }
 
     return () => {
       document.body.classList.remove("no-scroll");
+
+      if (addProductBtnRef) {
+        addProductBtnRef.style.position = "fixed";
+      }
     };
   }, []);
 

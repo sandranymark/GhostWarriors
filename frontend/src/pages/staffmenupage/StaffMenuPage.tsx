@@ -12,6 +12,7 @@ import {
   getProducts,
   updateProduct,
 } from "../../services/products/productService";
+import LazyLoader from "../../components/lazyLoader/LazyLoader";
 
 function StaffMenuPage() {
   const { isLoading, setLoading } = useAuthStore();
