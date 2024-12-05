@@ -2,19 +2,13 @@ import "./StaffOrderItem.css";
 import { Order } from "../../types/OrderType";
 import { useEffect, useState } from "react";
 
-interface StaffOrderItemProps {
-  order: Order;
+interface StaffOrderItemProps {order: Order;
   onSave: (updatedOrder: Order) => void; // Funktion för att spara ändringar
   onChangeStatus: (id: string, newStatus: string) => void; // Funktion för att ändra status
   isEditable: boolean; // Om statusknapparna kan visas
 }
 
-const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
-  order,
-  onChangeStatus,
-  onSave,
-  isEditable,
-}) => {
+const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, onSave, isEditable }) => {
   const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
   const [updatedOrder, setUpdatedOrder] = useState<Order>(order); // Lokalt state för uppdaterad order
 
@@ -38,7 +32,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
   };
 
   // Funktion för att uppdatera totalpriset baserat på produkterna
-  const calculateTotalPrice = () => {
+  const calculateTotalPrice: () => void = () => {
     const total = updatedOrder.orderItems.reduce(
       (sum, item) => sum + item.productPrice * item.productQuantity,
       0
@@ -53,12 +47,12 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
     calculateTotalPrice();
   }, [updatedOrder.orderItems]);
 
-  const saveChanges = () => {
+  const saveChanges: () => void = () => {
     onSave(updatedOrder); // Spara ändringarna via callback
     setEditMode(false); // Stäng redigeringsläget
   };
 
-  const cancelChanges = () => {
+  const cancelChanges: () => void = () => {
     setUpdatedOrder(order); // Återställ lokala ändringar
     setEditMode(false);
   };
@@ -105,7 +99,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
         Items<span className="staff__order-colon">: </span>
       </p>
       <ul className="staff__order-ul">
-        {order.orderItems.map((item, index) => (
+        {updatedOrder.orderItems.map((item, index) => (
           <li key={index}>
             <p className="staff__order-info">
               Product<span className="staff__order-colon">: </span>

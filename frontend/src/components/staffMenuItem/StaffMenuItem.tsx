@@ -57,7 +57,7 @@ function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
               className="input__price input"
               name="productPrice"
               type="number"
-              min={0}
+              min={1}
               value={updatedProduct.productPrice}
               onChange={handleInputChange}
             />

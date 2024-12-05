@@ -90,7 +90,7 @@ const StaffPage: React.FC = () => {
   const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
   const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
 
-  const handleClearDoneOrders = async () => {
+  const handleClearDoneOrders: () => Promise<void> = async () => {
     const doneOrders = orders.filter((order) => order.orderStatus === "Done");
 
     try {
@@ -114,8 +114,11 @@ const StaffPage: React.FC = () => {
       )
     );
 
+    // Plocka ut det som vi inte vill skicka till backenden
+    const { orderID, customerID, id, createdAt, updatedAt, ...orderToUpdate } = updatedOrder;
+    orderToUpdate.totalPrice = updatedOrder.totalPrice;
     try {
-      await updateOrder(updatedOrder.id, { kitchenMessage: updatedOrder.kitchenMessage });
+      await updateOrder(updatedOrder.id, orderToUpdate);
     } catch (error) {
       console.error("Failed to update order:", error);
       setOrders(previousOrders); // Återställ om något går fel
@@ -178,5 +181,5 @@ const StaffPage: React.FC = () => {
 export default StaffPage;
 
 // Författare: Sandra
-// Modifierare: Anton - rendering och sortering av ordrar
+// Modifierare: Anton - rendering och sortering av ordrar handleChangeStatus handleSaveOrder
 // Modifierare: Adréan - handleClearDoneOrders
