@@ -59,7 +59,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
   };
 
   const cancelChanges: () => void = () => {
-    setUpdatedOrder({ ...order });
+    setUpdatedOrder(JSON.parse(JSON.stringify(order)));
     setEditMode(false);
   };
 
