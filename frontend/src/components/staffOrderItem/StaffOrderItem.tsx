@@ -1,6 +1,6 @@
 import "./StaffOrderItem.css";
 import { Order } from "../../types/OrderType";
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 interface StaffOrderItemProps {
   order: Order;
@@ -37,8 +37,9 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
     }));
   };
 
-  // Funktion för att uppdatera totalpriset baserat på produkterna
-  const calculateTotalPrice: () => void = () => {
+  //Funktion för att uppdatera totalpriset baserat på produkterna
+
+  const calculateTotalPrice = useCallback(() => {
     const total = updatedOrder.orderItems.reduce(
       (sum, item) => sum + item.productPrice * item.productQuantity,
       0
@@ -47,11 +48,11 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
       ...prev,
       totalPrice: total,
     }));
-  };
+  }, [updatedOrder.orderItems]);
 
   useEffect(() => {
     calculateTotalPrice();
-  }, [updatedOrder.orderItems]);
+  }, [calculateTotalPrice]);
 
   const saveChanges: () => void = () => {
     onSave(updatedOrder);
