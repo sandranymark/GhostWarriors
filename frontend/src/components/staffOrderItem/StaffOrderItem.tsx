@@ -18,7 +18,9 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
   const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
   const [updatedOrder, setUpdatedOrder] = useState<Order>(order); // Lokalt state för uppdaterad order
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setUpdatedOrder((prev) => ({
       ...prev,
@@ -57,7 +59,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
   };
 
   const cancelChanges: () => void = () => {
-    setUpdatedOrder(order);
+    setUpdatedOrder({ ...order });
     setEditMode(false);
   };
 
@@ -91,7 +93,8 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
         />
       ) : (
         <p className="staff__order-info">
-          Customer message<span className="staff__order-colon">: </span> {order.kitchenMessage}
+          Customer message<span className="staff__order-colon">: </span>{" "}
+          {order.kitchenMessage}
         </p>
       )}
       <p className="staff__order-info">
@@ -120,7 +123,10 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
                   className="staff__input"
                   value={item.productQuantity}
                   onChange={(e) =>
-                    handleProductQuantityChange(index, parseInt(e.target.value, 10) || 0)
+                    handleProductQuantityChange(
+                      index,
+                      parseInt(e.target.value, 10) || 0
+                    )
                   }
                   min="0"
                 />
@@ -161,7 +167,10 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
           {order.orderStatus === "Pending" && (
             <div className="staff__edit-buttons">
               {!editMode ? (
-                <button className="staff__button" onClick={() => setEditMode(true)}>
+                <button
+                  className="staff__button"
+                  onClick={() => setEditMode(true)}
+                >
                   Edit
                 </button>
               ) : (
@@ -169,7 +178,10 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({
                   <button className="staff__button" onClick={saveChanges}>
                     Save
                   </button>
-                  <button className="staff__button staff__button--cancel" onClick={cancelChanges}>
+                  <button
+                    className="staff__button staff__button--cancel"
+                    onClick={cancelChanges}
+                  >
                     Cancel
                   </button>
                 </>
