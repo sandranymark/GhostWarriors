@@ -140,4 +140,28 @@
   margin-top: auto;
 }
 
+@media screen and (max-width: 500px) {
+  .staffMenuItem__heading {
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .input__price {
+    width: 80%;
+  }
+
+  .staaffMenuItem__heading {
+    font-size: 25px;
+  }
+  .staffMenuItem__price,
+  .staffMenuItem__description {
+    padding: 0rem 0.5rem;
+  }
+
+  .staffMenuItem__description {
+    font-size: 18px;
+  }
+}
+
 /* Författare: Anton */
