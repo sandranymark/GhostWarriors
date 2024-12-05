@@ -13,7 +13,6 @@ function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
   const [updatedProduct, setUpdatedProduct] = useState<Product>(product);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.log("product to be edited:", product);
     const { name, value } = e.target;
     setUpdatedProduct((prev) => ({
       ...prev,
@@ -22,7 +21,6 @@ function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
   };
 
   const saveChanges = () => {
-    console.log("SaveChanges:", saveChanges);
     onSave(updatedProduct);
     setEditMode(false);
   };

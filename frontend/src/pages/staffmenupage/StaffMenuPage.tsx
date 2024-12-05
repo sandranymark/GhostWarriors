@@ -75,8 +75,7 @@ function StaffMenuPage() {
         prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
       );
 
-      const response = await updateProduct(updatedProduct.id, updateField);
-      console.log("Response from updateProduct:", response);
+      await updateProduct(updatedProduct.id, updateField);
     } catch (error) {
       setProducts(prevProducts); // Vid fel visa produkt som innan ändring
       setErrorMsg("Could not update product");

@@ -31,10 +31,7 @@ function PaymentConfirmed() {
       }
 
       if (currentOrderStatus === "Pending") {
-        console.log("kitchenMessage före:", kitchenMessage);
-
         await updateOrder(order.id, { kitchenMessage });
-        console.log("kitchenMessage efter:", kitchenMessage);
         closeAndReset();
         return;
       }
