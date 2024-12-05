@@ -1,0 +1,265 @@
+{
+    "products": [
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/cocacola-can.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Classic Coca-Cola, refreshing and sweet.",
+        "inStock": true,
+        "productPrice": 20,
+        "preparationTime": "0 minutes",
+        "productName": "Coca-Cola"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/cola-zero.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Cola Zero, no sugar but with the same great taste.",
+        "inStock": true,
+        "productPrice": 20,
+        "preparationTime": "0 minutes",
+        "productName": "Cola Zero"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/blackCoffee.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Freshly brewed black coffee, the perfect start to your day.",
+        "inStock": true,
+        "productPrice": 25,
+        "preparationTime": "2 minutes",
+        "productName": "Black Coffee"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/chokolat-milkshake.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": " Creamy chocolate milkshake, perfect for a sweet tooth.",
+        "inStock": true,
+        "productPrice": 45,
+        "preparationTime": "1 minutes",
+        "productName": "Chocolate Milkshake"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/espresso.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Intense espresso with rich flavor and aroma.",
+        "inStock": true,
+        "productPrice": 20,
+        "preparationTime": "1 minute",
+        "productName": "Espresso"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/Latte.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Mild and creamy latte with steamed milk.",
+        "inStock": true,
+        "productPrice": 30,
+        "preparationTime": "3 minutes",
+        "productName": "Caffe Latte"
+      },
+      {
+         "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/Orange+juice.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Freshly squeezed juice for an energizing start.",
+        "inStock": true,
+        "productPrice": 25,
+        "preparationTime": "1 minute",
+        "productName": "Juice"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/smoothieJordgubb.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Creamy smoothie with fruit and berries.",
+        "inStock": true,
+        "productPrice": 35,
+        "preparationTime": "3 minutes",
+        "productName": "Smoothie"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/milk.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Cold and fresh milk, perfect for breakfast.",
+        "inStock": true,
+        "productPrice": 15,
+        "preparationTime": "0 minutes",
+        "productName": "Milk"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/mimosa.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Mimosa - a fresh mix of orange juice and champagne.",
+        "inStock": true,
+        "productPrice": 60,
+        "preparationTime": "2 minutes",
+        "productName": "Mimosa"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/champagne.avif",
+        "category": "Beverage",
+        "ingredients": {},
+        "description": "Chilled and bubbly champagne for special moments.",
+        "inStock": true,
+        "productPrice": 95,
+        "preparationTime": "0 minutes",
+        "productName": "Champagne"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/pancake.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Classic pancakes with jam and whipped cream.",
+        "inStock": true,
+        "productPrice": 50,
+        "preparationTime": "10 minutes",
+        "productName": "Pancakes"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/frensh-toast.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "French toast with maple syrup and berries.",
+        "inStock": true,
+        "productPrice": 55,
+        "preparationTime": "7 minutes",
+        "productName": "French Toast"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/egg-sandwich.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Simple egg sandwich with mayonnaise and lettuce.",
+        "inStock": true,
+        "productPrice": 45,
+        "preparationTime": "3 minutes",
+        "productName": "Egg Sandwich"
+      },
+      {
+        "imageURL": "hhttps://dforbreakfastimg.s3.eu-north-1.amazonaws.com/english+breakfast.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "English breakfast with eggs, beans, and bacon.",
+        "inStock": true,
+        "productPrice": 80,
+        "preparationTime": "10 minutes",
+        "productName": "English Breakfast"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/scrambledEgg.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Creamy scrambled eggs with fresh herbs.",
+        "inStock": true,
+        "productPrice": 40,
+        "preparationTime": "4 minutes",
+        "productName": "Scrambled Eggs"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/porridge.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Warm rice porridge with cinnamon.",
+        "inStock": true,
+        "productPrice": 30,
+        "preparationTime": "15 minutes",
+        "productName": "Rice Porridge"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/croissanter.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Crispy croissants, perfect with morning coffee.",
+        "inStock": true,
+        "productPrice": 25,
+        "preparationTime": "0 minutes",
+        "productName": "Croissants"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/bagel.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Bagels with cream cheese and salmon.",
+        "inStock": true,
+        "productPrice": 45,
+        "preparationTime": "5 minutes",
+        "productName": "Bagels"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/lux.avif",
+        "category": "Dish",
+        "ingredients": {},
+        "description": "Luxury breakfast with croissant, eggs, fruit, champagne, coffee, jucie, fruits, and more.",
+        "inStock": true,
+        "productPrice": 90,
+        "preparationTime": "10 minutes",
+        "productName": "Luxury Breakfast"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/donuts.avif",
+        "category": "SwedishFika",
+        "ingredients": {},
+        "description": "Sweet donuts with frosting in various flavors.",
+        "inStock": true,
+        "productPrice": 25,
+        "preparationTime": "0 minutes",
+        "productName": "Donuts"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/churros.avif",
+        "category": "SwedishFika",
+        "ingredients": {},
+        "description": "Crispy churros with cinnamon and sugar.",
+        "inStock": true,
+        "productPrice": 30,
+        "preparationTime": "3 minutes",
+        "productName": "Churros"
+      },
+      {
+       "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/blueberrymuppin.avif",
+        "category": "SwedishFika",
+        "ingredients": {},
+        "description": "Blueberry muffins with a moist filling.",
+        "inStock": true,
+        "productPrice": 20,
+        "preparationTime": "0 minutes",
+        "productName": "Blueberry Muffins"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/kladdkaka.avif",
+        "category": "SwedishFika",
+        "ingredients": {},
+        "description": "Sticky chocolate cake with a rich taste.",
+        "inStock": true,
+        "productPrice": 30,
+        "preparationTime": "0 minutes",
+        "productName": "Chocolate Cake"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/coockies.avif",
+        "category": "SwedishFika",
+        "ingredients": {},
+        "description": "Classic cookie with chocolate chunks.",
+        "inStock": true,
+        "productPrice": 15,
+        "preparationTime": "0 minutes",
+        "productName": "Cookie"
+      },
+      {
+        "imageURL": "https://dforbreakfastimg.s3.eu-north-1.amazonaws.com/dicks.avif",
+        "category": "SwedishFika",
+        "ingredients": {},
+        "description": "Sweet, crispy and full of joi .",
+        "inStock": true,
+        "productPrice": 500,
+        "preparationTime": "0 minutes",
+        "productName": "Dicks"
+      }
+    ]
+  }
+  

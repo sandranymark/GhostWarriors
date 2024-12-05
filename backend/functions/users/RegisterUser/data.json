@@ -1,0 +1,7 @@
+{
+    "body": "{\"username\": \"kissen\", \"email\": \"test@example.com\", \"password\": \"Test@1234\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "httpMethod": "POST"
+  }

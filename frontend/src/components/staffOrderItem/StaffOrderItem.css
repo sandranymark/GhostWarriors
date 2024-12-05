@@ -1,0 +1,98 @@
+.staff__order-card {
+  background: var(--dark);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.staff__order-info {
+  font-weight: 600;
+}
+
+.staff__order-colon {
+  color: var(--orange);
+}
+
+.staff__order__costomer-msg {
+  font-weight: 100;
+}
+
+.staff__order-ul {
+  margin: 5px 0;
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.staff__status-buttons {
+  gap: 0.3rem;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+}
+
+.staff__status-buttons-label {
+  display: flex;
+  cursor: pointer;
+  margin-right: 10px;
+  align-items: center;
+}
+
+.staff__order-status {
+  color: var(--orange);
+}
+
+.staff__radio-btn {
+  appearance: none;
+  background-color: white;
+  height: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.staff__radio-btn:hover {
+  cursor: pointer;
+}
+
+.staff__radio-btn:checked {
+  background-color: var(--orange);
+}
+
+
+/* Edit nedan */
+
+.staff__edit-buttons {
+  display: flex;
+  gap: .5rem;
+  margin-top: .5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+}
+
+.staff__button {
+  cursor: pointer;
+  font-family: var(--p);
+  font-size: 16px;
+  border: 1px solid var(--orange);
+  padding: .2rem .5rem;
+  background-color: var(--dark);
+  color: var(--white);
+  border-radius: 5px;
+}
+
+.staff__button--cancel {
+  border: 1px solid red;
+}
+
+.staff__kitchenMessage {
+  resize: none;
+  width: 100%;
+  height: 3rem;
+  padding: .2rem;
+  border-radius: 5px;
+}
+
+/* Författare: Anton */

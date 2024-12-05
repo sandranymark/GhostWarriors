@@ -1,0 +1,129 @@
+.hero__section {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero__background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__figcaption {
+  top: 250px;
+  right: 200px;
+  width: 470px;
+  height: 300px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero__heading {
+  color: var(--orange);
+  font-family: var(--h1);
+  font-size: var(--h1size);
+}
+
+.hero__heading--white {
+  color: var(--white);
+  font-family: var(--h1);
+  font-size: var(--h1size);
+}
+
+.hero_slogan {
+  font-size: 2rem;
+  color: var(--white);
+  font-family: var(--h1);
+}
+
+.hero-link {
+  width: 50%;
+  display: flex;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  color: var(--white);
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  justify-content: center;
+  font-family: Afacad, sans-serif;
+  border: 1px solid var(--orange);
+}
+
+.hero-link:hover {
+  color: var(--dark);
+  background-color: var(--orange);
+}
+
+@media screen and (max-width: 850px) {
+  .hero__figcaption {
+    top: 100px;
+    right: 100px;
+    width: 410px;
+    position: absolute;
+  }
+}
+
+@media screen and (max-width: 700px), screen and (max-height: 900px) {
+  .hero__figcaption {
+    top: 100px;
+    right: 100px;
+    width: 410px;
+    position: absolute;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .hero__figcaption {
+    right: 0;
+    top: 100px;
+    width: 410px;
+    padding: 1rem;
+    position: absolute;
+  }
+  .hero__heading {
+    font-size: 30px;
+  }
+
+  .hero__heading--white {
+    font-size: 30px;
+  }
+
+  .hero_slogan {
+    font-size: 20px;
+  }
+
+  .hero-link {
+    padding: 0.8rem 1rem;
+  }
+}
+
+@media screen and (max-width: 400px), screen and (max-height: 1000px) {
+  .hero__figcaption {
+    width: 250px;
+    height: 225px;
+  }
+  .hero__heading {
+    font-size: 25px;
+  }
+
+  .hero__heading--white {
+    font-size: 25px;
+  }
+
+  .hero_slogan {
+    font-size: 15px;
+  }
+
+  .hero-link {
+    width: 60%;
+    font-size: 1.3rem;
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* Författare: Adréan */

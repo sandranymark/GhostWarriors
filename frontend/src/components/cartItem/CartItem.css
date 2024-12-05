@@ -1,0 +1,27 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-family: var(--p);
+  background-color: #80808021;
+  margin-bottom: 1rem;
+}
+
+.cart-item__image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.cart-item__details {
+  flex-grow: 1;
+}
+
+.cart-item__quantity {
+  display: flex;
+  align-items: center;
+}
+
+/* Författare Anton */

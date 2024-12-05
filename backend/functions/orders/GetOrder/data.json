@@ -1,0 +1,9 @@
+{
+  "pathParameters": {
+    "id": "a51bd218"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "httpMethod": "GET"
+}

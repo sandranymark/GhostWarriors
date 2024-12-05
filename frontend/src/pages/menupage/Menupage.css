@@ -1,0 +1,74 @@
+.menupage__filter {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--p);
+}
+
+.menupage__category--select {
+  height: fit-content;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--orange);
+  background-color: var(--dark);
+  color: var(--white);
+  font-family: var(--p);
+  border-radius: 10px;
+  font-size: 18px;
+}
+.menupage__category--select option {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+.menupage__category--select:hover {
+  cursor: pointer;
+  color: var(--dark);
+  background-color: var(--orange);
+}
+
+.menupage__filter--btn {
+  height: fit-content;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--p);
+  font-size: 18px;
+  border: 1px solid var(--orange);
+  background-color: var(--dark);
+  color: var(--white);
+  border-radius: 10px;
+}
+
+.menupage__filter--btn:hover {
+  color: var(--dark);
+  background-color: var(--orange);
+  cursor: pointer;
+}
+
+.menupage__filter--btn.active {
+  background-color: var(--orange);
+  color: var(--dark);
+}
+
+.menu {
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin-bottom: 5rem;
+  padding: 0 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .menu {
+    padding: 0.5rem;
+    margin-bottom: 7rem;
+  }
+  .menupage__filter {
+    flex-direction: column;
+    height: fit-content;
+    margin: 1rem 0;
+  }
+}
+
+/* Författare Adréan */
+/* Modifierad: Anton - Styling för filtrering av produkter */

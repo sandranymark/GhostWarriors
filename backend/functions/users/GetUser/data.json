@@ -1,0 +1,10 @@
+{
+    "pathParameters": {
+      "userId": "1af59a42"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "httpMethod": "GET"
+  }
+  

@@ -1,0 +1,7 @@
+{
+  "body": "",
+  "headers": {
+    "Authorization": "Bearer"
+  },
+  "httpMethod": "GET"
+}

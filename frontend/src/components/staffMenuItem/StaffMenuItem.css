@@ -1,0 +1,165 @@
+.staffMenuItem__edit--content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.staffMenuItem__heading {
+  height: 88px;
+  font-size: 30px;
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--orange);
+  font-family: var(--h1);
+}
+
+.staffMenuItem__price {
+  padding: 0.5rem;
+  font-size: 24px;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.menuItem__details {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 5rem;
+}
+
+.staffMenuItem__description--edit {
+  min-height: 120px;
+  padding: 0.5rem;
+  font-size: 20px;
+  color: var(--white);
+  font-family: var(--p);
+}
+
+.currency-label {
+  font-family: var(--p);
+  color: var(--white);
+  font-size: 24px;
+}
+
+.edit__btn {
+  border: none;
+  padding: 0.5rem;
+  background-color: var(--orange);
+  border-radius: 5px;
+  margin: 0.5rem;
+  align-self: flex-start;
+  justify-self: end;
+  bottom: 0;
+  /* margin-top: auto; */
+}
+
+.edit__btn:hover {
+  cursor: pointer;
+}
+
+/* EDIT VY NEDAN! */
+
+.staff__menuItem--article {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #80808021;
+}
+
+.edit__menuItem {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.input {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background-color: var(--grey);
+  font-family: var(--p);
+  color: var(--white);
+  line-height: 2rem;
+  resize: none;
+}
+
+.input__name {
+  padding: 0.5rem;
+  color: var(--orange);
+  border: none;
+  background-color: var(--grey);
+  text-align: center;
+  font-size: 30px;
+  font-family: var(--h1);
+  font-weight: 900;
+  line-height: normal;
+  height: 88px;
+}
+
+.input__price {
+  font-size: 24px;
+  padding: 8px;
+  width: 80%;
+  margin-right: 0.5rem;
+}
+
+.input__desc {
+  font-size: 20px;
+  padding: 8px;
+  height: 110px;
+  line-height: normal;
+}
+
+.edit__menuItem--btn-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+  position: relative;
+}
+
+.edit__menuItem--btn {
+  border: none;
+  padding: 0.5rem;
+  background-color: var(--orange);
+  border-radius: 5px;
+}
+
+.edit__menuItem--btn:hover {
+  cursor: pointer;
+}
+
+.edit__menuItem--btn:last-child {
+  background-color: red;
+  justify-self: end;
+  position: absolute;
+  right: 0.5rem;
+}
+
+.edit__menuItem--btn-wrapper {
+  margin-top: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .staffMenuItem__heading {
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+  .staaffMenuItem__heading {
+    font-size: 25px;
+  }
+
+  .staffMenuItem__price,
+  .staffMenuItem__description {
+    padding: 0rem 0.5rem;
+  }
+
+  .staffMenuItem__description {
+    font-size: 18px;
+  }
+}
+
+/* Författare: Anton */

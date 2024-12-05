@@ -1,0 +1,119 @@
+.cart {
+  top: 0;
+  right: 0;
+  gap: 1rem;
+  opacity: 0;
+  width: 350px;
+  height: 100%;
+  z-index: 1000;
+  padding: 1rem;
+  display: flex;
+  position: fixed;
+  color: var(--white);
+  flex-direction: column;
+  transform: translateX(100%);
+  background-color: var(--dark);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.cart--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.cart__top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.cart__close-btn {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 50%;
+  color: var(--white);
+  align-items: center;
+  font-family: var(--h1);
+  justify-content: center;
+  background-color: var(--dark);
+  border: 2px solid var(--orange);
+}
+
+.cart__heading {
+  font-size: 25px;
+  font-weight: 100;
+  margin-left: 40%;
+  padding-top: 1rem;
+  font-family: var(--p);
+  border-bottom: 1px solid var(--orange);
+}
+
+.cart__section {
+  height: 100vh;
+  overflow: overlay;
+  margin-top: 1.5rem;
+}
+
+.cart__empty-text {
+  font-size: 16px;
+  font-family: var(--h1);
+}
+
+.cart__btn--section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cart__btn:disabled {
+  cursor: not-allowed;
+}
+
+.cart__btn {
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: var(--p);
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--orange);
+}
+
+.cart__clear {
+  background-color: var(--orange);
+}
+
+.cart__order {
+  background-color: var(--orange);
+}
+
+.cart__total {
+  font-size: 18px;
+  display: flex;
+  align-items: baseline;
+  font-family: var(--h1);
+  justify-content: space-between;
+}
+
+.cart__total--span {
+  display: flex;
+  font-size: 24px;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 500px) {
+  .cart__section {
+    margin-top: 1rem;
+  }
+  .cart__total {
+    margin-top: 0;
+  }
+}
+
+/* Författare Anton */
+/* Modifierare Adréan, Sandra */

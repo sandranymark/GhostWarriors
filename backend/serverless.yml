@@ -1,0 +1,181 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: ${self:custom.secrets.org}
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: dforbreakfast
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: dforbreakfast
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  deploymentMethod: direct
+  iam:
+    role: ${self:custom.secrets.role}
+  httpApi:
+    cors: true
+  environment:
+    JWT_SECRET: ${env:JWT_SECRET}
+
+custom:
+  secrets: ${file(./personal.yml)}
+
+functions:
+  # Products Functions
+  CreateProducts:
+    handler: functions/products/CreateProducts/index.handler
+    events:
+      - httpApi:
+          path: /products
+          method: post
+  GetAllProducts:
+    handler: functions/products/GetAllProducts/index.handler
+    events:
+      - httpApi:
+          path: /products
+          method: get
+  GetProduct:
+    handler: functions/products/GetProduct/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: get
+  DeleteProducts:
+    handler: functions/products/DeleteProducts/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: delete
+  UpdateProducts:
+    handler: functions/products/UpdateProducts/index.handler
+    events:
+      - httpApi:
+          path: /products/{id}
+          method: put
+
+  # Orders Functions
+  CreateOrders:
+    handler: functions/orders/CreateOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders
+          method: post
+  GetAllOrders:
+    handler: functions/orders/GetAllOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders
+          method: get
+  GetOrder:
+    handler: functions/orders/GetOrder/index.handler
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: get
+  DeleteOrders:
+    handler: functions/orders/DeleteOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: delete
+  UpdateOrders:
+    handler: functions/orders/UpdateOrders/index.handler
+    events:
+      - httpApi:
+          path: /orders/{id}
+          method: put
+
+  # Users Functions
+  RegisterUser:
+    handler: functions/users/RegisterUser/index.handler
+    events:
+      - httpApi:
+          path: /users/register
+          method: post
+
+  LoginUser:
+    handler: functions/users/LoginUser/index.handler
+    events:
+      - httpApi:
+          path: /users/login
+          method: post
+
+  GetUser:
+    handler: functions/users/GetUser/index.handler
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
+
+  UpdateUser:
+    handler: functions/users/UpdateUser/index.handler
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: put
+
+#products Table
+resources:
+  Resources:
+    menuTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: menuTable # Namnet på din tabell
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id # Partition key
+            KeyType: HASH # Detta är din PK (Partition Key)
+        BillingMode: PAY_PER_REQUEST # Betalning per användning
+
+    # Orders Table
+    ordersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ordersTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    # User Table
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: usersTable
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: username
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: role
+            AttributeType: S # Lägg till role-attributet
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH # Partition key
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: username-index
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: email-index
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: role-index # Lägg till ett globalt sekundärt index för role
+            KeySchema:
+              - AttributeName: role
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
