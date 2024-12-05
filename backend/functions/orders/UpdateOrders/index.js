@@ -14,7 +14,7 @@ async function updatedOrder(event) {
 
     validateId(id);
 
-    // Kontrollera att det finns några fält att uppdatera
+    // Kontrollerar att det finns fält att uppdatera och att de är korrekta enligt schemat
     if (!Object.keys(updateFields).length) {
       return sendError(400, "No fields provided for update.");
     }
@@ -27,7 +27,7 @@ async function updatedOrder(event) {
       );
     }
 
-    // Skapar en uppdateringssträng och ett objekt med värden för uppdatering
+    // Skapar en sträng med fälten som ska uppdateras och lägger till värdena i en ExpressionAttributeValues-objekt
     let UpdateExpression = "SET ";
     const ExpressionAttributeValues = {};
 

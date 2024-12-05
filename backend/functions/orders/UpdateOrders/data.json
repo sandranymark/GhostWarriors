@@ -1,0 +1,10 @@
+{
+  "pathParameters": {
+    "id": "49b32e14"
+  },
+  "body": "{\"totalPrice\": 200}",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "httpMethod": "PUT"
+}

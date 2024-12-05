@@ -69,7 +69,7 @@ async function createProduct(event) {
 export const handler = middy(createProduct)
   .use(jsonBodyParser())
   .use(httpErrorHandler())
-  .use(checkRole(["admin"])); // Lägg till rollkontroll som middleware för att endast tillåta admin
+  .use(checkRole(["admin"])); // Lagt till rollkontroll som middleware för att endast tillåta admin
 
 // Författare: Anton
 // Edit by Sandra - lagt till jsonBodyParser, middy, httpErrorHandler och lagt in validering med joi.

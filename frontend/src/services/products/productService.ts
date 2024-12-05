@@ -50,18 +50,45 @@ export const createProduct = async (product: NewProduct): Promise<Product> => {
 };
 
 // PUT: Uppdatera en produkt
+// export const updateProduct = async (
+//   id: string,
+//   updatedProduct: Partial<Product>
+// ): Promise<Product> => {
+//   const response = await axios.put<Product>(
+//     `${API_URL}/${id}`,
+//     updatedProduct,
+//     {
+//       headers: { "Content-Type": "application/json" },
+//     }
+//   );
+//   return response.data;
+// };
+
 export const updateProduct = async (
   id: string,
   updatedProduct: Partial<Product>
 ): Promise<Product> => {
-  const response = await axios.put<Product>(
-    `${API_URL}/${id}`,
-    updatedProduct,
-    {
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-  return response.data;
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    const response = await axios.put<Product>(
+      `${API_URL}/${id}`,
+      updatedProduct,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to update product:", error);
+    throw error;
+  }
 };
 
 // DELETE: Ta bort en produkt

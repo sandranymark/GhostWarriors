@@ -12,7 +12,7 @@ async function createOrder(event) {
   try {
     const {
       orderStatus,
-      orderItems = [], // Lista av rätter i beställningen
+      orderItems = [],
       totalPrice,
       customerID,
       paymentStatus,
@@ -37,7 +37,7 @@ async function createOrder(event) {
       kitchenMessage,
     };
 
-    // Validering - joi schema för order 1
+    // Validering - joi schema för order
     const validationResult = orderSchema.validate(orderData);
     if (validationResult.error) {
       return sendError(
@@ -46,7 +46,7 @@ async function createOrder(event) {
       );
     }
 
-    // Lägger till ID,createdAT och updatedAT efter validering
+    // Lägger till ID,createdAT och updatedAT efter validering för att undvika att det skickas med i bodyn
     orderData.id = uuid().substring(0, 8);
     orderData.orderID = orderData.id;
     orderData.createdAt = createdAt;
