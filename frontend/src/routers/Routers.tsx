@@ -5,7 +5,7 @@ import Menupage from "../pages/menupage/Menupage";
 import Aboutpage from "../pages/aboutpage/Aboutpage";
 import StaffPage from "../pages/staffpage/StaffPage";
 import Contactpage from "../pages/contactpage/Contactpage";
-import LazyLoader from "../components/lazyLoader/LazyLoader";
+// import LazyLoader from "../components/lazyLoader/LazyLoader";
 import StaffMenuPage from "../pages/staffmenupage/StaffMenuPage";
 import ProtectedRoute from "../components/protectedRoute/ProtectedRoute";
 
@@ -18,16 +18,16 @@ function Routers() {
         <Route path="/menu" element={<Menupage />} />
         <Route path="/about" element={<Aboutpage />} />
         <Route path="/contact" element={<Contactpage />} />
-        <Route
+        {/* <Route
           path="/staff"
           element={
             <ProtectedRoute requiredRole="admin">
               <LazyLoader targetPath="/StaffPage" />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
-          path="/staffpage"
+          path="/staff"
           element={
             <ProtectedRoute requiredRole="admin">
               <StaffPage />
