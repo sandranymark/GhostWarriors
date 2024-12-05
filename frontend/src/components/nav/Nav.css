@@ -1,10 +1,10 @@
 .staff-nav {
-  display: flex;
+  gap: 2rem;
 }
 
 .nav {
   display: flex;
-  min-width: 350px;
+  width: auto;
 }
 
 .nav__ul {
@@ -28,35 +28,21 @@
   border-bottom: 2px solid var(--orange);
 }
 
-@media screen and (max-width: 850px) {
-  .nav {
-    min-width: 300px;
-  }
-}
-
-@media screen and (max-width: 790px) {
-  .nav {
-    min-width: 300px;
-  }
-
+/* @media screen and (max-width: 790px) {
   .nav__link {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
-}
+} */
 
-@media screen and (max-width: 750px) {
-  .nav {
-    min-width: 300px;
-  }
-
+/* @media screen and (max-width: 750px) {
   .nav__link {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
-}
+} */
 
 @media screen and (max-width: 665px) {
   .nav {
-    min-width: 250px;
+    /* min-width: 250px; */
     margin-right: 1rem;
   }
 

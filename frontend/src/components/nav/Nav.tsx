@@ -70,3 +70,5 @@ function Nav({ className = "", onClose }: NavProps) {
 }
 
 export default Nav;
+
+// Författare Adréan
