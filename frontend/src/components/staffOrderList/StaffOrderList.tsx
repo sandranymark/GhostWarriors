@@ -4,10 +4,11 @@ import StaffOrderItem from "../staffOrderItem/StaffOrderItem";
 interface StaffOrderListProps {
   orders: Order[];
   orderStatus: string;
+  onSave: (updatedOrder: Order) => void;
   onChangeStatus: (id: string, newStatus: string) => void;
 }
 
-const StaffOrderList: React.FC<StaffOrderListProps> = ({ orders, orderStatus, onChangeStatus }) => {
+const StaffOrderList: React.FC<StaffOrderListProps> = ({ orders, orderStatus, onChangeStatus, onSave }) => {
   const filteredOrders = orders.filter((order) => order.orderStatus === orderStatus);
 
   return (
@@ -17,6 +18,7 @@ const StaffOrderList: React.FC<StaffOrderListProps> = ({ orders, orderStatus, on
           <StaffOrderItem
             key={order.id}
             order={order}
+            onSave={onSave}
             onChangeStatus={onChangeStatus}
             isEditable={orderStatus !== "Done"}
           />

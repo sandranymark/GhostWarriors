@@ -52,8 +52,12 @@ const StaffPage: React.FC = () => {
     }
   };
 
-  // Funktion för att rensa "Done"-ordrar
-  const handleClearDoneOrders = async () => {
+  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "Pending").length;
+  const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
+  const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
+
+  // Funktion för att rensa alla "Done"-ordrar
+  const handleClearDoneOrders: () => Promise<void> = async () => {
     const doneOrders = orders.filter((order) => order.orderStatus === "Done");
 
     try {
@@ -68,14 +72,27 @@ const StaffPage: React.FC = () => {
     }
   };
 
-  // Räknare för olika orderstatusar
-  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "Pending").length;
-  const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
-  const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
-
   if (errorMsg) {
     return <p className="staffpage__errorMsg">Error: {errorMsg}</p>;
   }
+
+  const handleSaveOrder = async (updatedOrder: Order) => {
+    const previousOrders = [...orders];
+    setOrders((prevOrders) =>
+      prevOrders.map((order) => (order.id === updatedOrder.id ? updatedOrder : order))
+    );
+
+    // Plocka ut det som vi inte vill skicka till backenden
+    const { orderID, customerID, id, createdAt, updatedAt, ...orderToUpdate } = updatedOrder;
+    orderToUpdate.totalPrice = updatedOrder.totalPrice;
+    try {
+      await updateOrder(updatedOrder.id, orderToUpdate);
+    } catch (error) {
+      console.error("Failed to update order:", error);
+      setOrders(previousOrders); // Återställ om något går fel
+      setErrorMsg("Failed to save changes: " + error);
+    }
+  };
 
   return (
     <>
@@ -88,6 +105,7 @@ const StaffPage: React.FC = () => {
             <StaffOrderList
               orders={orders}
               orderStatus="Pending"
+              onSave={handleSaveOrder}
               onChangeStatus={handleChangeStatus}
             />
           </section>
@@ -99,6 +117,7 @@ const StaffPage: React.FC = () => {
             <StaffOrderList
               orders={orders}
               orderStatus="Preparing"
+              onSave={handleSaveOrder}
               onChangeStatus={handleChangeStatus}
             />
           </section>
@@ -115,6 +134,7 @@ const StaffPage: React.FC = () => {
             <StaffOrderList
               orders={orders}
               orderStatus="Done"
+              onSave={handleSaveOrder}
               onChangeStatus={handleChangeStatus}
             />
           </section>
@@ -127,5 +147,6 @@ const StaffPage: React.FC = () => {
 
 export default StaffPage;
 
-// Författare Anton
-// Modifierare Adréan, tagit bort routing av admin och lagt det i ProtectedRoute.
+// Författare Anton, Sandra
+// Modifierare: Anton - rendering och sortering av ordrar handleChangeStatus handleSaveOrder
+// Modifierare: Adréan - handleClearDoneOrders, tagit bort routing av admin och lagt det i ProtectedRoute.
