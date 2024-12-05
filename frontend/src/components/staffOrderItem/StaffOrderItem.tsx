@@ -48,12 +48,12 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
   }, [updatedOrder.orderItems]);
 
   const saveChanges: () => void = () => {
-    onSave(updatedOrder); // Spara ändringarna via callback
-    setEditMode(false); // Stäng redigeringsläget
+    onSave(updatedOrder); 
+    setEditMode(false); 
   };
 
   const cancelChanges: () => void = () => {
-    setUpdatedOrder(order); // Återställ lokala ändringar
+    setUpdatedOrder(order); 
     setEditMode(false);
   };
 
