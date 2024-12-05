@@ -1,25 +1,26 @@
 import "./Header.css";
 import Nav from "../nav/Nav";
+import { useEffect } from "react";
 import Login from "../login/Login";
-import { Link, useNavigate } from "react-router-dom";
 import Register from "../register/Register";
 import cartImage from "../../assets/cart.svg";
 import useAuthStore from "../../stores/authStore";
 import { useCart } from "../../context/CartContext";
 import useCartStore from "./../../stores/cartStore";
+import { Link, useNavigate } from "react-router-dom";
 import useHeaderStore from "../../stores/headerStore";
 import HamburgerBar from "../hamburgerBar/HamburgerBar";
 import DforBreakfast from "../../assets/DforBreakfast.svg";
 import { logoutUser } from "../../services/auth/authService";
-import { useEffect } from "react";
 
 function Header() {
   const navigate = useNavigate();
+
   const { toggleCartVisibility } = useCart();
+
   const cart = useCartStore((state) => state.cart);
   const quantity = cart.reduce((total, item) => total + item.quantity, 0);
 
-  // Zustand-tillstånd
   const setUser = useAuthStore((state) => state.setUser);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const setLoading = useAuthStore((state) => state.setLoading);
@@ -37,31 +38,30 @@ function Header() {
 
     if (token && user) {
       setIsLoggedIn(true);
-      setUser(user); // Detta ska sätta `isLoading` till `false`
+      setUser(user);
     } else {
       setUser(null);
-      setLoading(false); // Här är det viktigt att stoppa laddningen
+      setLoading(false);
       setIsLoggedIn(false);
     }
   }, [setIsLoggedIn, setUser, setLoading]);
 
   const handleLogin = (): void => {
-    setLoginVisible(true); // Visa Login-komponenten
+    setLoginVisible(true);
   };
 
   const handleLogout = (): void => {
-    logoutUser(); // Rensa användardata/token
+    logoutUser();
     navigate("/");
-    setIsLoggedIn(false); // Uppdatera inloggningsstatus
+    setIsLoggedIn(false);
   };
 
   const closeLogin = (): void => {
-    setLoginVisible(false); // Dölj Login
+    setLoginVisible(false);
   };
 
   return (
     <>
-      {/* <header className="header"> */}
       <header className={`header ${isHamburgerVisible ? "header--hamburger-open" : ""}`}>
         <Link className="header__link" to={"/"}>
           <img className="header__logo" src={DforBreakfast} alt="D For Breakfast logo" />
@@ -96,7 +96,6 @@ function Header() {
         {isHamburgerVisible && <HamburgerBar onClose={() => setHamburgerVisible(false)} />}
       </header>
 
-      {/* Visa Login- eller Register-komponent baserat på tillstånd */}
       <Login className={isLoginVisible ? "animate" : "hide"} onClose={closeLogin} />
       {isRegisterVisible && <Register />}
     </>
@@ -104,3 +103,5 @@ function Header() {
 }
 
 export default Header;
+
+// Författare Adréan

@@ -1,10 +1,10 @@
 export interface FormData {
+  yy: string;
+  mm: string;
+  cvv: string;
   name: string;
   email: string;
   cardNumber: string;
-  cvv: string;
-  mm: string;
-  yy: string;
 }
 
 // Författare Adréan

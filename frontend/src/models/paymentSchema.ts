@@ -7,7 +7,7 @@ export const paymentSchema: ObjectSchema<FormData> = Joi.object({
     "string.min": "Name must be at least 3 characters long",
   }),
   email: Joi.string()
-    .email({ tlds: { allow: ["com", "net", "nu", "se"] } })
+    .email({ tlds: { allow: ["com", "net", "nu", "se"] } }) // top-level domains
     .required()
     .messages({
       "string.empty": "Email is required",
@@ -18,7 +18,7 @@ export const paymentSchema: ObjectSchema<FormData> = Joi.object({
     .pattern(/^[0-9]{16}$/) // Detta matchar endast strängar som är exakt 16 siffror långa.
     .messages({
       "string.empty": "Card number is required",
-      "string.pattern.base": "Card number must be exactly 16 digits and contain only numbers", // När ogiltiga tecken används
+      "string.pattern.base": "Card number must be exactly 16 digits and contain only numbers",
     }),
   cvv: Joi.string()
     .pattern(/^[0-9]{3}$/) // säkerställer att strängen är exakt 3 siffror lång och att alla tecken är siffror
@@ -42,3 +42,5 @@ export const paymentSchema: ObjectSchema<FormData> = Joi.object({
       "string.pattern.base": "Year must be exactly two digits and contain only numbers",
     }),
 });
+
+// Författare Adréan

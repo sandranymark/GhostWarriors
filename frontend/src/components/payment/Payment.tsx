@@ -102,8 +102,8 @@ function Payment() {
                       cart,
                       clearCart,
                       handlePaymentSuccess,
-                      setErrorMsg,
-                      setOrder
+                      setOrder,
+                      setErrorMsg
                     );
                   }}
                 >

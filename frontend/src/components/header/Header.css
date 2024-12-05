@@ -123,11 +123,6 @@
   .nav {
     margin: 0 1rem;
   }
-  /* .header__cart-items {
-    top: 65px;
-    right: 28px;
-    font-size: 14px; 
-  } */
 }
 
 @media screen and (max-width: 690px) {

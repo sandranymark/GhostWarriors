@@ -18,7 +18,7 @@ const StaffOrderList: React.FC<StaffOrderListProps> = ({ orders, orderStatus, on
             key={order.id}
             order={order}
             onChangeStatus={onChangeStatus}
-            isEditable={orderStatus !== "Done"} // Kan redigera endast om status INTE är "Done"
+            isEditable={orderStatus !== "Done"}
           />
         ))
       ) : (

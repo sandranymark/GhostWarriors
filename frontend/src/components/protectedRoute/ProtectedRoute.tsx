@@ -12,32 +12,31 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
   const navigate = useNavigate();
   const { user, isLoading } = useAuthStore();
-  const [showLoader, setShowLoader] = useState<boolean>(true); // Styr LazyLoader
-  const [showGandalf, setShowGandalf] = useState<boolean>(false); // Styr Gandalf
+  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [showGandalf, setShowGandalf] = useState<boolean>(false);
 
   // Hantera omdirigering om ingen användare finns
   useEffect(() => {
     if (!user) {
-      setShowGandalf(true); // Visa Gandalf först
+      setShowGandalf(true);
       const timer = setTimeout(() => {
-        setShowGandalf(false); // Stäng av Gandalf
-        navigate("/", { replace: true }); // Navigera till startsidan efter 4 sekunder
+        setShowGandalf(false);
+        navigate("/", { replace: true });
       }, 4000);
 
-      return () => clearTimeout(timer); // Rensa timeout om komponenten unmountas
+      return () => clearTimeout(timer);
     }
   }, [user, navigate]);
 
-  // Hantera LazyLoader efter 2 sekunder
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowLoader(false); // Stäng av LazyLoader
+      setShowLoader(false);
     }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Visa Gandalf om användaren inte finns
+  // Låt Gandalf sköta snacket
   if (showGandalf) {
     return (
       <div className="loading-indicator">
@@ -50,12 +49,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
     );
   }
 
-  // Visa LazyLoader om datan fortfarande laddas
   if (isLoading || showLoader) {
     return <LazyLoader />;
   }
 
-  // Hantera omdirigering baserat på användarroll
   if (!user || (requiredRole && user.role !== requiredRole)) {
     navigate(user?.role === "user" ? "/menu" : "/", { replace: true });
     return null;

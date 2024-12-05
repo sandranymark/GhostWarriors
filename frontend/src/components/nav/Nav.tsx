@@ -1,23 +1,23 @@
-import { Link } from "react-router-dom";
 import "./Nav.css";
+import { Link } from "react-router-dom";
 
 interface NavProps {
   className?: string;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 function Nav({ className = "", onClose }: NavProps) {
-  function removeScrollOnBody() {
+  function removeScrollOnBody(): void {
     const bodyRef = document.querySelector("body") as HTMLBodyElement;
     if (bodyRef.classList.contains("no-scroll")) {
       bodyRef.classList.remove("no-scroll");
     }
   }
   function handleLinkClick(): void {
-    if (onClose && removeScrollOnBody) {
+    if (onClose) {
       onClose();
-      removeScrollOnBody();
     }
+    removeScrollOnBody();
   }
 
   return (

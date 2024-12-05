@@ -1,5 +1,5 @@
-import Nav from "../nav/Nav";
 import "./HamburgerBar.css";
+import Nav from "../nav/Nav";
 import { useEffect } from "react";
 
 interface HamburgerBarProps {
@@ -8,11 +8,9 @@ interface HamburgerBarProps {
 
 function HamburgerBar({ onClose }: HamburgerBarProps) {
   useEffect(() => {
-    // Lägg till "no-scroll" på body när menyn öppnas
     document.body.classList.add("no-scroll");
 
     return () => {
-      // Ta bort "no-scroll" när menyn stängs
       document.body.classList.remove("no-scroll");
     };
   }, []);
@@ -28,3 +26,5 @@ function HamburgerBar({ onClose }: HamburgerBarProps) {
 }
 
 export default HamburgerBar;
+
+// Författare Adréan

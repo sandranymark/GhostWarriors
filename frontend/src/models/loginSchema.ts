@@ -1,7 +1,6 @@
 import Joi from "joi";
-import { LoginCredentials } from "../types/loginType"; // Justera importvägen efter behov
+import { LoginCredentials } from "../types/loginType";
 
-// Definiera Joi-schema för användarregistrering
 export const loginSchema = Joi.object<LoginCredentials>({
   username: Joi.string().min(3).max(30).required().messages({
     "any.required": "Username is required.",

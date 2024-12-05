@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 interface HeaderState {
-  isHamburgerVisible: boolean;
   isLoginVisible: boolean;
+  isHamburgerVisible: boolean;
   isRegisterVisible: boolean;
-  setHamburgerVisible: (visible: boolean) => void;
   setLoginVisible: (visible: boolean) => void;
+  setHamburgerVisible: (visible: boolean) => void;
   setRegisterVisible: (visible: boolean) => void;
 }
 
@@ -13,8 +13,8 @@ const useHeaderStore = create<HeaderState>((set) => ({
   isHamburgerVisible: false,
   isLoginVisible: false,
   isRegisterVisible: false,
-  setHamburgerVisible: (visible) => set({ isHamburgerVisible: visible }),
   setLoginVisible: (visible) => set({ isLoginVisible: visible }),
+  setHamburgerVisible: (visible) => set({ isHamburgerVisible: visible }),
   setRegisterVisible: (visible) => set({ isRegisterVisible: visible }),
 }));
 

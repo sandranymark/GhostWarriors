@@ -1,6 +1,6 @@
 import "./Hero.css";
-import breakfastBg from "../../assets/breakfastBg.svg";
 import { Link } from "react-router-dom";
+import breakfastBg from "../../assets/breakfastBg.svg";
 
 function Hero() {
   return (

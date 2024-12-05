@@ -1,9 +1,9 @@
+import axios from "axios";
 import "./PaymentConfirmed.css";
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { MdOutlineDownloadDone } from "react-icons/md";
 import { updateOrder, deleteOrder, getOrderStatusById } from "../../services/orders/orderService";
-import axios from "axios";
 
 function PaymentConfirmed() {
   const { isPaymentConfirmedVisible, closePaymentConfirmed, order } = useCart();
@@ -22,16 +22,14 @@ function PaymentConfirmed() {
     }
 
     try {
-      const currentStatus = await getOrderStatusById(order.id); // Använd rätt funktion
+      const currentStatus = await getOrderStatusById(order.id);
       const currentOrderStatus = currentStatus.orderStatus;
 
-      // Kontrollera att orderStatus existerar
       if (!currentStatus?.orderStatus) {
         setErrorMsg("Order status is unavailable. Please try again later.");
         return;
       }
 
-      // Om status är "pending", uppdatera ordern och avsluta funktionen
       if (currentOrderStatus === "Pending") {
         console.log("kitchenMessage före:", kitchenMessage);
 
@@ -41,13 +39,11 @@ function PaymentConfirmed() {
         return;
       }
 
-      // Om status är "Preparing" eller "Done", visa felmeddelande
       if (currentOrderStatus === "Preparing" || currentOrderStatus === "Done") {
         setErrorMsg("Cannot add a kitchen message. Order is locked or completed.");
-        return; // Låt användaren stänga sidan manuellt
+        return;
       }
 
-      // Hantera andra statusar
       setErrorMsg("Cannot add a kitchen message. Order is no longer Pending.");
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -65,11 +61,11 @@ function PaymentConfirmed() {
       return;
     }
     try {
-      const currentStatus = await getOrderStatusById(order.id); // Använd rätt funktion
+      const currentStatus = await getOrderStatusById(order.id);
       const currentOrderStatus = currentStatus.orderStatus;
 
       if (currentOrderStatus !== "Pending") {
-        setErrorMsg("Cannot cancel order. Order is no longer pending."); // Går så fort att meddelandet syns inte
+        setErrorMsg("Cannot cancel order. Order is no longer pending.");
         return;
       }
 

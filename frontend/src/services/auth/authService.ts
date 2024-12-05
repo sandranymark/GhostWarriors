@@ -16,9 +16,8 @@ export const loginUser = async (credentials: LoginCredentials): Promise<LoginRes
         headers: { "Content-Type": "application/json" },
       }
     );
-    return response.data.data; // Returnerar användare och token från servern
+    return response.data.data;
   } catch (error) {
-    // Kollar om vi får ett specifikt felmeddelande från servern eller Axios
     if (axios.isAxiosError(error) && error.response) {
       throw new Error(error.response.data.message || "Login failed");
     }

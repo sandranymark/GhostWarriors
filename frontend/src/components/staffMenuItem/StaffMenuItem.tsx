@@ -1,6 +1,6 @@
-import { Product } from "../../types/productType";
-import { useState } from "react";
 import "./StaffMenuItem.css";
+import { useState } from "react";
+import { Product } from "../../types/productType";
 
 interface StaffMenuItemProps {
   product: Product;
@@ -9,8 +9,8 @@ interface StaffMenuItemProps {
 }
 
 function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
-  const [editMode, setEditMode] = useState<boolean>(false); // Hanterar redigeringsläge
-  const [updatedProduct, setUpdatedProduct] = useState<Product>(product); // Lokalt state för uppdaterad produkt
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [updatedProduct, setUpdatedProduct] = useState<Product>(product);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     console.log("product to be edited:", product);
@@ -23,14 +23,14 @@ function StaffMenuItem({ product, onSave, onDelete }: StaffMenuItemProps) {
 
   const saveChanges = () => {
     console.log("SaveChanges:", saveChanges);
-    onSave(updatedProduct); // Anropa `onSave` med den uppdaterade produkten
-    setEditMode(false); // Avsluta redigeringsläge
+    onSave(updatedProduct);
+    setEditMode(false);
   };
 
   const confirmDelete = () => {
     const confirmed = window.confirm("Are you sure you want to delete this product?");
     if (confirmed) {
-      onDelete(); // Anropa onDelete endast om användaren bekräftar
+      onDelete();
     }
   };
 

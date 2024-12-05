@@ -1,10 +1,10 @@
 import "./StaffOrderItem.css";
-import { Order } from "../../types/orderType";
+import { Order } from "../../types/OrderType";
 
 interface StaffOrderItemProps {
   order: Order;
-  onChangeStatus: (id: string, newStatus: string) => void; // Funktion för att ändra status
-  isEditable: boolean; // Om statusknapparna kan visas
+  onChangeStatus: (id: string, newStatus: string) => void;
+  isEditable: boolean;
 }
 
 const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, isEditable }) => {
@@ -56,7 +56,7 @@ const StaffOrderItem: React.FC<StaffOrderItemProps> = ({ order, onChangeStatus, 
           </li>
         ))}
       </ul>
-      {isEditable && ( // Om ordern kan redigeras, visa knappar
+      {isEditable && (
         <div className="staff__status-buttons">
           <label className="staff__status-buttons-label">
             <input

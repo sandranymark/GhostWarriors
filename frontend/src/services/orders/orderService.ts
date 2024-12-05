@@ -5,8 +5,8 @@ interface OrderResponse {
   success: boolean;
   data: {
     message: string;
-    order: Order; // Här pekar vi på hela orderobjektet
-  }; // Hanterar en lista av ordrar
+    order: Order;
+  };
 }
 
 interface SingleOrderResponse {
@@ -44,8 +44,8 @@ export const createOrder = async (order: NewOrder): Promise<Order> => {
   const createdOrder: Order = {
     ...order, // Kopiera all information från den nya ordern
     id: response.data.data.order.id, // Lägg till det returnerade orderID
-    createdAt: new Date().toISOString(), // Mocka en skapad tid
-    updatedAt: new Date().toISOString(), // Mocka en uppdaterad tid
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
   return createdOrder;
 };
@@ -71,3 +71,5 @@ export const getOrderStatusById = async (id: string): Promise<Order> => {
   console.log("GETORDERSTATUS", response.data.data);
   return response.data.data; // Returnera den enskilda ordern
 };
+
+// Författare Sandra
