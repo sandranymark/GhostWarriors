@@ -1,3 +1,7 @@
+.staff-nav {
+  display: flex;
+}
+
 .nav {
   display: flex;
   min-width: 350px;
