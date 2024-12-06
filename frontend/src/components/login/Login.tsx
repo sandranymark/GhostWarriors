@@ -24,7 +24,9 @@ function Login({ className, onClose }: LoginProps) {
   const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
 
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
-  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
+  const setRegisterVisible = useHeaderStore(
+    (state) => state.setRegisterVisible
+  );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,14 +83,14 @@ function Login({ className, onClose }: LoginProps) {
           <input
             className="login-inputField"
             type="text"
-            value={username}
+            value={username.toLowerCase()}
             onChange={(e) => setUsername(e.target.value)}
             aria-label="Username"
             placeholder="Username"
             required
           />
           <input
-            className="login-inputField"
+            className="login-inputField password-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -100,7 +102,11 @@ function Login({ className, onClose }: LoginProps) {
             <button type="submit" className="login-btn">
               Login
             </button>
-            <button type="button" className="register-btn" onClick={handleRegister}>
+            <button
+              type="button"
+              className="register-btn"
+              onClick={handleRegister}
+            >
               Create Account
             </button>
           </div>

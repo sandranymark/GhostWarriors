@@ -18,7 +18,9 @@ function Register() {
   // Zustand-metoder headerStore.ts
   const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
   const isRegisterVisible = useHeaderStore((state) => state.isRegisterVisible);
-  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
+  const setRegisterVisible = useHeaderStore(
+    (state) => state.setRegisterVisible
+  );
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,9 +31,13 @@ function Register() {
     }
 
     // Validera formData med registerSchema
-    const { error: validationError } = registerSchema.validate(formData, { abortEarly: false });
+    const { error: validationError } = registerSchema.validate(formData, {
+      abortEarly: false,
+    });
     if (validationError) {
-      setError(validationError.details.map((detail) => detail.message).join(", "));
+      setError(
+        validationError.details.map((detail) => detail.message).join(", ")
+      );
       return;
     }
 
@@ -57,10 +63,6 @@ function Register() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleClose = (): void => {
-    setRegisterVisible(false);
-  };
-
   const backToLogin = (): void => {
     setRegisterVisible(false);
     setLoginVisible(true);
@@ -79,7 +81,7 @@ function Register() {
           aria-label="Username"
           placeholder="Username"
           className="register-inputField"
-          value={formData.username}
+          value={formData.username.toLowerCase()}
           onChange={handleChange}
           required
         />
@@ -116,9 +118,6 @@ function Register() {
           Register
         </button>
       </form>
-      <p className="register__close-btn" onClick={handleClose}>
-        X
-      </p>
     </section>
   );
 }

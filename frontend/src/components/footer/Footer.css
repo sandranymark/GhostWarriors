@@ -96,6 +96,9 @@
   .footer {
     gap: 0.3rem;
     flex-direction: column;
+    position: relative;
+    height: 85px;
+
   }
 }
 

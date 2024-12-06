@@ -17,6 +17,7 @@
   border-radius: 10px;
   font-size: 18px;
 }
+
 .menupage__category--select option {
   background-color: var(--dark);
   color: var(--white);
@@ -61,8 +62,9 @@
 @media screen and (max-width: 500px) {
   .menu {
     padding: 0.5rem;
-    margin-bottom: 7rem;
+
   }
+
   .menupage__filter {
     flex-direction: column;
     height: fit-content;
