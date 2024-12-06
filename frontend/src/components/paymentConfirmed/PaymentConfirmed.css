@@ -14,6 +14,56 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+.paymentConfirmed__product-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+
+.paymentConfirmed__product-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--orange);
+  border-radius: 8px;
+}
+
+.paymentConfirmed__product-wrapper::-webkit-scrollbar-track {
+  background-color: var(--dark);
+}
+
+.paymentConfirmed__product-name,
+.paymentConfirmed__product-qty {
+  border: none;
+}
+
+.paymentConfirmed__inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.paymentConfirmed__error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.paymentConfirmed__error {
+  color: red;
+  margin: 1rem 0;
+  font-size: 1rem;
+  font-family: var(--p);
+}
+
+.paymentConfirmed__close-error-btn {
+  font-size: 18px;
+  cursor: pointer;
+  width: 90px;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-family: var(--p);
+  border: 1px solid var(--orange);
+  background-color: var(--orange);
+}
+
 .paymentConfirmed__heading {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -22,7 +72,7 @@
 }
 
 .paymentConfirmed__icon {
-  color: green;
+  color: #1cd300;
   font-size: 5rem;
   margin: 2rem 0;
 }
@@ -47,18 +97,22 @@
 }
 
 .paymentConfirmed__product-wrapper {
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-radius: 10px;
   list-style-type: none;
   flex-direction: column;
   border: 1px solid var(--white);
+  overflow-y: auto;
+  max-height: 300px;
+  width: 100%;
 }
 
 .paymentConfirmed__product {
   display: flex;
   gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .paymentConfirmed__product-name {
@@ -74,13 +128,14 @@
 }
 
 .paymentConfirmed__textarea {
+  width: 100%;
   border: none;
   resize: none;
-  width: 250px;
   outline: none;
   padding: 0.5rem;
   margin-top: 1rem;
   line-height: 25px;
+  min-height: 100px;
 }
 
 .paymentConfirmed__price-text {
@@ -116,6 +171,7 @@
 .paymentConfirmed__btn-container {
   display: flex;
   gap: 3rem;
+  margin-top: 1rem;
 }
 
 .paymentConfirmed__button-cancel {
@@ -128,12 +184,11 @@
   font-family: var(--p);
   color: var(--white);
   border: 0px solid red;
-  background-color: var(--dark);
+  background-color: rgba(255, 0, 0, 0.4);
 }
 
 .paymentConfirmed__button-cancel:hover {
   scale: 1.1;
-  background-color: rgba(255, 0, 0, 0.4);
 }
 
 .paymentConfirmed__button-confirm {
@@ -141,6 +196,7 @@
   cursor: pointer;
   margin-top: 3rem;
   border-radius: 5px;
+  color: var(--white);
   margin-bottom: 2rem;
   padding: 0.5rem 1rem;
   font-family: var(--p);
@@ -189,7 +245,7 @@
 @media screen and (max-width: 480px) {
   .paymentConfirmed__wrapper {
     width: 95%;
-    padding: 23rem 0.8rem 0.8rem 0.8rem;
+    padding: 0.8rem 0.8rem 0.8rem 0.8rem;
     overflow-y: auto;
     max-height: 90vh;
     border: 1px solid var(--orange);
@@ -200,8 +256,8 @@
   }
 
   .paymentConfirmed__textarea {
-    height: 100px;
-    width: 200px;
+    min-height: 100px;
+    width: 100%;
   }
 
   .paymentConfirmed__icon {
@@ -214,12 +270,24 @@
     font-size: 1rem;
   }
 
+  .paymentConfirmed__product-name {
+    font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__product-qty {
+    font-size: 1.2rem;
+  }
+
   .paymentConfirmed__text {
     font-size: 0.9rem;
   }
 
   .paymentConfirmed__email {
     font-size: 1.2rem;
+  }
+
+  .paymentConfirmed__order-price--container {
+    margin-top: 0.5rem;
   }
 
   .paymentConfirmed__price-text,
@@ -235,6 +303,17 @@
   .paymentConfirmed__button-cancel {
     background-color: rgba(255, 0, 0, 0.4);
   }
-}
 
+  .paymentConfirmed__btn-container {
+    margin-top: 1rem;
+  }
+
+  .paymentConfirmed__button-confirm,
+  .paymentConfirmed__button-cancel {
+    font-size: 16px;
+    font-size: 18px;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+  }
+}
 /* Författare Adréan */

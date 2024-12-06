@@ -32,6 +32,7 @@ export interface OrderItem {
   productName: string;
   productPrice: number;
   productQuantity: number;
+  productTotalPrice: number;
 }
 
 // Författare Sandra

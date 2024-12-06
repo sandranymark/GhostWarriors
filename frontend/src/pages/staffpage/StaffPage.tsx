@@ -1,49 +1,70 @@
 import "./StaffPage.css";
 import { useEffect, useState } from "react";
-import { Order } from "../../types/orderType";
+import { Order } from "../../types/OrderType";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../../stores/authStore";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import StaffOrderList from "../../components/staffOrderList/StaffOrderList";
 import { deleteOrder, getAllOrders, updateOrder } from "../../services/orders/orderService";
 
 const StaffPage: React.FC = () => {
+  const navigate = useNavigate();
+  const { user, isLoading, setLoading } = useAuthStore();
+
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  // Hämta alla ordrar med getAllOrders()
+  useEffect(() => {
+    console.log("User data in StaffPage:", user);
+    if (isLoading) {
+      console.log("Waiting for user data...");
+      return;
+    }
+    if (!user || user.role !== "admin") {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
+  // Hämta alla ordrar med getAllOrders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await getAllOrders();
         if (response.success) {
-          if (response.data && response.data.length > 0) {
-            setOrders(response.data); // Sätt ordrar om det finns några
-          } else {
-            setErrorMsg("There are no orders to display at the moment."); // Om inga ordrar finns
-          }
+          const sortedOrders = Array.isArray(response.data)
+            ? response.data.sort(
+                (a: Order, b: Order) =>
+                  new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()
+              )
+            : [];
+          setOrders(sortedOrders);
         } else {
-          setErrorMsg("Failed to fetch orders."); // Om API-svaret inte är framgångsrikt
+          setErrorMsg("Failed to fetch orders.");
         }
       } catch (error) {
-
         console.error("An error occurred while fetching orders:", error);
         setErrorMsg("An error occurred while fetching orders.");
-
       } finally {
-        setLoading(false); // Stoppar laddningsindikatorn
+        setLoading(false);
       }
     };
 
-    fetchOrders();
-  }, []);
+    if (user?.role === "admin") {
+      fetchOrders();
+    }
+  }, [user]);
+
+  if (!user) {
+    return <p className="staffpage__loading">Loading user data...</p>;
+  }
 
   // Visar en text för användaren om ordrarna laddas eller om något gick fel
-  if (loading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
+  if (isLoading) return <p className="staffpage__loading">Loading orders...</p>; // Om vi väntar på data
   if (errorMsg) return <p className="staffpage__errorMsg">Error: {errorMsg}</p>; // Om det uppstår ett fel
-  if (orders.length === 0) {
-    return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;
-  }
+  // if (orders.length === 0) {
+  //   return <p className="staffpage__errorMsg">There are no orders to display at the moment.</p>;
+  // }
 
   const handleChangeStatus = async (id: string, newStatus: string) => {
     const previousOrders = [...orders]; // Sparar nuvarande order om vi behöver återställa
@@ -64,7 +85,7 @@ const StaffPage: React.FC = () => {
     }
   };
 
-  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "pending").length;
+  const pendingOrdersCount = orders.filter((order) => order.orderStatus === "Pending").length;
   const preparingOrdersCount = orders.filter((order) => order.orderStatus === "Preparing").length;
   const doneOrdersCount = orders.filter((order) => order.orderStatus === "Done").length;
 
@@ -72,8 +93,9 @@ const StaffPage: React.FC = () => {
     const doneOrders = orders.filter((order) => order.orderStatus === "Done");
 
     try {
-      // Anropa deleteOrder för varje order med status "Done"
-      await Promise.all(doneOrders.map((order) => deleteOrder(order.id)));
+      for (const order of doneOrders) {
+        await deleteOrder(order.id); // Vänta på att varje order raderas
+      }
 
       // Uppdatera state och ta bort de raderade ordrarna
       setOrders((prevOrders) => prevOrders.filter((order) => order.orderStatus !== "Done"));
@@ -93,7 +115,7 @@ const StaffPage: React.FC = () => {
           <section className="orders__section--orders">
             <StaffOrderList
               orders={orders}
-              orderStatus="pending"
+              orderStatus="Pending"
               onChangeStatus={handleChangeStatus}
             />
           </section>

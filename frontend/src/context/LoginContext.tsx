@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { createContext, useState, useEffect, ReactNode, useContext } from "react";
 import { User } from "../types/loginType";
+import { logoutUser } from "../services/auth/authService";
 
 interface LoginProviderProps {
   children: ReactNode;
@@ -22,34 +23,29 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
     try {
       const savedUser = localStorage.getItem("user");
       const savedToken = localStorage.getItem("token");
-  
-      console.log("Saved user:", savedUser); // Debug-loggar
-      console.log("Saved token:", savedToken);
-  
+
       if (savedUser && savedUser !== "null" && savedUser !== "undefined") {
+        const parsedUser = JSON.parse(savedUser);
+        console.log("Parsed user:", parsedUser);
         setUser(JSON.parse(savedUser)); // Parsar endast om det är en sträng
       }
-  
+
       if (savedToken && savedToken !== "null" && savedToken !== "undefined") {
         setToken(savedToken); // Token är sannolikt en vanlig sträng
       }
     } catch (err) {
-      console.error("Error in useEffect:", err);
+      console.error("Error loading user from localStorage in LoginContext:", err);
     }
   }, []);
-  
 
   const login = (userData: User, userToken: string) => {
     if (userData && userToken) {
       setUser(userData);
       setToken(userToken);
-  
+
       // Spara användare och token i localStorage
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", userToken);
-  
-      console.log("User logged in:", userData);
-      console.log("Token:", userToken);
     } else {
       console.error("Invalid user data or token");
     }
@@ -58,14 +54,11 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   const logout = () => {
     setUser(null);
     setToken(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    logoutUser();
   };
 
   return (
-    <LoginContext.Provider value={{ user, token, login, logout }}>
-      {children}
-    </LoginContext.Provider>
+    <LoginContext.Provider value={{ user, token, login, logout }}>{children}</LoginContext.Provider>
   );
 };
 
@@ -79,4 +72,3 @@ export const useLogin = (): LoginContextProps => {
 };
 
 //FUNGERANDE KOD OVANFÖR
-

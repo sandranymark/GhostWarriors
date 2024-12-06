@@ -1,4 +1,4 @@
-import { Order } from "../../types/orderType";
+import { Order } from "../../types/OrderType";
 import StaffOrderItem from "../staffOrderItem/StaffOrderItem";
 
 interface StaffOrderListProps {

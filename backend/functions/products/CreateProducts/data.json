@@ -1,7 +1,8 @@
 {
   "body": "{\"productName\": \"Delicious Pizza\", \"productPrice\": 15.99, \"category\": \"Food\", \"imageURL\": \"https://example.com/images/pizza.jpg\", \"description\": \"A delightful pizza with fresh ingredients.\", \"ingredients\": {\"dough\": \"Wheat\", \"sauce\": \"Tomato\", \"toppings\": [\"Cheese\", \"Pepperoni\", \"Olives\"]}, \"inStock\": true, \"preparationTime\": \"30 minutes\"}",
   "headers": {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "Authorization": "Bearer "
   },
   "httpMethod": "POST"
 }

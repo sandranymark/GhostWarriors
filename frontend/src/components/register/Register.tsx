@@ -1,40 +1,51 @@
-import React, { useState } from "react";
 import "./Register.css";
-import { RegisterUser } from "../../services/auth/authService"; 
-// import { useLogin } from "../../context/LoginContext"; // Om du vill logga in användaren direkt
+import React, { useState } from "react";
+import { registerSchema } from "../../models/registerSchema";
+import useHeaderStore from "../../stores/headerStore"; // Använd Zustand-storen
+import { RegisterUser } from "../../services/auth/authService";
+import { RegisterType } from "../../types/registerType"; // Kontrollera importvägen
 
 function Register() {
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [formData, setFormData] = useState<RegisterType>({
+    email: "",
+    username: "",
+    password: "",
+  });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  // const { login } = useLogin(); // Om du vill logga in användaren direkt efter registrering
+
+  // Zustand-metoder headerStore.ts
+  const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
+  const isRegisterVisible = useHeaderStore((state) => state.isRegisterVisible);
+  const setRegisterVisible = useHeaderStore((state) => state.setRegisterVisible);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    if (password !== confirmPassword) {
+
+    // Kontrollera att lösenord matchar
+    if (formData.password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
-  
-    const credentials = { username, email, password };
-  
+
+    // Validera formData med registerSchema
+    const { error: validationError } = registerSchema.validate(formData, { abortEarly: false });
+    if (validationError) {
+      setError(validationError.details.map((detail) => detail.message).join(", "));
+      return;
+    }
+
     try {
-      const response = await RegisterUser(credentials); // registerUser från authService
-      console.log("Registration success:", response);
-  
+      const response = await RegisterUser(formData); // registerUser från authService
+
       setError(null);
-  
-      alert("User registered successfully!");
-  
-      // Om du vill logga in användaren direkt
-      // login(response.user, response.token);
+
+      // Växla till login-vyn
+      setRegisterVisible(false);
+      setLoginVisible(true);
     } catch (error: unknown) {
       console.error("Registration error:", error);
-  
-      // Kontrollera om error är en instans av Error för att få ett tydligt felmeddelande
+
       if (error instanceof Error) {
         setError(error.message);
       } else {
@@ -43,75 +54,55 @@ function Register() {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const handleClose = (): void => {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
-    const secondSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
-
-    if (secondSectionRef) {
-      secondSectionRef.style.filter = "none";
-    }
-
-    if (loginSectionRef) {
-      loginSectionRef.classList.add("hide");
-      loginSectionRef.style.display = "none";
-      loginSectionRef.classList.remove("animate");
-    }
-
-    if (registerSectionRef) {
-      registerSectionRef.classList.add("hide");
-    }
+    setRegisterVisible(false);
   };
 
   const backToLogin = (): void => {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const registerSectionRef = document.querySelector(".register-wrapper") as HTMLElement;
-    if (loginSectionRef) {
-      loginSectionRef.classList.remove("hide");
-    }
-
-    if (registerSectionRef) {
-      registerSectionRef.classList.add("hide");
-    }
+    setRegisterVisible(false);
+    setLoginVisible(true);
   };
 
   return (
-    <section className="register-wrapper hide">
+    <section className={`register-wrapper ${isRegisterVisible ? "" : "hide"}`}>
       <span className="register__back-to-login" onClick={backToLogin}>
         Back to login
       </span>
       <form onSubmit={handleRegister} className="register-form">
+        {error && <p className="error">{error}</p>}
         <input
-          type="text"
-          aria-label="E-mail"
-          placeholder="E-mail"
-          className="register-inputField"
-        />
-        <input
+          name="username"
           type="text"
           aria-label="Username"
           placeholder="Username"
           className="register-inputField"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formData.username}
+          onChange={handleChange}
           required
         />
         <input
+          name="email"
           type="email"
           aria-label="Email"
           placeholder="Email"
           className="register-inputField"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           required
         />
         <input
+          name="password"
           type="password"
           aria-label="Password"
           placeholder="Password"
           className="register-inputField"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           required
         />
         <input
@@ -123,12 +114,11 @@ function Register() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        {error && <p className="error">{error}</p>}
         <button className="register-btn" type="submit">
           Register
         </button>
       </form>
-      <p className="login__close-btn" onClick={handleClose}>
+      <p className="register__close-btn" onClick={handleClose}>
         X
       </p>
     </section>
@@ -138,4 +128,3 @@ function Register() {
 export default Register;
 
 // Författare Adréan
-// Modifierad av: Sandra

@@ -1,6 +1,7 @@
 .login-wrapper {
   top: 50%;
   left: 50%;
+  z-index: 2001;
   width: 700px;
   height: 500px;
   display: flex;
@@ -36,6 +37,12 @@
   padding: 1rem 1rem;
   border-radius: 5px;
   margin-bottom: 0.5rem;
+}
+
+.error {
+  color: red;
+  font-family: var(--p);
+  padding-bottom: 0.5rem;
 }
 
 .login__button-wrapper {
@@ -135,6 +142,10 @@
     width: 100%;
     font-size: 16px;
   }
+}
+
+.hide {
+  display: none;
 }
 
 .animate {

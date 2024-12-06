@@ -1,85 +1,106 @@
 import "./Header.css";
 import Nav from "../nav/Nav";
-import { Link } from "react-router-dom";
+import Login from "../login/Login";
+import { Link, useNavigate } from "react-router-dom";
+import Register from "../register/Register";
 import cartImage from "../../assets/cart.svg";
-import { useEffect, useState } from "react";
-import HamburgerBar from "../hamburgerBar/HamburgerBar";
-import DforBreakfast from "../../assets/DforBreakfast.svg";
+import useAuthStore from "../../stores/authStore";
 import { useCart } from "../../context/CartContext";
 import useCartStore from "./../../stores/cartStore";
+import useHeaderStore from "../../stores/headerStore";
+import HamburgerBar from "../hamburgerBar/HamburgerBar";
+import DforBreakfast from "../../assets/DforBreakfast.svg";
+import { logoutUser } from "../../services/auth/authService";
+import { useEffect } from "react";
 
 function Header() {
-  const [isHamburgerVisible, setIsHamburgerVisible] = useState<boolean>(false);
+  const navigate = useNavigate();
   const { toggleCartVisibility } = useCart();
   const cart = useCartStore((state) => state.cart);
-  const quantity = cart.reduce((total, item) => total + item.quantity, 0); // Summerar total kvantitet
+  const quantity = cart.reduce((total, item) => total + item.quantity, 0);
+
+  // Zustand-tillstånd
+  const setUser = useAuthStore((state) => state.setUser);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const setLoading = useAuthStore((state) => state.setLoading);
+  const setIsLoggedIn = useAuthStore((state) => state.setIsLoggedIn);
+
+  const isLoginVisible = useHeaderStore((state) => state.isLoginVisible);
+  const isHamburgerVisible = useHeaderStore((state) => state.isHamburgerVisible);
+  const isRegisterVisible = useHeaderStore((state) => state.isRegisterVisible);
+  const setLoginVisible = useHeaderStore((state) => state.setLoginVisible);
+  const setHamburgerVisible = useHeaderStore((state) => state.setHamburgerVisible);
 
   useEffect(() => {
-    const navRef = document.querySelector(".nav") as HTMLElement;
-    const bodyRef = document.querySelector("body") as HTMLBodyElement;
-    const hamburgerRef = document.querySelector(".hamburger") as HTMLElement;
-    const headerLogoRef = document.querySelector(".header__logo") as HTMLImageElement;
-    const headerLinkAroundLogoRef = document.querySelector(".header__link") as HTMLLinkElement;
-    const cartBtnWrapperRef = document.querySelector(".header__cart-btn--wrapper") as HTMLElement;
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "null");
 
-    const handleHamburgerClick = () => {
-      setIsHamburgerVisible(true);
-      navRef?.classList.remove("hide");
-      bodyRef?.classList.add("no-scroll");
-      hamburgerRef?.classList.add("hide");
-      headerLogoRef?.classList.add("hide");
-      cartBtnWrapperRef?.classList.add("hide");
-      headerLinkAroundLogoRef?.classList.add("hide");
-    };
-
-    if (hamburgerRef) {
-      hamburgerRef.addEventListener("click", handleHamburgerClick);
+    if (token && user) {
+      setIsLoggedIn(true);
+      setUser(user); // Detta ska sätta `isLoading` till `false`
+    } else {
+      setUser(null);
+      setLoading(false); // Här är det viktigt att stoppa laddningen
+      setIsLoggedIn(false);
     }
+  }, [setIsLoggedIn, setUser, setLoading]);
 
-    return () => {
-      hamburgerRef?.removeEventListener("click", () => {});
-    };
-  }, []);
+  const handleLogin = (): void => {
+    setLoginVisible(true); // Visa Login-komponenten
+  };
 
-  function handleLogin(): void {
-    const loginSectionRef = document.querySelector(".login-wrapper") as HTMLElement;
-    const firstSectionRef = document.querySelector(".app > section:nth-child(2)") as HTMLElement;
-    if (loginSectionRef) {
-      loginSectionRef.style.display = "flex";
-      loginSectionRef.classList.remove("hide");
-      loginSectionRef.classList.add("animate");
-      firstSectionRef.style.filter = "blur(10px)";
-    }
-  }
+  const handleLogout = (): void => {
+    logoutUser(); // Rensa användardata/token
+    navigate("/");
+    setIsLoggedIn(false); // Uppdatera inloggningsstatus
+  };
+
+  const closeLogin = (): void => {
+    setLoginVisible(false); // Dölj Login
+  };
 
   return (
-    <header className="header">
-      <Link className="header__link" to={"/"}>
-        <img className="header__logo" src={DforBreakfast} alt="D For Breakfast logo" />
-      </Link>
-      <Nav />
-      <div className="header__cart-btn--wrapper">
-        <button className="header__login-btn" onClick={handleLogin}>
-          Login
-        </button>
-        <div className="header__cart--wrapper" onClick={toggleCartVisibility}>
-          <img className="header__cart" src={cartImage} alt="cart-logo" />
-          <p className="header__cart-items">{quantity}</p>
+    <>
+      {/* <header className="header"> */}
+      <header className={`header ${isHamburgerVisible ? "header--hamburger-open" : ""}`}>
+        <Link className="header__link" to={"/"}>
+          <img className="header__logo" src={DforBreakfast} alt="D For Breakfast logo" />
+        </Link>
+        <Nav />
+        <div className="header__cart-btn--wrapper">
+          {isLoggedIn ? (
+            <button className="header__logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          ) : (
+            <button className="header__login-btn" onClick={handleLogin}>
+              Login
+            </button>
+          )}
+          <div className="header__cart--wrapper" onClick={toggleCartVisibility}>
+            <img className="header__cart" src={cartImage} alt="cart-logo" />
+            <p className="header__cart-items">{quantity}</p>
+          </div>
         </div>
-      </div>
 
-      <nav className="hamburger">
-        <hr className="hamburger-line" />
-        <hr className="hamburger-line" />
-        <hr className="hamburger-line" />
-      </nav>
+        <nav
+          className="hamburger"
+          aria-label="Toggle menu"
+          onClick={() => setHamburgerVisible(true)}
+        >
+          <hr className="hamburger-line" />
+          <hr className="hamburger-line" />
+          <hr className="hamburger-line" />
+        </nav>
 
-      {isHamburgerVisible && <HamburgerBar onClose={() => setIsHamburgerVisible(false)} />}
-    </header>
+        {isHamburgerVisible && <HamburgerBar onClose={() => setHamburgerVisible(false)} />}
+      </header>
+
+      {/* Visa Login- eller Register-komponent baserat på tillstånd */}
+      <Login className={isLoginVisible ? "animate" : "hide"} onClose={closeLogin} />
+      {isRegisterVisible && <Register />}
+    </>
   );
 }
 
 export default Header;
-
-// Författare: Adréan
-// Modifierad: Anton - Import av Cart samt CartContext

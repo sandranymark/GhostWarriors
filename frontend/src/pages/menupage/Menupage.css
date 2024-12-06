@@ -9,7 +9,7 @@
 
 .menupage__category--select {
   height: fit-content;
-  padding: .5rem 1rem;
+  padding: 0.25rem 0.5rem;
   border: 1px solid var(--orange);
   background-color: var(--dark);
   color: var(--white);
@@ -27,14 +27,14 @@
 } */
 
 .menupage__category--select:hover {
- cursor: pointer;
- color: var(--dark);
- background-color: var(--orange);
+  cursor: pointer;
+  color: var(--dark);
+  background-color: var(--orange);
 }
 
 .menupage__filter--btn {
   height: fit-content;
-  padding: .5rem 1rem;
+  padding: 0.25rem 0.5rem;
   font-family: var(--p);
   font-size: 18px;
   border: 1px solid var(--orange);
@@ -65,11 +65,12 @@
 @media screen and (max-width: 500px) {
   .menu {
     padding: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 7rem;
   }
   .menupage__filter {
     flex-direction: column;
     height: fit-content;
+    margin: 1rem 0;
   }
 }
 
